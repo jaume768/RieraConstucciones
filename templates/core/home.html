@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block structured_data %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "{{ SITE_NAME }}",
+  "url": "{{ SITE_URL }}",
+  "logo": "{{ SITE_URL }}{% static 'images/logo.png' %}",
+  "description": "Empresa constructora especializada en obra nueva, reformas y rehabilitaciones",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Calle Ejemplo 123",
+    "addressLocality": "Barcelona",
+    "postalCode": "08001",
+    "addressCountry": "ES"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+34-123-456-789",
+    "contactType": "customer service",
+    "email": "info@constructora.com",
+    "availableLanguage": "Spanish"
+  },
+  "sameAs": [
+    "https://www.facebook.com/constructora",
+    "https://www.linkedin.com/company/constructora"
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<section class="relative bg-gray-900 text-white py-20 overflow-hidden">
+    <img src="{% static 'images/hero-bg.jpg' %}" class="absolute inset-0 w-full h-full object-cover opacity-30" alt="Fondo Construcción">
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Construimos tus sueños con calidad y compromiso
+            </h1>
+            <p class="text-xl mb-8 text-gray-100">
+                Más de 20 años de experiencia en obra nueva, reformas y rehabilitaciones. Tu proyecto en manos de expertos.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="{% url 'contact' %}" class="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition duration-300 shadow-lg">
+                    Pedir Presupuesto
+                </a>
+                <a href="{% url 'services_list' %}" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold py-4 px-8 rounded-lg transition duration-300">
+                    Ver Servicios
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <p class="section-subtitle">Soluciones completas para todo tipo de proyectos de construcción</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for service in services %}
+                <div class="card text-center group">
+                    {% if service.icon %}
+                        <div class="text-5xl text-primary-600 mb-4">
+                            <i class="{{ service.icon }}"></i>
+                        </div>
+                    {% endif %}
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-primary-600 transition">{{ service.title }}</h3>
+                    <p class="text-gray-600 mb-4">{{ service.short_description }}</p>
+                    <a href="{% url 'service_detail' service.slug %}" class="text-primary-600 font-semibold hover:underline">
+                        Saber más <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </div>
+            {% empty %}
+                <div class="col-span-3 text-center py-8">
+                    <p class="text-gray-500">No hay servicios disponibles en este momento.</p>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-8">
+            <a href="{% url 'services_list' %}" class="btn-primary">
+                Ver Todos los Servicios
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-gray-100">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="section-title">Últimas Noticias</h2>
+            <p class="section-subtitle">Mantente informado sobre nuestros proyectos y novedades del sector</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for post in latest_posts %}
+                <article class="card group">
+                    {% if post.featured_image %}
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover rounded-t-lg -mx-6 -mt-6 mb-4">
+                    {% endif %}
+                    <div class="text-sm text-gray-500 mb-2">
+                        <i class="far fa-calendar mr-1"></i> {{ post.published_at|date:"d/m/Y" }}
+                        {% if post.category %}
+                            <span class="mx-2">•</span>
+                            <span class="text-primary-600">{{ post.category.name }}</span>
+                        {% endif %}
+                    </div>
+                    <h3 class="text-xl font-bold mb-3 group-hover:text-primary-600 transition">
+                        <a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a>
+                    </h3>
+                    <p class="text-gray-600 mb-4">{{ post.summary|truncatewords:20 }}</p>
+                    <a href="{% url 'blog_detail' post.slug %}" class="text-primary-600 font-semibold hover:underline">
+                        Leer más <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </article>
+            {% empty %}
+                <div class="col-span-3 text-center py-8">
+                    <p class="text-gray-500">No hay posts disponibles en este momento.</p>
+                </div>
+            {% endfor %}
+        </div>
+        
+        {% if latest_posts %}
+        <div class="text-center mt-8">
+            <a href="{% url 'blog_list' %}" class="btn-outline">
+                Ver Todas las Noticias
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<section class="py-16 bg-primary-600 text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Tienes un proyecto en mente?</h2>
+        <p class="text-xl mb-8 max-w-2xl mx-auto">
+            Contacta con nosotros y te ofreceremos un presupuesto personalizado sin compromiso
+        </p>
+        <a href="{% url 'contact' %}" class="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition duration-300 inline-block shadow-lg">
+            Contactar Ahora
+        </a>
+    </div>
+</section>
+{% endblock %}

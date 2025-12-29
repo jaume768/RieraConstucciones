@@ -1,0 +1,140 @@
+{% extends 'backoffice/base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Card: Posts Publicados -->
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-600 font-medium">Posts Publicados</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ posts_published }}</p>
+            </div>
+            <div class="bg-green-100 rounded-full p-3">
+                <i class="fas fa-check-circle text-green-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Card: Posts Borradores -->
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-600 font-medium">Posts Borradores</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ posts_draft }}</p>
+            </div>
+            <div class="bg-yellow-100 rounded-full p-3">
+                <i class="fas fa-pencil-alt text-yellow-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Card: Servicios Activos -->
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-600 font-medium">Servicios Activos</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ services_count }}</p>
+            </div>
+            <div class="bg-blue-100 rounded-full p-3">
+                <i class="fas fa-tools text-blue-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Card: Mensajes sin Leer -->
+    <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition">
+        <div class="flex items-center justify-between">
+            <div>
+                <p class="text-sm text-gray-600 font-medium">Mensajes sin Leer</p>
+                <p class="text-3xl font-bold text-gray-900 mt-2">{{ unread_messages }}</p>
+            </div>
+            <div class="bg-red-100 rounded-full p-3">
+                <i class="fas fa-envelope text-red-600 text-2xl"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Posts Recientes -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">
+                <i class="fas fa-newspaper mr-2 text-primary-600"></i>
+                Posts Recientes
+            </h3>
+            {% if perms.blog.view_post %}
+            <a href="{% url 'backoffice:post_list' %}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                Ver todos <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+            {% endif %}
+        </div>
+        
+        <div class="space-y-3">
+            {% for post in recent_posts %}
+            <div class="border-l-4 {% if post.is_published %}border-green-500{% else %}border-yellow-500{% endif %} pl-4 py-2">
+                <div class="flex items-center justify-between">
+                    <div class="flex-1">
+                        <h4 class="font-medium text-gray-900">{{ post.title }}</h4>
+                        <p class="text-sm text-gray-600 mt-1">
+                            <i class="fas fa-user mr-1"></i>{{ post.author.username }}
+                            <span class="mx-2">•</span>
+                            <i class="fas fa-clock mr-1"></i>{{ post.updated_at|date:"d M Y" }}
+                        </p>
+                    </div>
+                    <span class="ml-4 px-3 py-1 rounded-full text-xs font-semibold {% if post.is_published %}bg-green-100 text-green-800{% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                        {% if post.is_published %}Publicado{% else %}Borrador{% endif %}
+                    </span>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-500 text-center py-4">No hay posts recientes</p>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Mensajes de Contacto Recientes -->
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900">
+                <i class="fas fa-envelope mr-2 text-primary-600"></i>
+                Mensajes de Contacto
+            </h3>
+            {% if perms.core.view_contactmessage %}
+            <a href="{% url 'backoffice:contact_message_list' %}" class="text-primary-600 hover:text-primary-700 text-sm font-medium">
+                Ver todos <i class="fas fa-arrow-right ml-1"></i>
+            </a>
+            {% endif %}
+        </div>
+        
+        <div class="space-y-3">
+            {% for msg in recent_messages %}
+            <div class="border-l-4 {% if msg.is_read %}border-gray-300{% else %}border-primary-500{% endif %} pl-4 py-2">
+                <div class="flex items-center justify-between">
+                    <div class="flex-1">
+                        <h4 class="font-medium text-gray-900">{{ msg.name }}</h4>
+                        <p class="text-sm text-gray-600 mt-1">
+                            {{ msg.email }}
+                            <span class="mx-2">•</span>
+                            <i class="fas fa-clock mr-1"></i>{{ msg.created_at|date:"d M Y H:i" }}
+                        </p>
+                    </div>
+                    {% if not msg.is_read %}
+                    <span class="ml-4 px-3 py-1 rounded-full text-xs font-semibold bg-primary-100 text-primary-800">
+                        Nuevo
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-gray-500 text-center py-4">No hay mensajes recientes</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% comment %}Accesos rápidos eliminados por petición del usuario{% endcomment %}
+{% endblock %}

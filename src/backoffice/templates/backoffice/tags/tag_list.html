@@ -1,0 +1,7 @@
+{% extends 'backoffice/base.html' %}
+{% block title %}Etiquetas{% endblock %}
+{% block page_title %}Etiquetas del Blog{% endblock %}
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-6 mb-6"><div class="flex items-center justify-between"><h3 class="text-xl font-semibold"><i class="fas fa-tags mr-2 text-primary-600"></i>Etiquetas ({{ tags|length }})</h3>{% if perms.blog.add_tag %}<a href="{% url 'backoffice:tag_create' %}" class="btn-primary"><i class="fas fa-plus mr-2"></i>Crear Etiqueta</a>{% endif %}</div></div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">{% for tag in tags %}<div class="bg-white rounded-lg shadow-md p-4 flex items-center justify-between"><div><h4 class="font-semibold text-gray-900">{{ tag.name }}</h4><p class="text-sm text-gray-500">{{ tag.post_count }} post(s)</p></div><div class="flex space-x-2">{% if perms.blog.change_tag %}<a href="{% url 'backoffice:tag_edit' tag.pk %}" class="text-blue-600"><i class="fas fa-edit"></i></a>{% endif %}{% if perms.blog.delete_tag %}<a href="{% url 'backoffice:tag_delete' tag.pk %}" class="text-red-600"><i class="fas fa-trash"></i></a>{% endif %}</div></div>{% empty %}<div class="col-span-3 bg-white rounded-lg shadow-md p-12 text-center"><p class="text-gray-500">No hay etiquetas creadas</p></div>{% endfor %}</div>
+{% endblock %}

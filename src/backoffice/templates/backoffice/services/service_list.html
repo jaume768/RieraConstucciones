@@ -1,0 +1,74 @@
+{% extends 'backoffice/base.html' %}
+
+{% block title %}Servicios{% endblock %}
+{% block page_title %}Gestión de Servicios{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="flex items-center justify-between">
+        <h3 class="text-xl font-semibold text-gray-900">
+            <i class="fas fa-tools mr-2 text-primary-600"></i>
+            Servicios ({{ services|length }})
+        </h3>
+        {% if perms.services.add_service %}
+        <a href="{% url 'backoffice:service_create' %}" class="btn-primary">
+            <i class="fas fa-plus mr-2"></i>Crear Servicio
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for service in services %}
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+        {% if service.image %}
+        <img src="{{ service.image.url }}" alt="{{ service.title }}" class="w-full h-48 object-cover">
+        {% else %}
+        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+            <i class="{{ service.icon|default:'fas fa-tools' }} text-6xl text-gray-400"></i>
+        </div>
+        {% endif %}
+        
+        <div class="p-6">
+            <div class="flex items-start justify-between mb-3">
+                <h4 class="text-lg font-semibold text-gray-900">{{ service.title }}</h4>
+                <span class="ml-2 px-2 py-1 text-xs rounded-full {% if service.is_active %}bg-green-100 text-green-800{% else %}bg-gray-100 text-gray-800{% endif %}">
+                    {% if service.is_active %}Activo{% else %}Inactivo{% endif %}
+                </span>
+            </div>
+            
+            <p class="text-sm text-gray-600 mb-4">{{ service.short_description|truncatewords:15 }}</p>
+            
+            <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                <span class="text-sm text-gray-500">Orden: {{ service.order }}</span>
+                <div class="flex space-x-2">
+                    {% if perms.services.change_service %}
+                    <a href="{% url 'backoffice:service_edit' service.pk %}" class="text-blue-600 hover:text-blue-900">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {% endif %}
+                    <a href="/servicios/{{ service.slug }}/" target="_blank" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    {% if perms.services.delete_service %}
+                    <a href="{% url 'backoffice:service_delete' service.pk %}" class="text-red-600 hover:text-red-900">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-span-3 bg-white rounded-lg shadow-md p-12 text-center">
+        <i class="fas fa-inbox text-6xl text-gray-300 mb-4"></i>
+        <p class="text-gray-500 text-lg">No hay servicios creados</p>
+        {% if perms.services.add_service %}
+        <a href="{% url 'backoffice:service_create' %}" class="mt-4 inline-block btn-primary">
+            <i class="fas fa-plus mr-2"></i>Crear Primer Servicio
+        </a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

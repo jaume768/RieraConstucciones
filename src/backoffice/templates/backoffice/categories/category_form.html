@@ -1,0 +1,11 @@
+{% extends 'backoffice/base.html' %}
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6">
+    <form method="post" class="space-y-6">{% csrf_token %}
+        <div><label class="block text-sm font-medium mb-2">Nombre *</label>{{ form.name }}</div>
+        <div><label class="block text-sm font-medium mb-2">Slug</label>{{ form.slug }}<p class="text-xs text-gray-500 mt-1">Se genera automáticamente si se deja vacío</p></div>
+        <div><label class="block text-sm font-medium mb-2">Descripción</label>{{ form.description }}</div>
+        <div class="flex justify-end space-x-4 pt-6 border-t"><a href="{% url 'backoffice:category_list' %}" class="btn-secondary">Cancelar</a><button type="submit" class="btn-primary">Guardar</button></div>
+    </form>
+</div>
+{% endblock %}

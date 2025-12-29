@@ -1,0 +1,10 @@
+{% extends 'backoffice/base.html' %}
+{% block title %}Páginas{% endblock %}
+{% block page_title %}Páginas Estáticas{% endblock %}
+{% block content %}
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+    <table class="min-w-full"><thead class="bg-gray-50"><tr><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Página</th><th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Estado</th><th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Acciones</th></tr></thead>
+    <tbody class="bg-white divide-y divide-gray-200">{% for page in pages %}<tr class="hover:bg-gray-50"><td class="px-6 py-4"><div class="font-medium text-gray-900">{{ page.title }}</div><div class="text-sm text-gray-500">/{{ page.slug }}/</div></td><td class="px-6 py-4"><span class="px-3 py-1 rounded-full text-xs {% if page.is_published %}bg-green-100 text-green-800{% else %}bg-gray-100 text-gray-800{% endif %}">{% if page.is_published %}Publicada{% else %}Borrador{% endif %}</span></td><td class="px-6 py-4 text-right">{% if perms.core.change_page %}<a href="{% url 'backoffice:page_edit' page.pk %}" class="text-blue-600 hover:text-blue-900"><i class="fas fa-edit"></i></a>{% endif %}</td></tr>{% endfor %}</tbody>
+    </table>
+</div>
+{% endblock %}

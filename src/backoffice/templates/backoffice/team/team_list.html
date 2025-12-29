@@ -1,0 +1,24 @@
+{% extends 'backoffice/base.html' %}
+{% block title %}Equipo{% endblock %}
+{% block page_title %}Equipo{% endblock %}
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="flex items-center justify-between">
+        <h3 class="text-xl font-semibold"><i class="fas fa-users mr-2 text-primary-600"></i>Equipo ({{ members|length }})</h3>
+        {% if perms.core.add_teammember %}<a href="{% url 'backoffice:team_create' %}" class="btn-primary"><i class="fas fa-plus mr-2"></i>Añadir Miembro</a>{% endif %}
+    </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {% for member in members %}
+    <div class="bg-white rounded-lg shadow-md p-6 text-center">
+        {% if member.photo %}<img src="{{ member.photo.url }}" alt="{{ member.name }}" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">{% else %}<div class="w-24 h-24 rounded-full bg-gray-200 mx-auto mb-4 flex items-center justify-center"><i class="fas fa-user text-gray-400 text-3xl"></i></div>{% endif %}
+        <h4 class="font-semibold text-gray-900">{{ member.name }}</h4>
+        <p class="text-sm text-gray-600">{{ member.position }}</p>
+        <div class="flex justify-center space-x-2 mt-4">
+            {% if perms.core.change_teammember %}<a href="{% url 'backoffice:team_edit' member.pk %}" class="text-blue-600"><i class="fas fa-edit"></i></a>{% endif %}
+            {% if perms.core.delete_teammember %}<a href="{% url 'backoffice:team_delete' member.pk %}" class="text-red-600"><i class="fas fa-trash"></i></a>{% endif %}
+        </div>
+    </div>
+    {% empty %}<div class="col-span-3 bg-white rounded-lg shadow-md p-12 text-center"><i class="fas fa-inbox text-6xl text-gray-300 mb-4"></i><p class="text-gray-500">No hay miembros del equipo</p></div>{% endfor %}
+</div>
+{% endblock %}

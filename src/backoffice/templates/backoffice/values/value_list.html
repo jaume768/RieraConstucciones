@@ -1,0 +1,7 @@
+{% extends 'backoffice/base.html' %}
+{% block title %}Valores{% endblock %}
+{% block page_title %}Valores de la Empresa{% endblock %}
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-6 mb-6"><div class="flex items-center justify-between"><h3 class="text-xl font-semibold"><i class="fas fa-star mr-2 text-primary-600"></i>Valores ({{ values|length }})</h3>{% if perms.core.add_companyvalue %}<a href="{% url 'backoffice:value_create' %}" class="btn-primary"><i class="fas fa-plus mr-2"></i>Crear Valor</a>{% endif %}</div></div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">{% for value in values %}<div class="bg-white rounded-lg shadow-md p-6 text-center"><i class="{{ value.icon|default:'fas fa-star' }} text-5xl text-primary-600 mb-4"></i><h4 class="font-semibold text-gray-900 mb-2">{{ value.title }}</h4><p class="text-sm text-gray-600 mb-4">{{ value.description|truncatewords:10 }}</p><div class="flex justify-center space-x-2">{% if perms.core.change_companyvalue %}<a href="{% url 'backoffice:value_edit' value.pk %}" class="text-blue-600"><i class="fas fa-edit"></i></a>{% endif %}{% if perms.core.delete_companyvalue %}<a href="{% url 'backoffice:value_delete' value.pk %}" class="text-red-600"><i class="fas fa-trash"></i></a>{% endif %}</div></div>{% empty %}<div class="col-span-4 bg-white rounded-lg shadow-md p-12 text-center"><p class="text-gray-500">No hay valores creados</p></div>{% endfor %}</div>
+{% endblock %}

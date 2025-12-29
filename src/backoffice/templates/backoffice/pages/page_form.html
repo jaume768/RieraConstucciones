@@ -1,0 +1,13 @@
+{% extends 'backoffice/base.html' %}
+{% block content %}
+<div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6">
+    <form method="post" enctype="multipart/form-data" class="space-y-6">{% csrf_token %}
+        <div><label class="block text-sm font-medium mb-2">Título *</label>{{ form.title }}</div>
+        <div><label class="block text-sm font-medium mb-2">Slug</label>{{ form.slug }}</div>
+        <div><label class="block text-sm font-medium mb-2">Contenido HTML *</label>{{ form.content }}</div>
+        <div class="border-t pt-6"><h4 class="text-lg font-semibold mb-4">SEO</h4><div class="space-y-4"><div><label class="block text-sm font-medium mb-2">Meta Title</label>{{ form.meta_title }}</div><div><label class="block text-sm font-medium mb-2">Meta Description</label>{{ form.meta_description }}</div><div><label class="block text-sm font-medium mb-2">Imagen OG</label>{% if object.og_image %}<img src="{{ object.og_image.url }}" class="w-48 h-32 object-cover rounded-lg mb-3">{% endif %}{{ form.og_image }}</div></div></div>
+        <div class="flex items-center border-t pt-6">{{ form.is_published }}<label for="{{ form.is_published.id_for_label }}" class="ml-3">Publicada</label></div>
+        <div class="flex justify-end space-x-4 pt-6 border-t"><a href="{% url 'backoffice:page_list' %}" class="btn-secondary">Cancelar</a><button type="submit" class="btn-primary">Guardar</button></div>
+    </form>
+</div>
+{% endblock %}

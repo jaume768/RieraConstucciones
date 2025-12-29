@@ -1,0 +1,8 @@
+{% extends 'backoffice/base.html' %}
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6 text-center">
+    <div class="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-4"><i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i></div>
+    <h3 class="text-lg font-semibold mb-2">¿Eliminar miembro "{{ object.name }}"?</h3>
+    <form method="post" class="mt-6">{% csrf_token %}<div class="flex justify-center space-x-4"><a href="{% url 'backoffice:team_list' %}" class="btn-secondary">Cancelar</a><button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg">Eliminar</button></div></form>
+</div>
+{% endblock %}

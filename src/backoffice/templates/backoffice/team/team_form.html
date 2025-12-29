@@ -1,0 +1,24 @@
+{% extends 'backoffice/base.html' %}
+{% block title %}{% if object %}Editar{% else %}Crear{% endif %} Miembro{% endblock %}
+{% block page_title %}{% if object %}Editar{% else %}Nuevo{% endif %} Miembro del Equipo{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6">
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+        {% csrf_token %}
+        <div class="grid grid-cols-2 gap-6">
+            <div class="col-span-2"><label class="block text-sm font-medium mb-2">Nombre *</label>{{ form.name }}</div>
+            <div class="col-span-2"><label class="block text-sm font-medium mb-2">Cargo *</label>{{ form.position }}</div>
+            <div class="col-span-2"><label class="block text-sm font-medium mb-2">Biografía</label>{{ form.bio }}</div>
+            <div class="col-span-2"><label class="block text-sm font-medium mb-2">Foto</label>{% if object.photo %}<img src="{{ object.photo.url }}" class="w-32 h-32 rounded-lg object-cover mb-3">{% endif %}{{ form.photo }}</div>
+            <div><label class="block text-sm font-medium mb-2">Email</label>{{ form.email }}</div>
+            <div><label class="block text-sm font-medium mb-2">LinkedIn</label>{{ form.linkedin }}</div>
+            <div><label class="block text-sm font-medium mb-2">Orden</label>{{ form.order }}</div>
+            <div class="flex items-center">{{ form.is_active }}<label for="{{ form.is_active.id_for_label }}" class="ml-3">Activo</label></div>
+        </div>
+        <div class="flex justify-end space-x-4 pt-6 border-t">
+            <a href="{% url 'backoffice:team_list' %}" class="btn-secondary">Cancelar</a>
+            <button type="submit" class="btn-primary">Guardar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

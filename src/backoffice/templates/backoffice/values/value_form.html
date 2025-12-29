@@ -1,0 +1,13 @@
+{% extends 'backoffice/base.html' %}
+{% block content %}
+<div class="max-w-3xl mx-auto bg-white rounded-lg shadow-md p-6">
+    <form method="post" class="space-y-6">{% csrf_token %}
+        <div><label class="block text-sm font-medium mb-2">Título *</label>{{ form.title }}</div>
+        <div><label class="block text-sm font-medium mb-2">Descripción *</label>{{ form.description }}</div>
+        <div><label class="block text-sm font-medium mb-2">Icono (Font Awesome)</label>{{ form.icon }}<p class="text-xs text-gray-500 mt-1">Ej: fa-solid fa-star</p></div>
+        <div><label class="block text-sm font-medium mb-2">Orden</label>{{ form.order }}</div>
+        <div class="flex items-center">{{ form.is_active }}<label for="{{ form.is_active.id_for_label }}" class="ml-3">Activo</label></div>
+        <div class="flex justify-end space-x-4 pt-6 border-t"><a href="{% url 'backoffice:value_list' %}" class="btn-secondary">Cancelar</a><button type="submit" class="btn-primary">Guardar</button></div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="bg-gray-900 text-white py-16">
+    <div class="container mx-auto px-4">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+            {% if selected_category %}
+                {{ selected_category.name }}
+            {% elif selected_tag %}
+                Etiqueta: {{ selected_tag.name }}
+            {% else %}
+                Blog y Noticias
+            {% endif %}
+        </h1>
+        <p class="text-xl text-gray-300">
+            {% if selected_category %}
+                Artículos sobre {{ selected_category.name|lower }}
+            {% elif selected_tag %}
+                Artículos etiquetados con "{{ selected_tag.name }}"
+            {% else %}
+                Últimas noticias y artículos sobre construcción
+            {% endif %}
+        </p>
+    </div>
+</section>
+
+<section class="py-16 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <aside class="lg:col-span-1">
+                <div class="card sticky top-24">
+                    <h3 class="text-lg font-bold mb-4">Categorías</h3>
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="{% url 'blog_list' %}" class="text-gray-700 hover:text-primary-600 transition {% if not selected_category %}font-semibold text-primary-600{% endif %}">
+                                Todas
+                            </a>
+                        </li>
+                        {% for category in categories %}
+                            <li>
+                                <a href="?categoria={{ category.slug }}" class="text-gray-700 hover:text-primary-600 transition {% if selected_category.slug == category.slug %}font-semibold text-primary-600{% endif %}">
+                                    {{ category.name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    
+                    {% if popular_tags %}
+                    <div class="mt-8">
+                        <h3 class="text-lg font-bold mb-4">Etiquetas Populares</h3>
+                        <div class="flex flex-wrap gap-2">
+                            {% for tag in popular_tags %}
+                                <a href="?etiqueta={{ tag.slug }}" class="px-3 py-1 bg-gray-200 hover:bg-primary-600 hover:text-white rounded-full text-sm transition">
+                                    {{ tag.name }}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </aside>
+            
+            <div class="lg:col-span-3">
+                {% if page_obj %}
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        {% for post in page_obj %}
+                            <article class="card group">
+                                {% if post.featured_image %}
+                                    <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover rounded-t-lg -mx-6 -mt-6 mb-4">
+                                {% endif %}
+                                
+                                <div class="flex items-center text-sm text-gray-500 mb-3">
+                                    <i class="far fa-calendar mr-2"></i>
+                                    <span>{{ post.published_at|date:"d/m/Y" }}</span>
+                                    {% if post.category %}
+                                        <span class="mx-2">•</span>
+                                        <a href="?categoria={{ post.category.slug }}" class="text-primary-600 hover:underline">
+                                            {{ post.category.name }}
+                                        </a>
+                                    {% endif %}
+                                    <span class="mx-2">•</span>
+                                    <span><i class="far fa-eye mr-1"></i>{{ post.views }}</span>
+                                </div>
+                                
+                                <h2 class="text-2xl font-bold mb-3 group-hover:text-primary-600 transition">
+                                    <a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a>
+                                </h2>
+                                
+                                <p class="text-gray-600 mb-4">{{ post.summary }}</p>
+                                
+                                {% if post.tags.all %}
+                                    <div class="flex flex-wrap gap-2 mb-4">
+                                        {% for tag in post.tags.all|slice:":3" %}
+                                            <span class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded">
+                                                {{ tag.name }}
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                
+                                <a href="{% url 'blog_detail' post.slug %}" class="text-primary-600 font-semibold hover:underline">
+                                    Leer más <i class="fas fa-arrow-right ml-1"></i>
+                                </a>
+                            </article>
+                        {% endfor %}
+                    </div>
+                    
+                    {% if page_obj.has_other_pages %}
+                        <div class="mt-12 flex justify-center">
+                            <nav class="flex items-center space-x-2">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page=1{% if selected_category %}&categoria={{ selected_category.slug }}{% endif %}{% if selected_tag %}&etiqueta={{ selected_tag.slug }}{% endif %}" class="px-4 py-2 bg-white rounded-lg hover:bg-gray-100 transition">
+                                        <i class="fas fa-angle-double-left"></i>
+                                    </a>
+                                    <a href="?page={{ page_obj.previous_page_number }}{% if selected_category %}&categoria={{ selected_category.slug }}{% endif %}{% if selected_tag %}&etiqueta={{ selected_tag.slug }}{% endif %}" class="px-4 py-2 bg-white rounded-lg hover:bg-gray-100 transition">
+                                        <i class="fas fa-angle-left"></i>
+                                    </a>
+                                {% endif %}
+                                
+                                <span class="px-4 py-2 bg-primary-600 text-white rounded-lg">
+                                    Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                                </span>
+                                
+                                {% if page_obj.has_next %}
+                                    <a href="?page={{ page_obj.next_page_number }}{% if selected_category %}&categoria={{ selected_category.slug }}{% endif %}{% if selected_tag %}&etiqueta={{ selected_tag.slug }}{% endif %}" class="px-4 py-2 bg-white rounded-lg hover:bg-gray-100 transition">
+                                        <i class="fas fa-angle-right"></i>
+                                    </a>
+                                    <a href="?page={{ page_obj.paginator.num_pages }}{% if selected_category %}&categoria={{ selected_category.slug }}{% endif %}{% if selected_tag %}&etiqueta={{ selected_tag.slug }}{% endif %}" class="px-4 py-2 bg-white rounded-lg hover:bg-gray-100 transition">
+                                        <i class="fas fa-angle-double-right"></i>
+                                    </a>
+                                {% endif %}
+                            </nav>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    <div class="text-center py-16">
+                        <i class="fas fa-newspaper text-6xl text-gray-300 mb-4"></i>
+                        <p class="text-xl text-gray-500">No hay artículos disponibles.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

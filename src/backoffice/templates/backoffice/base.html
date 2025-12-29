@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Backoffice{% endblock %} - Constructora Riera</title>
+    <link rel="stylesheet" href="{% static 'dist/output.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-900 text-white flex-shrink-0">
+            <div class="p-6">
+                <h1 class="text-2xl font-bold text-primary-400">Backoffice</h1>
+                <p class="text-sm text-gray-400 mt-1">Constructora Riera</p>
+            </div>
+            
+            <nav class="mt-6">
+                <a href="{% url 'backoffice:dashboard' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition {% if request.resolver_match.url_name == 'dashboard' %}bg-gray-800 text-white{% endif %}">
+                    <i class="fas fa-chart-line mr-3"></i>
+                    Dashboard
+                </a>
+                
+                {% if perms.blog.view_post %}
+                <a href="{% url 'backoffice:post_list' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition {% if 'post' in request.path %}bg-gray-800 text-white{% endif %}">
+                    <i class="fas fa-newspaper mr-3"></i>
+                    Blog Posts
+                </a>
+                {% endif %}
+                
+                {% if perms.blog.view_category %}
+                <a href="{% url 'backoffice:category_list' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition {% if 'categor' in request.path %}bg-gray-800 text-white{% endif %}">
+                    <i class="fas fa-folder mr-3"></i>
+                    Categorías
+                </a>
+                {% endif %}
+                
+                {% if perms.blog.view_tag %}
+                <a href="{% url 'backoffice:tag_list' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition {% if 'tag' in request.path %}bg-gray-800 text-white{% endif %}">
+                    <i class="fas fa-tags mr-3"></i>
+                    Etiquetas
+                </a>
+                {% endif %}
+                
+                {% if perms.services.view_service %}
+                <a href="{% url 'backoffice:service_list' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition {% if 'service' in request.path %}bg-gray-800 text-white{% endif %}">
+                    <i class="fas fa-tools mr-3"></i>
+                    Servicios
+                </a>
+                {% endif %}
+                
+                {% if perms.core.view_teammember %}
+                <a href="{% url 'backoffice:team_list' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition {% if 'team' in request.path %}bg-gray-800 text-white{% endif %}">
+                    <i class="fas fa-users mr-3"></i>
+                    Equipo
+                </a>
+                {% endif %}
+                
+                {% if perms.core.view_companyvalue %}
+                <a href="{% url 'backoffice:value_list' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition {% if 'value' in request.path %}bg-gray-800 text-white{% endif %}">
+                    <i class="fas fa-star mr-3"></i>
+                    Valores
+                </a>
+                {% endif %}
+                
+                {% if perms.core.view_page %}
+                <a href="{% url 'backoffice:page_list' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition {% if 'page' in request.path %}bg-gray-800 text-white{% endif %}">
+                    <i class="fas fa-file-alt mr-3"></i>
+                    Páginas
+                </a>
+                {% endif %}
+                
+                {% if perms.core.view_contactmessage %}
+                <a href="{% url 'backoffice:contact_message_list' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition {% if 'contact' in request.path %}bg-gray-800 text-white{% endif %}">
+                    <i class="fas fa-envelope mr-3"></i>
+                    Mensajes Contacto
+                </a>
+                {% endif %}
+                
+                <div class="border-t border-gray-700 my-4"></div>
+                
+                <a href="/" target="_blank" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                    <i class="fas fa-external-link-alt mr-3"></i>
+                    Ver Sitio Web
+                </a>
+                
+                <a href="{% url 'backoffice:logout' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition">
+                    <i class="fas fa-sign-out-alt mr-3"></i>
+                    Cerrar Sesión
+                </a>
+            </nav>
+        </aside>
+        
+        <!-- Main Content -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top bar -->
+            <header class="bg-white shadow-sm z-10">
+                <div class="flex items-center justify-between px-6 py-4">
+                    <div>
+                        <h2 class="text-2xl font-semibold text-gray-800">{% block page_title %}Dashboard{% endblock %}</h2>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span class="text-sm text-gray-600">
+                            <i class="fas fa-user mr-2"></i>{{ user.username }}
+                        </span>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Messages -->
+            {% if messages %}
+            <div class="px-6 py-4">
+                {% for message in messages %}
+                <div class="mb-3 px-4 py-3 rounded-lg {% if message.tags == 'error' %}bg-red-100 text-red-800{% elif message.tags == 'success' %}bg-green-100 text-green-800{% elif message.tags == 'warning' %}bg-yellow-100 text-yellow-800{% else %}bg-blue-100 text-blue-800{% endif %}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <!-- Page Content -->
+            <main class="flex-1 overflow-y-auto bg-gray-100 p-6">
+                <div class="max-w-7xl mx-auto">
+                    {% block content %}{% endblock %}
+                </div>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
