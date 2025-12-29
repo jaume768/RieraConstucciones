@@ -33,118 +33,232 @@
 {% endblock %}
 
 {% block content %}
-<section class="relative bg-gray-900 text-white py-20 overflow-hidden">
-    <img src="{% static 'images/hero-bg.jpg' %}" class="absolute inset-0 w-full h-full object-cover opacity-30" alt="Fondo Construcción">
+<section class="relative bg-gradient-to-br from-gray-900 via-primary-900 to-blue-900 text-white py-32 md:py-40 overflow-hidden">
+    <img src="{% static 'images/hero-bg.jpg' %}" class="absolute inset-0 w-full h-full object-cover opacity-40" alt="Fondo Construcción">
+    <div class="absolute inset-0 bg-gradient-to-br from-primary-900/70 via-primary-800/60 to-blue-900/70"></div>
+    
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute -top-40 -right-40 w-96 h-96 bg-primary-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+    </div>
+    
     <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-3xl">
-            <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                Construimos tus sueños con calidad y compromiso
+        <div class="max-w-4xl">
+            <div class="hero-badge">
+                <i class="fas fa-certificate mr-2"></i>
+                Calidad Garantizada
+            </div>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-8 leading-tight">
+                Construimos tus sueños con <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">calidad y compromiso</span>
             </h1>
-            <p class="text-xl mb-8 text-gray-100">
-                Más de 20 años de experiencia en obra nueva, reformas y rehabilitaciones. Tu proyecto en manos de expertos.
+            <p class="text-xl md:text-2xl mb-10 text-gray-100 leading-relaxed max-w-2xl">
+                Especialistas en obra nueva, reformas y rehabilitaciones. Tu proyecto en manos de verdaderos expertos.
             </p>
-            <div class="flex flex-wrap gap-4">
-                <a href="{% url 'contact' %}" class="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition duration-300 shadow-lg">
+            <div class="flex flex-wrap gap-5">
+                <a href="{% url 'contact' %}" class="btn-white group">
+                    <i class="fas fa-calculator mr-2"></i>
                     Pedir Presupuesto
+                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </a>
-                <a href="{% url 'services_list' %}" class="border-2 border-white text-white hover:bg-white hover:text-primary-600 font-semibold py-4 px-8 rounded-lg transition duration-300">
+                <a href="{% url 'services_list' %}" class="btn-outline">
+                    <i class="fas fa-tools mr-2"></i>
                     Ver Servicios
                 </a>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold text-cyan-300 mb-2">200+</div>
+                    <div class="text-sm text-gray-300">Proyectos Completados</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold text-cyan-300 mb-2">100%</div>
+                    <div class="text-sm text-gray-300">Clientes Satisfechos</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold text-cyan-300 mb-2">500+</div>
+                    <div class="text-sm text-gray-300">Proyectos Anuales</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl md:text-5xl font-bold text-cyan-300 mb-2">24/7</div>
+                    <div class="text-sm text-gray-300">Soporte</div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="py-16 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
+<section class="py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-gray-50/50 to-transparent"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-16">
+            <div class="inline-block mb-4">
+                <span class="px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold">
+                    <i class="fas fa-tools mr-2"></i>Servicios Profesionales
+                </span>
+            </div>
             <h2 class="section-title">Nuestros Servicios</h2>
             <p class="section-subtitle">Soluciones completas para todo tipo de proyectos de construcción</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for service in services %}
-                <div class="card text-center group">
+                <div class="card-service text-center">
                     {% if service.icon %}
-                        <div class="text-5xl text-primary-600 mb-4">
-                            <i class="{{ service.icon }}"></i>
+                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                            <i class="{{ service.icon }} text-white text-3xl"></i>
                         </div>
                     {% endif %}
-                    <h3 class="text-xl font-bold mb-3 group-hover:text-primary-600 transition">{{ service.title }}</h3>
-                    <p class="text-gray-600 mb-4">{{ service.short_description }}</p>
-                    <a href="{% url 'service_detail' service.slug %}" class="text-primary-600 font-semibold hover:underline">
-                        Saber más <i class="fas fa-arrow-right ml-1"></i>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-900 group-hover:text-primary-600 transition">{{ service.title }}</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">{{ service.short_description }}</p>
+                    <a href="{% url 'service_detail' service.slug %}" class="inline-flex items-center text-primary-600 font-bold hover:text-primary-700 group/link">
+                        Saber más 
+                        <i class="fas fa-arrow-right ml-2 group-hover/link:translate-x-2 transition-transform"></i>
                     </a>
                 </div>
             {% empty %}
-                <div class="col-span-3 text-center py-8">
-                    <p class="text-gray-500">No hay servicios disponibles en este momento.</p>
+                <div class="col-span-3 text-center py-16">
+                    <div class="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-tools text-4xl text-gray-400"></i>
+                    </div>
+                    <p class="text-gray-500 text-lg">No hay servicios disponibles en este momento.</p>
                 </div>
             {% endfor %}
         </div>
         
-        <div class="text-center mt-8">
-            <a href="{% url 'services_list' %}" class="btn-primary">
+        <div class="text-center mt-12">
+            <a href="{% url 'services_list' %}" class="btn-primary group">
                 Ver Todos los Servicios
+                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
             </a>
         </div>
     </div>
 </section>
 
-<section class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
+<section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50/30 relative">
+    <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center mb-16">
+            <div class="inline-block mb-4">
+                <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">
+                    <i class="fas fa-newspaper mr-2"></i>Blog & Noticias
+                </span>
+            </div>
             <h2 class="section-title">Últimas Noticias</h2>
             <p class="section-subtitle">Mantente informado sobre nuestros proyectos y novedades del sector</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for post in latest_posts %}
-                <article class="card group">
+                <article class="card-blog group">
                     {% if post.featured_image %}
-                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover rounded-t-lg -mx-6 -mt-6 mb-4">
+                        <div class="relative overflow-hidden">
+                            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        </div>
+                    {% else %}
+                        <div class="w-full h-56 bg-gradient-to-br from-primary-100 to-blue-100 flex items-center justify-center">
+                            <i class="fas fa-newspaper text-6xl text-primary-300"></i>
+                        </div>
                     {% endif %}
-                    <div class="text-sm text-gray-500 mb-2">
-                        <i class="far fa-calendar mr-1"></i> {{ post.published_at|date:"d/m/Y" }}
-                        {% if post.category %}
-                            <span class="mx-2">•</span>
-                            <span class="text-primary-600">{{ post.category.name }}</span>
-                        {% endif %}
+                    
+                    <div class="p-6">
+                        <div class="flex items-center gap-3 text-sm text-gray-500 mb-3">
+                            <span class="flex items-center">
+                                <i class="far fa-calendar mr-1.5"></i>
+                                {{ post.published_at|date:"d/m/Y" }}
+                            </span>
+                            {% if post.category %}
+                                <span class="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-xs font-semibold">
+                                    {{ post.category.name }}
+                                </span>
+                            {% endif %}
+                        </div>
+                        
+                        <h3 class="text-xl font-bold mb-3 text-gray-900 group-hover:text-primary-600 transition line-clamp-2">
+                            <a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a>
+                        </h3>
+                        
+                        <p class="text-gray-600 mb-4 line-clamp-3 leading-relaxed">{{ post.summary|truncatewords:20 }}</p>
+                        
+                        <a href="{% url 'blog_detail' post.slug %}" class="inline-flex items-center text-primary-600 font-bold hover:text-primary-700 group/link">
+                            Leer más 
+                            <i class="fas fa-arrow-right ml-2 group-hover/link:translate-x-2 transition-transform"></i>
+                        </a>
                     </div>
-                    <h3 class="text-xl font-bold mb-3 group-hover:text-primary-600 transition">
-                        <a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a>
-                    </h3>
-                    <p class="text-gray-600 mb-4">{{ post.summary|truncatewords:20 }}</p>
-                    <a href="{% url 'blog_detail' post.slug %}" class="text-primary-600 font-semibold hover:underline">
-                        Leer más <i class="fas fa-arrow-right ml-1"></i>
-                    </a>
                 </article>
             {% empty %}
-                <div class="col-span-3 text-center py-8">
-                    <p class="text-gray-500">No hay posts disponibles en este momento.</p>
+                <div class="col-span-3 text-center py-16">
+                    <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-blue-100 to-primary-100 rounded-full flex items-center justify-center">
+                        <i class="fas fa-newspaper text-4xl text-primary-500"></i>
+                    </div>
+                    <p class="text-gray-500 text-lg">No hay posts disponibles en este momento.</p>
                 </div>
             {% endfor %}
         </div>
         
         {% if latest_posts %}
-        <div class="text-center mt-8">
-            <a href="{% url 'blog_list' %}" class="btn-outline">
+        <div class="text-center mt-12">
+            <a href="{% url 'blog_list' %}" class="btn-outline group">
                 Ver Todas las Noticias
+                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
             </a>
         </div>
         {% endif %}
     </div>
 </section>
 
-<section class="py-16 bg-primary-600 text-white">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Tienes un proyecto en mente?</h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto">
-            Contacta con nosotros y te ofreceremos un presupuesto personalizado sin compromiso
-        </p>
-        <a href="{% url 'contact' %}" class="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition duration-300 inline-block shadow-lg">
-            Contactar Ahora
-        </a>
+<section class="py-20 bg-gradient-to-br from-primary-600 via-primary-700 to-blue-800 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-20 left-20 w-72 h-72 bg-white rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-blue-300 rounded-full filter blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block mb-6">
+                <span class="px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-sm font-semibold">
+                    <i class="fas fa-rocket mr-2"></i>Comienza tu proyecto hoy
+                </span>
+            </div>
+            
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+                ¿Tienes un proyecto en mente?
+            </h2>
+            
+            <p class="text-xl md:text-2xl mb-10 text-blue-100 max-w-3xl mx-auto leading-relaxed">
+                Contacta con nosotros y te ofreceremos un presupuesto personalizado sin compromiso. Hacemos realidad tus ideas.
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="{% url 'contact' %}" class="btn-white group">
+                    <i class="fas fa-envelope mr-2"></i>
+                    Contactar Ahora
+                    <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <a href="tel:+34123456789" class="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white/20 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                    <i class="fas fa-phone mr-2"></i>
+                    +34 123 456 789
+                </a>
+            </div>
+            
+            <div class="mt-12 flex flex-wrap justify-center items-center gap-8 text-blue-100">
+                <div class="flex items-center">
+                    <i class="fas fa-shield-alt text-2xl mr-3"></i>
+                    <span>Garantía de calidad</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-clock text-2xl mr-3"></i>
+                    <span>Respuesta en 24h</span>
+                </div>
+                <div class="flex items-center">
+                    <i class="fas fa-handshake text-2xl mr-3"></i>
+                    <span>Sin compromiso</span>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}

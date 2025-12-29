@@ -2,33 +2,53 @@
 {% load static %}
 
 {% block content %}
-<section class="bg-gray-900 text-white py-16">
-    <div class="container mx-auto px-4">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Sobre Nosotros</h1>
-        <p class="text-xl text-gray-300">Conoce nuestra historia, equipo y valores</p>
+<section class="relative bg-gradient-to-br from-primary-900 via-primary-800 to-blue-900 text-white py-24 overflow-hidden">
+    <div class="gradient-overlay"></div>
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center max-w-3xl mx-auto">
+            <div class="inline-block mb-4">
+                <span class="px-4 py-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-sm font-semibold">
+                    <i class="fas fa-info-circle mr-2"></i>Nuestra Historia
+                </span>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-6">Sobre Nosotros</h1>
+            <p class="text-xl md:text-2xl text-blue-100">Conoce nuestra historia, equipo y valores</p>
+        </div>
     </div>
 </section>
 
-<section class="py-16 bg-white">
+<section class="py-20 bg-gradient-to-b from-white to-gray-50">
     <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-5xl mx-auto">
             {% if content %}
-                <div class="content-html prose prose-lg max-w-none">
+                <div class="content-html prose prose-lg max-w-none bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-10 border border-gray-100">
                     {{ content|safe }}
                 </div>
             {% else %}
-                <div class="text-center py-8">
-                    <h2 class="text-3xl font-bold mb-4">{{ SITE_NAME }}</h2>
-                    <p class="text-gray-600 text-lg mb-6">
-                        Somos una empresa constructora con más de 20 años de experiencia en el sector. 
-                        Nos especializamos en obra nueva, reformas integrales y rehabilitaciones, 
-                        ofreciendo un servicio completo y personalizado a nuestros clientes.
-                    </p>
-                    <p class="text-gray-600 text-lg">
-                        Nuestro compromiso es la calidad, la puntualidad y la satisfacción del cliente. 
-                        Trabajamos con los mejores materiales y contamos con un equipo de profesionales 
-                        altamente cualificados.
-                    </p>
+                <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-10 border border-gray-100">
+                    <div class="text-center mb-10">
+                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg">
+                            <i class="fas fa-hard-hat text-white text-3xl"></i>
+                        </div>
+                        <h2 class="text-4xl font-extrabold text-gray-900 mb-4">{{ SITE_NAME }}</h2>
+                    </div>
+                    <div class="space-y-6 text-lg leading-relaxed">
+                        <p class="text-gray-700">
+                            Somos una empresa constructora <span class="font-bold text-primary-600">especializada y comprometida</span> con el sector. 
+                            Nos especializamos en obra nueva, reformas integrales y rehabilitaciones, 
+                            ofreciendo un servicio completo y personalizado a nuestros clientes.
+                        </p>
+                        <p class="text-gray-700">
+                            Nuestro compromiso es la <span class="font-bold text-primary-600">calidad, la puntualidad y la satisfacción del cliente</span>. 
+                            Trabajamos con los mejores materiales y contamos con un equipo de profesionales 
+                            altamente cualificados.
+                        </p>
+                    </div>
                 </div>
             {% endif %}
         </div>
@@ -36,23 +56,28 @@
 </section>
 
 {% if company_values %}
-<section class="py-16 bg-gray-50">
+<section class="py-20 bg-gradient-to-br from-gray-50 to-blue-50/30 relative">
     <div class="container mx-auto px-4">
-        <div class="text-center mb-12">
+        <div class="text-center mb-16">
+            <div class="inline-block mb-4">
+                <span class="px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold">
+                    <i class="fas fa-star mr-2"></i>Valores Corporativos
+                </span>
+            </div>
             <h2 class="section-title">Nuestros Valores</h2>
             <p class="section-subtitle">Los principios que guían nuestro trabajo</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {% for value in company_values %}
-                <div class="card text-center">
+                <div class="card-service text-center">
                     {% if value.icon %}
-                        <div class="text-4xl text-primary-600 mb-4">
-                            <i class="{{ value.icon }}"></i>
+                        <div class="w-20 h-20 mx-auto mb-6 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                            <i class="{{ value.icon }} text-white text-3xl"></i>
                         </div>
                     {% endif %}
-                    <h3 class="text-xl font-bold mb-3">{{ value.title }}</h3>
-                    <p class="text-gray-600">{{ value.description }}</p>
+                    <h3 class="text-2xl font-bold mb-4 text-gray-900 group-hover:text-primary-600 transition">{{ value.title }}</h3>
+                    <p class="text-gray-600 leading-relaxed">{{ value.description }}</p>
                 </div>
             {% endfor %}
         </div>
@@ -98,15 +123,29 @@ Sección de equipo comentada - se puede gestionar desde backoffice pero no se mu
 {% endif %}
 {% endcomment %}
 
-<section class="py-16 bg-primary-600 text-white">
-    <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Quieres trabajar con nosotros?</h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto">
-            Contacta con nuestro equipo y descubre cómo podemos hacer realidad tu proyecto
-        </p>
-        <a href="{% url 'contact' %}" class="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition duration-300 inline-block shadow-lg">
-            Contactar
-        </a>
+<section class="py-20 bg-gradient-to-br from-primary-600 via-primary-700 to-blue-800 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+        <div class="absolute top-20 left-20 w-72 h-72 bg-white rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-20 right-20 w-96 h-96 bg-blue-300 rounded-full filter blur-3xl"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 text-center relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <div class="inline-block mb-6">
+                <span class="px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-sm font-semibold">
+                    <i class="fas fa-handshake mr-2"></i>Trabajemos Juntos
+                </span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-6">¿Quieres trabajar con nosotros?</h2>
+            <p class="text-xl md:text-2xl mb-10 text-blue-100 max-w-2xl mx-auto">
+                Contacta con nuestro equipo y descubre cómo podemos hacer realidad tu proyecto
+            </p>
+            <a href="{% url 'contact' %}" class="btn-white group">
+                <i class="fas fa-envelope mr-2"></i>
+                Contactar
+                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+        </div>
     </div>
 </section>
 {% endblock %}

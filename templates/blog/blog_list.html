@@ -2,44 +2,71 @@
 {% load static %}
 
 {% block content %}
-<section class="bg-gray-900 text-white py-16">
-    <div class="container mx-auto px-4">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">
-            {% if selected_category %}
-                {{ selected_category.name }}
-            {% elif selected_tag %}
-                Etiqueta: {{ selected_tag.name }}
-            {% else %}
-                Blog y Noticias
-            {% endif %}
-        </h1>
-        <p class="text-xl text-gray-300">
-            {% if selected_category %}
-                Artículos sobre {{ selected_category.name|lower }}
-            {% elif selected_tag %}
-                Artículos etiquetados con "{{ selected_tag.name }}"
-            {% else %}
-                Últimas noticias y artículos sobre construcción
-            {% endif %}
-        </p>
+<section class="relative bg-gradient-to-br from-primary-900 via-primary-800 to-blue-900 text-white py-24 overflow-hidden">
+    <div class="gradient-overlay"></div>
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center max-w-3xl mx-auto">
+            <div class="inline-block mb-4">
+                <span class="px-4 py-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-sm font-semibold">
+                    <i class="fas fa-newspaper mr-2"></i>
+                    {% if selected_category %}
+                        {{ selected_category.name }}
+                    {% elif selected_tag %}
+                        Etiqueta
+                    {% else %}
+                        Blog & Noticias
+                    {% endif %}
+                </span>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-6">
+                {% if selected_category %}
+                    {{ selected_category.name }}
+                {% elif selected_tag %}
+                    {{ selected_tag.name }}
+                {% else %}
+                    Blog y Noticias
+                {% endif %}
+            </h1>
+            <p class="text-xl md:text-2xl text-blue-100">
+                {% if selected_category %}
+                    Artículos sobre {{ selected_category.name|lower }}
+                {% elif selected_tag %}
+                    Artículos etiquetados con "{{ selected_tag.name }}"
+                {% else %}
+                    Últimas noticias y artículos sobre construcción
+                {% endif %}
+            </p>
+        </div>
     </div>
 </section>
 
-<section class="py-16 bg-gray-50">
+<section class="py-20 bg-gradient-to-b from-white to-gray-50">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
             <aside class="lg:col-span-1">
-                <div class="card sticky top-24">
-                    <h3 class="text-lg font-bold mb-4">Categorías</h3>
+                <div class="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-gray-100 sticky top-24">
+                    <div class="flex items-center mb-6">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center mr-3">
+                            <i class="fas fa-folder text-white"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900">Categorías</h3>
+                    </div>
                     <ul class="space-y-2">
                         <li>
-                            <a href="{% url 'blog_list' %}" class="text-gray-700 hover:text-primary-600 transition {% if not selected_category %}font-semibold text-primary-600{% endif %}">
+                            <a href="{% url 'blog_list' %}" class="flex items-center px-4 py-2.5 rounded-lg transition-all {% if not selected_category %}bg-primary-50 text-primary-700 font-semibold{% else %}text-gray-700 hover:bg-gray-50{% endif %}">
+                                <i class="fas fa-th mr-2"></i>
                                 Todas
                             </a>
                         </li>
                         {% for category in categories %}
                             <li>
-                                <a href="?categoria={{ category.slug }}" class="text-gray-700 hover:text-primary-600 transition {% if selected_category.slug == category.slug %}font-semibold text-primary-600{% endif %}">
+                                <a href="?categoria={{ category.slug }}" class="flex items-center px-4 py-2.5 rounded-lg transition-all {% if selected_category.slug == category.slug %}bg-primary-50 text-primary-700 font-semibold{% else %}text-gray-700 hover:bg-gray-50{% endif %}">
+                                    <i class="fas fa-tag mr-2 text-sm"></i>
                                     {{ category.name }}
                                 </a>
                             </li>
@@ -47,11 +74,16 @@
                     </ul>
                     
                     {% if popular_tags %}
-                    <div class="mt-8">
-                        <h3 class="text-lg font-bold mb-4">Etiquetas Populares</h3>
+                    <div class="mt-8 pt-8 border-t border-gray-200">
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mr-2">
+                                <i class="fas fa-tags text-white text-sm"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-gray-900">Etiquetas</h3>
+                        </div>
                         <div class="flex flex-wrap gap-2">
                             {% for tag in popular_tags %}
-                                <a href="?etiqueta={{ tag.slug }}" class="px-3 py-1 bg-gray-200 hover:bg-primary-600 hover:text-white rounded-full text-sm transition">
+                                <a href="?etiqueta={{ tag.slug }}" class="px-3 py-1.5 bg-gradient-to-r from-blue-50 to-primary-50 hover:from-primary-600 hover:to-primary-700 text-gray-700 hover:text-white rounded-full text-sm font-medium transition-all shadow-sm hover:shadow-md">
                                     {{ tag.name }}
                                 </a>
                             {% endfor %}
@@ -65,43 +97,56 @@
                 {% if page_obj %}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {% for post in page_obj %}
-                            <article class="card group">
+                            <article class="card-blog group">
                                 {% if post.featured_image %}
-                                    <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-48 object-cover rounded-t-lg -mx-6 -mt-6 mb-4">
-                                {% endif %}
-                                
-                                <div class="flex items-center text-sm text-gray-500 mb-3">
-                                    <i class="far fa-calendar mr-2"></i>
-                                    <span>{{ post.published_at|date:"d/m/Y" }}</span>
-                                    {% if post.category %}
-                                        <span class="mx-2">•</span>
-                                        <a href="?categoria={{ post.category.slug }}" class="text-primary-600 hover:underline">
-                                            {{ post.category.name }}
-                                        </a>
-                                    {% endif %}
-                                    <span class="mx-2">•</span>
-                                    <span><i class="far fa-eye mr-1"></i>{{ post.views }}</span>
-                                </div>
-                                
-                                <h2 class="text-2xl font-bold mb-3 group-hover:text-primary-600 transition">
-                                    <a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a>
-                                </h2>
-                                
-                                <p class="text-gray-600 mb-4">{{ post.summary }}</p>
-                                
-                                {% if post.tags.all %}
-                                    <div class="flex flex-wrap gap-2 mb-4">
-                                        {% for tag in post.tags.all|slice:":3" %}
-                                            <span class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded">
-                                                {{ tag.name }}
-                                            </span>
-                                        {% endfor %}
+                                    <div class="relative overflow-hidden">
+                                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-500">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    </div>
+                                {% else %}
+                                    <div class="w-full h-56 bg-gradient-to-br from-primary-100 to-blue-100 flex items-center justify-center">
+                                        <i class="fas fa-newspaper text-6xl text-primary-300"></i>
                                     </div>
                                 {% endif %}
                                 
-                                <a href="{% url 'blog_detail' post.slug %}" class="text-primary-600 font-semibold hover:underline">
-                                    Leer más <i class="fas fa-arrow-right ml-1"></i>
-                                </a>
+                                <div class="p-6">
+                                    <div class="flex flex-wrap items-center gap-2 text-sm mb-4">
+                                        <span class="flex items-center text-gray-500">
+                                            <i class="far fa-calendar mr-1.5"></i>
+                                            {{ post.published_at|date:"d/m/Y" }}
+                                        </span>
+                                        {% if post.category %}
+                                            <a href="?categoria={{ post.category.slug }}" class="px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-xs font-semibold hover:bg-primary-200 transition">
+                                                {{ post.category.name }}
+                                            </a>
+                                        {% endif %}
+                                        <span class="flex items-center text-gray-500">
+                                            <i class="far fa-eye mr-1.5"></i>
+                                            {{ post.views }}
+                                        </span>
+                                    </div>
+                                    
+                                    <h2 class="text-2xl font-bold mb-3 text-gray-900 group-hover:text-primary-600 transition line-clamp-2">
+                                        <a href="{% url 'blog_detail' post.slug %}">{{ post.title }}</a>
+                                    </h2>
+                                    
+                                    <p class="text-gray-600 mb-4 line-clamp-3 leading-relaxed">{{ post.summary }}</p>
+                                    
+                                    {% if post.tags.all %}
+                                        <div class="flex flex-wrap gap-2 mb-4">
+                                            {% for tag in post.tags.all|slice:":3" %}
+                                                <span class="text-xs px-3 py-1 bg-gray-100 text-gray-600 rounded-full font-medium">
+                                                    {{ tag.name }}
+                                                </span>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    
+                                    <a href="{% url 'blog_detail' post.slug %}" class="inline-flex items-center text-primary-600 font-bold hover:text-primary-700 group/link">
+                                        Leer más 
+                                        <i class="fas fa-arrow-right ml-2 group-hover/link:translate-x-2 transition-transform"></i>
+                                    </a>
+                                </div>
                             </article>
                         {% endfor %}
                     </div>
@@ -134,9 +179,12 @@
                         </div>
                     {% endif %}
                 {% else %}
-                    <div class="text-center py-16">
-                        <i class="fas fa-newspaper text-6xl text-gray-300 mb-4"></i>
-                        <p class="text-xl text-gray-500">No hay artículos disponibles.</p>
+                    <div class="text-center py-20">
+                        <div class="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-primary-100 rounded-full flex items-center justify-center">
+                            <i class="fas fa-newspaper text-6xl text-primary-400"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">No hay artículos disponibles</h3>
+                        <p class="text-lg text-gray-500">Pronto publicaremos nuevo contenido.</p>
                     </div>
                 {% endif %}
             </div>

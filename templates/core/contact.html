@@ -2,117 +2,156 @@
 {% load static %}
 
 {% block content %}
-<section class="bg-gray-900 text-white py-16">
-    <div class="container mx-auto px-4">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Contacto</h1>
-        <p class="text-xl text-gray-300">Estamos aquí para ayudarte con tu proyecto</p>
+<section class="relative bg-gradient-to-br from-primary-900 via-primary-800 to-blue-900 text-white py-24 overflow-hidden">
+    <div class="gradient-overlay"></div>
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20"></div>
+    </div>
+    
+    <div class="container mx-auto px-4 relative z-10">
+        <div class="text-center max-w-3xl mx-auto">
+            <div class="inline-block mb-4">
+                <span class="px-4 py-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-sm font-semibold">
+                    <i class="fas fa-envelope mr-2"></i>Contáctanos
+                </span>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-6">Contacto</h1>
+            <p class="text-xl md:text-2xl text-blue-100">Estamos aquí para ayudarte con tu proyecto</p>
+        </div>
     </div>
 </section>
 
-<section class="py-16 bg-gray-50">
+<section class="py-20 bg-gradient-to-b from-white to-gray-50">
     <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             <div>
-                <h2 class="text-3xl font-bold mb-6">Envíanos un mensaje</h2>
-                <p class="text-gray-600 mb-8">
-                    Completa el formulario y nos pondremos en contacto contigo lo antes posible. 
-                    También puedes contactarnos directamente por teléfono o email.
-                </p>
+                <div class="mb-8">
+                    <div class="inline-block mb-4">
+                        <span class="px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold">
+                            <i class="fas fa-paper-plane mr-2"></i>Formulario de Contacto
+                        </span>
+                    </div>
+                    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Envíanos un mensaje</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed">
+                        Completa el formulario y nos pondremos en contacto contigo lo antes posible. 
+                        También puedes contactarnos directamente por teléfono o email.
+                    </p>
+                </div>
                 
-                <form method="post" class="space-y-6">
+                <form method="post" class="space-y-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-gray-100">
                     {% csrf_token %}
                     
                     <input type="text" name="website" style="display:none;" tabindex="-1" autocomplete="off">
                     
                     <div>
-                        <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Nombre completo *</label>
+                        <label for="name" class="block text-sm font-bold text-gray-900 mb-2"><i class="fas fa-user mr-2 text-primary-600"></i>Nombre completo *</label>
                         <input type="text" id="name" name="name" required 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                               class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
                     </div>
                     
                     <div>
-                        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
+                        <label for="email" class="block text-sm font-bold text-gray-900 mb-2"><i class="fas fa-envelope mr-2 text-primary-600"></i>Email *</label>
                         <input type="email" id="email" name="email" required 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                               class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
                     </div>
                     
                     <div>
-                        <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">Teléfono</label>
+                        <label for="phone" class="block text-sm font-bold text-gray-900 mb-2"><i class="fas fa-phone mr-2 text-primary-600"></i>Teléfono</label>
                         <input type="tel" id="phone" name="phone" 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                               class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all">
                     </div>
                     
                     <div>
-                        <label for="message" class="block text-sm font-semibold text-gray-700 mb-2">Mensaje *</label>
+                        <label for="message" class="block text-sm font-bold text-gray-900 mb-2"><i class="fas fa-comment mr-2 text-primary-600"></i>Mensaje *</label>
                         <textarea id="message" name="message" rows="6" required 
-                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"></textarea>
+                                  class="w-full px-5 py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all"></textarea>
                     </div>
                     
-                    <button type="submit" class="btn-primary w-full md:w-auto">
+                    <button type="submit" class="btn-primary w-full md:w-auto group">
                         <i class="fas fa-paper-plane mr-2"></i> Enviar Mensaje
+                        <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                     </button>
                 </form>
             </div>
             
             <div>
-                <h2 class="text-3xl font-bold mb-6">Información de Contacto</h2>
+                <div class="mb-8">
+                    <div class="inline-block mb-4">
+                        <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">
+                            <i class="fas fa-info-circle mr-2"></i>Datos de Contacto
+                        </span>
+                    </div>
+                    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Información de Contacto</h2>
+                </div>
                 
-                <div class="space-y-6">
-                    <div class="card flex items-start">
-                        <div class="text-primary-600 text-2xl mr-4 mt-1">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold mb-1">Dirección</h3>
-                            <p class="text-gray-600">Calle Ejemplo 123<br>08001 Barcelona, España</p>
-                        </div>
-                    </div>
-                    
-                    <div class="card flex items-start">
-                        <div class="text-primary-600 text-2xl mr-4 mt-1">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold mb-1">Teléfono</h3>
-                            <p class="text-gray-600">+34 123 456 789</p>
+                <div class="space-y-5">
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1 duration-300">
+                        <div class="flex items-start">
+                            <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-primary-700 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-gray-900 mb-2">Dirección</h3>
+                                <p class="text-gray-600 leading-relaxed">Calle Ejemplo 123<br>08001 Barcelona, España</p>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="card flex items-start">
-                        <div class="text-primary-600 text-2xl mr-4 mt-1">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-bold mb-1">Email</h3>
-                            <p class="text-gray-600">info@constructora.com</p>
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1 duration-300">
+                        <div class="flex items-start">
+                            <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-700 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-phone text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-gray-900 mb-2">Teléfono</h3>
+                                <a href="tel:+34123456789" class="text-primary-600 hover:text-primary-700 font-semibold">+34 123 456 789</a>
+                            </div>
                         </div>
                     </div>
                     
-                    <div class="card flex items-start">
-                        <div class="text-primary-600 text-2xl mr-4 mt-1">
-                            <i class="fas fa-clock"></i>
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1 duration-300">
+                        <div class="flex items-start">
+                            <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-envelope text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-gray-900 mb-2">Email</h3>
+                                <a href="mailto:info@constructora.com" class="text-primary-600 hover:text-primary-700 font-semibold">info@constructora.com</a>
+                            </div>
                         </div>
-                        <div>
-                            <h3 class="font-bold mb-1">Horario</h3>
-                            <p class="text-gray-600">
-                                Lunes - Viernes: 9:00 - 18:00<br>
-                                Sábados: 10:00 - 14:00
-                            </p>
+                    </div>
+                    
+                    <div class="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition-all hover:-translate-y-1 duration-300">
+                        <div class="flex items-start">
+                            <div class="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-700 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-clock text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-gray-900 mb-2">Horario</h3>
+                                <p class="text-gray-600 leading-relaxed">
+                                    Lunes - Viernes: 9:00 - 18:00<br>
+                                    Sábados: 10:00 - 14:00
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="mt-8">
-                    <h3 class="font-bold mb-4">Síguenos</h3>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-primary-600 hover:text-primary-700 text-2xl">
-                            <i class="fab fa-facebook"></i>
+                <div class="mt-8 bg-gradient-to-br from-primary-50 to-blue-50 rounded-2xl p-6 border border-primary-100">
+                    <h3 class="font-bold text-lg text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-share-alt mr-2 text-primary-600"></i>
+                        Síguenos en Redes Sociales
+                    </h3>
+                    <div class="flex space-x-3">
+                        <a href="#" class="w-12 h-12 bg-white hover:bg-primary-600 text-primary-600 hover:text-white rounded-xl flex items-center justify-center transition-all shadow-md hover:shadow-lg transform hover:scale-110">
+                            <i class="fab fa-facebook text-xl"></i>
                         </a>
-                        <a href="#" class="text-primary-600 hover:text-primary-700 text-2xl">
-                            <i class="fab fa-instagram"></i>
+                        <a href="#" class="w-12 h-12 bg-white hover:bg-primary-600 text-primary-600 hover:text-white rounded-xl flex items-center justify-center transition-all shadow-md hover:shadow-lg transform hover:scale-110">
+                            <i class="fab fa-instagram text-xl"></i>
                         </a>
-                        <a href="#" class="text-primary-600 hover:text-primary-700 text-2xl">
-                            <i class="fab fa-linkedin"></i>
+                        <a href="#" class="w-12 h-12 bg-white hover:bg-primary-600 text-primary-600 hover:text-white rounded-xl flex items-center justify-center transition-all shadow-md hover:shadow-lg transform hover:scale-110">
+                            <i class="fab fa-linkedin text-xl"></i>
                         </a>
                     </div>
                 </div>

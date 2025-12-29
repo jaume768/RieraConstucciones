@@ -32,35 +32,60 @@
     
     {% block structured_data %}{% endblock %}
 </head>
-<body class="bg-gray-50">
-    <nav class="bg-white shadow-md sticky top-0 z-50">
+<body class="bg-gradient-to-br from-gray-50 via-blue-50 to-gray-50">
+    <nav class="backdrop-blur-lg bg-white/80 shadow-lg sticky top-0 z-50 border-b border-gray-100">
         <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center space-x-2">
-                    <a href="{% url 'home' %}" class="text-2xl font-bold text-primary-600">
-                        {{ SITE_NAME }}
+            <div class="flex justify-between items-center py-5">
+                <div class="flex items-center space-x-3">
+                    <a href="{% url 'home' %}" class="group flex items-center space-x-2">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-800 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
+                            <i class="fas fa-hard-hat text-white text-lg"></i>
+                        </div>
+                        <span class="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
+                            {{ SITE_NAME }}
+                        </span>
                     </a>
                 </div>
                 
-                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none hover:text-primary-600 transition">
                     <i class="fas fa-bars text-2xl"></i>
                 </button>
                 
-                <div id="menu" class="hidden md:flex md:items-center md:space-x-6">
-                    <a href="{% url 'home' %}" class="text-gray-700 hover:text-primary-600 transition {% if request.path == '/' %}text-primary-600 font-semibold{% endif %}">Inicio</a>
-                    <a href="{% url 'about' %}" class="text-gray-700 hover:text-primary-600 transition {% if 'sobre-nosotros' in request.path %}text-primary-600 font-semibold{% endif %}">Sobre Nosotros</a>
-                    <a href="{% url 'services_list' %}" class="text-gray-700 hover:text-primary-600 transition {% if 'servicios' in request.path %}text-primary-600 font-semibold{% endif %}">Servicios</a>
-                    <a href="{% url 'blog_list' %}" class="text-gray-700 hover:text-primary-600 transition {% if 'blog' in request.path %}text-primary-600 font-semibold{% endif %}">Blog</a>
-                    <a href="{% url 'contact' %}" class="btn-primary">Contacto</a>
+                <div id="menu" class="hidden md:flex md:items-center md:space-x-1">
+                    <a href="{% url 'home' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">
+                        <i class="fas fa-home mr-1"></i>Inicio
+                    </a>
+                    <a href="{% url 'about' %}" class="nav-link {% if 'sobre-nosotros' in request.path %}active{% endif %}">
+                        <i class="fas fa-info-circle mr-1"></i>Nosotros
+                    </a>
+                    <a href="{% url 'services_list' %}" class="nav-link {% if 'servicios' in request.path %}active{% endif %}">
+                        <i class="fas fa-tools mr-1"></i>Servicios
+                    </a>
+                    <a href="{% url 'blog_list' %}" class="nav-link {% if 'blog' in request.path %}active{% endif %}">
+                        <i class="fas fa-newspaper mr-1"></i>Blog
+                    </a>
+                    <a href="{% url 'contact' %}" class="btn-primary-nav">
+                        <i class="fas fa-envelope mr-2"></i>Contacto
+                    </a>
                 </div>
             </div>
             
-            <div id="mobile-menu" class="hidden md:hidden pb-4">
-                <a href="{% url 'home' %}" class="block py-2 text-gray-700 hover:text-primary-600">Inicio</a>
-                <a href="{% url 'about' %}" class="block py-2 text-gray-700 hover:text-primary-600">Sobre Nosotros</a>
-                <a href="{% url 'services_list' %}" class="block py-2 text-gray-700 hover:text-primary-600">Servicios</a>
-                <a href="{% url 'blog_list' %}" class="block py-2 text-gray-700 hover:text-primary-600">Blog</a>
-                <a href="{% url 'contact' %}" class="block py-2 text-gray-700 hover:text-primary-600">Contacto</a>
+            <div id="mobile-menu" class="hidden md:hidden pb-4 space-y-2">
+                <a href="{% url 'home' %}" class="block py-3 px-4 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition">
+                    <i class="fas fa-home mr-2"></i>Inicio
+                </a>
+                <a href="{% url 'about' %}" class="block py-3 px-4 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition">
+                    <i class="fas fa-info-circle mr-2"></i>Sobre Nosotros
+                </a>
+                <a href="{% url 'services_list' %}" class="block py-3 px-4 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition">
+                    <i class="fas fa-tools mr-2"></i>Servicios
+                </a>
+                <a href="{% url 'blog_list' %}" class="block py-3 px-4 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition">
+                    <i class="fas fa-newspaper mr-2"></i>Blog
+                </a>
+                <a href="{% url 'contact' %}" class="block py-3 px-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:shadow-lg transition">
+                    <i class="fas fa-envelope mr-2"></i>Contacto
+                </a>
             </div>
         </div>
     </nav>
