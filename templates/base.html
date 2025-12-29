@@ -37,13 +37,8 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-5">
                 <div class="flex items-center space-x-3">
-                    <a href="{% url 'home' %}" class="group flex items-center space-x-2">
-                        <div class="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-800 rounded-lg flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-110">
-                            <i class="fas fa-hard-hat text-white text-lg"></i>
-                        </div>
-                        <span class="text-2xl font-bold bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
-                            {{ SITE_NAME }}
-                        </span>
+                    <a href="{% url 'home' %}" class="group">
+                        <img src="{% static 'images/logo.png' %}" alt="{{ SITE_NAME }}" class="h-16 w-auto transition-all duration-300 group-hover:scale-110">
                     </a>
                 </div>
                 
