@@ -13,6 +13,13 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,rieraconstruccions.com,www.rieraconstruccions.com,admin.rieraconstruccions.com').split(',')
 
+# CSRF Trusted Origins para HTTPS
+CSRF_TRUSTED_ORIGINS = [
+    'https://rieraconstruccions.com',
+    'https://www.rieraconstruccions.com',
+    'https://admin.rieraconstruccions.com',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
