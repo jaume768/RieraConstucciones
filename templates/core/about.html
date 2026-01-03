@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="py-20 bg-gradient-to-br from-primary-50 to-white">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h1 class="text-5xl font-bold text-gray-900 mb-6">Sobre Nosotros</h1>
+            <p class="text-xl text-gray-600 leading-relaxed">
+                Somos una empresa constructora comprometida con la calidad y la satisfacción del cliente.
+            </p>
+        </div>
+    </div>
+</section>
+
+{% if content %}
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto prose prose-lg">
+            {{ content|safe }}
+        </div>
+    </div>
+</section>
+{% else %}
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">Nuestra Historia</h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    Con más de 20 años de experiencia en el sector de la construcción, nos hemos consolidado como una empresa de referencia en reformas, obra nueva y rehabilitaciones. Nuestro compromiso con la calidad y la satisfacción del cliente nos ha permitido crecer y evolucionar constantemente.
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    Cada proyecto es único y lo afrontamos con la misma dedicación y profesionalidad, independientemente de su envergadura. Desde la construcción de chalets hasta la limpieza de solares, pasando por reformas integrales y estructuras complejas.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if company_values %}
+<section class="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Nuestros Valores</h2>
+            <p class="text-xl text-gray-600">Los pilares que guían nuestro trabajo diario</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for value in company_values %}
+            <div class="bg-white rounded-xl shadow-lg p-8 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                {% if value.icon %}
+                <div class="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-800 rounded-full flex items-center justify-center mb-6">
+                    <i class="{{ value.icon }} text-white text-2xl"></i>
+                </div>
+                {% endif %}
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">{{ value.title }}</h3>
+                <p class="text-gray-600 leading-relaxed">{{ value.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if team_members %}
+<section class="py-16">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">Nuestro Equipo</h2>
+            <p class="text-xl text-gray-600">Profesionales comprometidos con la excelencia</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for member in team_members %}
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                {% if member.photo %}
+                <div class="aspect-w-3 aspect-h-4 overflow-hidden">
+                    <img src="{{ member.photo.url }}" alt="{{ member.name }}" class="w-full h-64 object-cover">
+                </div>
+                {% else %}
+                <div class="bg-gradient-to-br from-primary-600 to-primary-800 h-64 flex items-center justify-center">
+                    <i class="fas fa-user text-white text-6xl"></i>
+                </div>
+                {% endif %}
+                
+                <div class="p-6">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">{{ member.name }}</h3>
+                    <p class="text-primary-600 font-semibold mb-4">{{ member.position }}</p>
+                    
+                    {% if member.bio %}
+                    <p class="text-gray-600 mb-4">{{ member.bio }}</p>
+                    {% endif %}
+                    
+                    <div class="flex space-x-4">
+                        {% if member.email %}
+                        <a href="mailto:{{ member.email }}" class="text-gray-600 hover:text-primary-600 transition">
+                            <i class="fas fa-envelope text-xl"></i>
+                        </a>
+                        {% endif %}
+                        
+                        {% if member.linkedin %}
+                        <a href="{{ member.linkedin }}" target="_blank" class="text-gray-600 hover:text-primary-600 transition">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<section class="py-16 bg-gradient-to-br from-primary-600 to-primary-800 text-white">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl font-bold mb-6">¿Listo para empezar tu proyecto?</h2>
+        <p class="text-xl mb-8 opacity-90">Contacta con nosotros y te ayudaremos a hacerlo realidad</p>
+        <a href="{% url 'contact' %}" class="inline-block bg-white text-primary-600 px-8 py-4 rounded-lg font-bold text-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+            <i class="fas fa-envelope mr-2"></i>Contactar Ahora
+        </a>
+    </div>
+</section>
+{% endblock %}

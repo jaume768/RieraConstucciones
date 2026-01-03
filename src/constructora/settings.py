@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-change-this-in-production'
 
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,rieraconstucciones-production.up.railway.app').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,rieraconstruccions.com,www.rieraconstruccions.com,admin.rieraconstruccions.com').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -119,11 +119,11 @@ EMAIL_PORT = int(os.getenv('EMAIL_PORT', '587'))
 EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS', 'True') == 'True'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
-DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'info@constructora.com')
-CONTACT_EMAIL = os.getenv('CONTACT_EMAIL', 'info@constructora.com')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'rieraconstruccions@gmail.com')
+CONTACT_EMAIL = os.getenv('CONTACT_EMAIL', 'rieraconstruccions@gmail.com')
 
 SITE_NAME = os.getenv('SITE_NAME', 'Constructora Riera')
-SITE_URL = os.getenv('SITE_URL', 'https://constructora.com')
+SITE_URL = os.getenv('SITE_URL', 'https://rieraconstruccions.com')
 
 CACHES = {
     'default': {
