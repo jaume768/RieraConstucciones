@@ -1,2 +1,5 @@
 páginas en el backoffice ?
 Quitar accesos rápidos del backoffice
+multiidioma (ingles, aleman, catalan, español)
+optimización SEO
+aparatado de ventas para casas (con filtros y búsqueda)
