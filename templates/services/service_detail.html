@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block meta_title %}{{ service.get_meta_title }}{% endblock %}
 {% block meta_description %}{{ service.get_meta_description }}{% endblock %}
@@ -68,12 +68,12 @@
             </div>
             
             <div class="mt-12 p-8 bg-primary-50 rounded-lg border-l-4 border-primary-600">
-                <h3 class="text-2xl font-bold mb-4">¿Interesado en este servicio?</h3>
+                <h3 class="text-2xl font-bold mb-4">{% trans "¿Interesado en este servicio?" %}</h3>
                 <p class="text-gray-700 mb-6">
-                    Contacta con nosotros y te ofreceremos un presupuesto personalizado sin compromiso.
+                    {% trans "Contacta con nosotros y te ofreceremos un presupuesto personalizado sin compromiso." %}
                 </p>
                 <a href="{% url 'contact' %}" class="btn-primary">
-                    <i class="fas fa-envelope mr-2"></i> Solicitar Presupuesto
+                    <i class="fas fa-envelope mr-2"></i> {% trans "Solicitar Presupuesto" %}
                 </a>
             </div>
         </div>
@@ -84,7 +84,7 @@
 <section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center">Otros Servicios</h2>
+            <h2 class="text-3xl font-bold mb-8 text-center">{% trans "Otros Servicios" %}</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {% for other in other_services %}
@@ -102,7 +102,7 @@
                         <p class="text-gray-600 mb-4">{{ other.short_description|truncatewords:15 }}</p>
                         
                         <a href="{% url 'service_detail' other.slug %}" class="text-primary-600 font-semibold hover:underline">
-                            Ver más <i class="fas fa-arrow-right ml-1"></i>
+                            {% trans "Ver más" %} <i class="fas fa-arrow-right ml-1"></i>
                         </a>
                     </div>
                 {% endfor %}

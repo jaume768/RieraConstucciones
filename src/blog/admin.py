@@ -1,27 +1,31 @@
 from django.contrib import admin
+from parler.admin import TranslatableAdmin
 from .models import Category, Tag, Post
 
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TranslatableAdmin):
     list_display = ['name', 'slug']
-    search_fields = ['name']
-    prepopulated_fields = {'slug': ('name',)}
+    search_fields = ['translations__name']
+    
+    def get_prepopulated_fields(self, request, obj=None):
+        return {'slug': ('name',)}
 
 
 @admin.register(Tag)
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(TranslatableAdmin):
     list_display = ['name', 'slug']
-    search_fields = ['name']
-    prepopulated_fields = {'slug': ('name',)}
+    search_fields = ['translations__name']
+    
+    def get_prepopulated_fields(self, request, obj=None):
+        return {'slug': ('name',)}
 
 
 @admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(TranslatableAdmin):
     list_display = ['title', 'category', 'author', 'is_published', 'is_featured', 'published_at', 'views']
     list_filter = ['is_published', 'is_featured', 'category', 'created_at', 'published_at']
-    search_fields = ['title', 'summary', 'content']
-    prepopulated_fields = {'slug': ('title',)}
+    search_fields = ['translations__title', 'translations__summary']
     filter_horizontal = ['tags']
     list_editable = ['is_published', 'is_featured']
     date_hierarchy = 'published_at'
@@ -45,6 +49,9 @@ class PostAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+    
+    def get_prepopulated_fields(self, request, obj=None):
+        return {'slug': ('title',)}
     
     def save_model(self, request, obj, form, change):
         if not obj.author_id:

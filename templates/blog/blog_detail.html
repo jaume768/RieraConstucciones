@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block meta_title %}{{ post.get_meta_title }}{% endblock %}
 {% block meta_description %}{{ post.get_meta_description }}{% endblock %}
@@ -55,7 +55,7 @@
                                 <span><i class="far fa-user mr-2"></i>{{ post.author.get_full_name|default:post.author.username }}</span>
                             {% endif %}
                             <span><i class="far fa-calendar mr-2"></i>{{ post.published_at|date:"d/m/Y" }}</span>
-                            <span><i class="far fa-eye mr-2"></i>{{ post.views }} visitas</span>
+                            <span><i class="far fa-eye mr-2"></i>{{ post.views }} {% trans "visitas" %}</span>
                         </div>
                     </div>
                 </div>
@@ -98,7 +98,7 @@
                 
                 {% if post.tags.all %}
                     <div class="flex flex-wrap gap-2 mt-8 pt-8 border-t">
-                        <span class="font-semibold text-gray-700 mr-2">Etiquetas:</span>
+                        <span class="font-semibold text-gray-700 mr-2">{% trans "Etiquetas:" %}</span>
                         {% for tag in post.tags.all %}
                             <a href="{% url 'blog_list' %}?etiqueta={{ tag.slug }}" class="px-3 py-1 bg-gray-100 hover:bg-primary-600 hover:text-white rounded-full text-sm transition">
                                 {{ tag.name }}
@@ -114,7 +114,7 @@
     <section class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl font-bold mb-8">Artículos Relacionados</h2>
+                <h2 class="text-3xl font-bold mb-8">{% trans "Artículos Relacionados" %}</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {% for related in related_posts %}
@@ -130,7 +130,7 @@
                             <p class="text-gray-600 text-sm mb-3">{{ related.summary|truncatewords:15 }}</p>
                             
                             <a href="{% url 'blog_detail' related.slug %}" class="text-primary-600 font-semibold hover:underline text-sm">
-                                Leer más <i class="fas fa-arrow-right ml-1"></i>
+                                {% trans "Leer más" %} <i class="fas fa-arrow-right ml-1"></i>
                             </a>
                         </article>
                     {% endfor %}
@@ -143,12 +143,12 @@
 
 <section class="py-16 bg-primary-600 text-white">
     <div class="container mx-auto px-4 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold mb-6">¿Te ha resultado útil este artículo?</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">{% trans "¿Te ha resultado útil este artículo?" %}</h2>
         <p class="text-xl mb-8 max-w-2xl mx-auto">
-            Contacta con nosotros para saber más sobre nuestros servicios
+            {% trans "Contacta con nosotros para saber más sobre nuestros servicios" %}
         </p>
         <a href="{% url 'contact' %}" class="bg-white text-primary-600 hover:bg-gray-100 font-semibold py-4 px-8 rounded-lg transition duration-300 inline-block shadow-lg">
-            Contactar
+            {% trans "Contactar" %}
         </a>
     </div>
 </section>

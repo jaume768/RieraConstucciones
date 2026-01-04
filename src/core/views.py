@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django.views.decorators.cache import cache_page
+from django.utils.translation import gettext as _
 from .models import Page, TeamMember, CompanyValue, ContactMessage
 from blog.models import Post
 from services.models import Service
@@ -54,7 +55,7 @@ def contact_view(request):
         honeypot = request.POST.get('website', '')
         
         if honeypot:
-            messages.error(request, 'Detectamos actividad sospechosa. Por favor, intenta de nuevo.')
+            messages.error(request, _('Detectamos actividad sospechosa. Por favor, intenta de nuevo.'))
             return redirect('contact')
         
         name = request.POST.get('name')
@@ -63,7 +64,7 @@ def contact_view(request):
         message = request.POST.get('message')
         
         if not all([name, email, message]):
-            messages.error(request, 'Por favor, completa todos los campos obligatorios.')
+            messages.error(request, _('Por favor, completa todos los campos obligatorios.'))
             return redirect('contact')
         
         ContactMessage.objects.create(
@@ -94,7 +95,7 @@ def contact_view(request):
         except Exception as e:
             print(f"Error enviando email: {e}")
         
-        messages.success(request, '¡Gracias por contactarnos! Te responderemos lo antes posible.')
+        messages.success(request, _('¡Gracias por contactarnos! Te responderemos lo antes posible.'))
         return redirect('contact')
     
     context = {

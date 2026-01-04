@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sitemaps',
     
+    'parler',
     'ckeditor',
     
     'core',
@@ -41,6 +42,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -99,7 +101,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'es-es'
+LANGUAGE_CODE = 'es'
+
+LANGUAGES = [
+    ('es', 'Español'),
+    ('ca', 'Català'),
+    ('en', 'English'),
+    ('de', 'Deutsch'),
+]
+
+LOCALE_PATHS = [
+    PROJECT_ROOT / 'locale',
+]
 
 TIME_ZONE = 'Europe/Madrid'
 
@@ -177,3 +190,19 @@ CSRF_COOKIE_SAMESITE = 'Lax'
 LOGIN_URL = '/backoffice/login/'
 LOGIN_REDIRECT_URL = '/backoffice/dashboard/'
 LOGOUT_REDIRECT_URL = '/backoffice/login/'
+
+# Configuración de django-parler para multiidioma
+PARLER_LANGUAGES = {
+    None: (
+        {'code': 'es',},
+        {'code': 'ca',},
+        {'code': 'en',},
+        {'code': 'de',},
+    ),
+    'default': {
+        'fallbacks': ['es'],
+        'hide_untranslated': False,
+    }
+}
+
+PARLER_DEFAULT_LANGUAGE_CODE = 'es'

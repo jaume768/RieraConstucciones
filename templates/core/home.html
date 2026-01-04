@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block structured_data %}
 <script type="application/ld+json">
@@ -46,42 +46,42 @@
         <div class="max-w-4xl">
             <div class="hero-badge">
                 <i class="fas fa-certificate mr-2"></i>
-                Calidad Garantizada
+                {% trans "Calidad Garantizada" %}
             </div>
             <h1 class="text-5xl md:text-7xl font-extrabold mb-8 leading-tight">
-                Construimos tus sueños con <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">calidad y compromiso</span>
+                {% trans "Construimos tus sueños con" %} <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">{% trans "calidad y compromiso" %}</span>
             </h1>
             <p class="text-xl md:text-2xl mb-10 text-gray-100 leading-relaxed max-w-2xl">
-                Especialistas en obra nueva, reformas y rehabilitaciones. Tu proyecto en manos de verdaderos expertos.
+                {% trans "Especialistas en obra nueva, reformas y rehabilitaciones. Tu proyecto en manos de verdaderos expertos." %}
             </p>
             <div class="flex flex-wrap gap-5">
                 <a href="{% url 'contact' %}" class="btn-white group">
                     <i class="fas fa-calculator mr-2"></i>
-                    Pedir Presupuesto
+                    {% trans "Pedir Presupuesto" %}
                     <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </a>
                 <a href="{% url 'services_list' %}" class="btn-outline">
                     <i class="fas fa-tools mr-2"></i>
-                    Ver Servicios
+                    {% trans "Ver Servicios" %}
                 </a>
             </div>
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
                 <div class="text-center">
                     <div class="text-4xl md:text-5xl font-bold text-cyan-300 mb-2">80+</div>
-                    <div class="text-sm text-gray-300">Proyectos Completados</div>
+                    <div class="text-sm text-gray-300">{% trans "Proyectos Completados" %}</div>
                 </div>
                 <div class="text-center">
                     <div class="text-4xl md:text-5xl font-bold text-cyan-300 mb-2">100%</div>
-                    <div class="text-sm text-gray-300">Clientes Satisfechos</div>
+                    <div class="text-sm text-gray-300">{% trans "Clientes Satisfechos" %}</div>
                 </div>
                 <div class="text-center">
                     <div class="text-4xl md:text-5xl font-bold text-cyan-300 mb-2">500+</div>
-                    <div class="text-sm text-gray-300">Proyectos Anuales</div>
+                    <div class="text-sm text-gray-300">{% trans "Proyectos Anuales" %}</div>
                 </div>
                 <div class="text-center">
                     <div class="text-4xl md:text-5xl font-bold text-cyan-300 mb-2">24/7</div>
-                    <div class="text-sm text-gray-300">Soporte</div>
+                    <div class="text-sm text-gray-300">{% trans "Soporte" %}</div>
                 </div>
             </div>
         </div>
@@ -95,11 +95,11 @@
         <div class="text-center mb-16">
             <div class="inline-block mb-4">
                 <span class="px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-sm font-semibold">
-                    <i class="fas fa-tools mr-2"></i>Servicios Profesionales
+                    <i class="fas fa-tools mr-2"></i>{% trans "Servicios Profesionales" %}
                 </span>
             </div>
-            <h2 class="section-title">Nuestros Servicios</h2>
-            <p class="section-subtitle">Soluciones completas para todo tipo de proyectos de construcción</p>
+            <h2 class="section-title">{% trans "Nuestros Servicios" %}</h2>
+            <p class="section-subtitle">{% trans "Soluciones completas para todo tipo de proyectos de construcción" %}</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -113,7 +113,7 @@
                     <h3 class="text-2xl font-bold mb-4 text-gray-900 group-hover:text-primary-600 transition">{{ service.title }}</h3>
                     <p class="text-gray-600 mb-6 leading-relaxed">{{ service.short_description }}</p>
                     <a href="{% url 'service_detail' service.slug %}" class="inline-flex items-center text-primary-600 font-bold hover:text-primary-700 group/link">
-                        Saber más 
+                        {% trans "Saber más" %}
                         <i class="fas fa-arrow-right ml-2 group-hover/link:translate-x-2 transition-transform"></i>
                     </a>
                 </div>
@@ -122,14 +122,14 @@
                     <div class="w-24 h-24 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
                         <i class="fas fa-tools text-4xl text-gray-400"></i>
                     </div>
-                    <p class="text-gray-500 text-lg">No hay servicios disponibles en este momento.</p>
+                    <p class="text-gray-500 text-lg">{% trans "No hay servicios disponibles en este momento." %}</p>
                 </div>
             {% endfor %}
         </div>
         
         <div class="text-center mt-12">
             <a href="{% url 'services_list' %}" class="btn-primary group">
-                Ver Todos los Servicios
+                {% trans "Ver Todos los Servicios" %}
                 <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
             </a>
         </div>

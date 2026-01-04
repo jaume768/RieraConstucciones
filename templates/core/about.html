@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block content %}
 <section class="py-20 bg-gradient-to-br from-primary-50 to-white">
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-5xl font-bold text-gray-900 mb-6">Sobre Nosotros</h1>
+            <h1 class="text-5xl font-bold text-gray-900 mb-6">{% trans "Sobre Nosotros" %}</h1>
             <p class="text-xl text-gray-600 leading-relaxed">
-                Somos una empresa constructora comprometida con la calidad y la satisfacción del cliente.
+                {% trans "Somos una empresa constructora comprometida con la calidad y la satisfacción del cliente." %}
             </p>
         </div>
     </div>
@@ -26,12 +26,12 @@
     <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
             <div class="bg-white rounded-2xl shadow-xl p-8 mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-6">Nuestra Historia</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6">{% trans "Nuestra Historia" %}</h2>
                 <p class="text-gray-700 leading-relaxed mb-4">
-                    Con más de 20 años de experiencia en el sector de la construcción, nos hemos consolidado como una empresa de referencia en reformas, obra nueva y rehabilitaciones. Nuestro compromiso con la calidad y la satisfacción del cliente nos ha permitido crecer y evolucionar constantemente.
+                    {% trans "Con más de 20 años de experiencia en el sector de la construcción, nos hemos consolidado como una empresa de referencia en reformas, obra nueva y rehabilitaciones. Nuestro compromiso con la calidad y la satisfacción del cliente nos ha permitido crecer y evolucionar constantemente." %}
                 </p>
                 <p class="text-gray-700 leading-relaxed">
-                    Cada proyecto es único y lo afrontamos con la misma dedicación y profesionalidad, independientemente de su envergadura. Desde la construcción de chalets hasta la limpieza de solares, pasando por reformas integrales y estructuras complejas.
+                    {% trans "Cada proyecto es único y lo afrontamos con la misma dedicación y profesionalidad, independientemente de su envergadura. Desde la construcción de chalets hasta la limpieza de solares, pasando por reformas integrales y estructuras complejas." %}
                 </p>
             </div>
         </div>
@@ -43,8 +43,8 @@
 <section class="py-16 bg-gradient-to-br from-gray-50 to-blue-50">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Nuestros Valores</h2>
-            <p class="text-xl text-gray-600">Los pilares que guían nuestro trabajo diario</p>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">{% trans "Nuestros Valores" %}</h2>
+            <p class="text-xl text-gray-600">{% trans "Los pilares que guían nuestro trabajo diario" %}</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -68,8 +68,8 @@
 <section class="py-16">
     <div class="container mx-auto px-4">
         <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-900 mb-4">Nuestro Equipo</h2>
-            <p class="text-xl text-gray-600">Profesionales comprometidos con la excelencia</p>
+            <h2 class="text-4xl font-bold text-gray-900 mb-4">{% trans "Nuestro Equipo" %}</h2>
+            <p class="text-xl text-gray-600">{% trans "Profesionales comprometidos con la excelencia" %}</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

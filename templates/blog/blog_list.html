@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
 {% block content %}
 <section class="relative bg-gradient-to-br from-primary-900 via-primary-800 to-blue-900 text-white py-24 overflow-hidden">
@@ -17,9 +17,9 @@
                     {% if selected_category %}
                         {{ selected_category.name }}
                     {% elif selected_tag %}
-                        Etiqueta
+                        {% trans "Etiqueta" %}
                     {% else %}
-                        Blog & Noticias
+                        {% trans "Blog & Noticias" %}
                     {% endif %}
                 </span>
             </div>
@@ -29,16 +29,16 @@
                 {% elif selected_tag %}
                     {{ selected_tag.name }}
                 {% else %}
-                    Blog y Noticias
+                    {% trans "Blog y Noticias" %}
                 {% endif %}
             </h1>
             <p class="text-xl md:text-2xl text-blue-100">
                 {% if selected_category %}
-                    Artículos sobre {{ selected_category.name|lower }}
+                    {% blocktrans with category=selected_category.name|lower %}Artículos sobre {{ category }}{% endblocktrans %}
                 {% elif selected_tag %}
-                    Artículos etiquetados con "{{ selected_tag.name }}"
+                    {% blocktrans with tag=selected_tag.name %}Artículos etiquetados con "{{ tag }}"{% endblocktrans %}
                 {% else %}
-                    Últimas noticias y artículos sobre construcción
+                    {% trans "Últimas noticias y artículos sobre construcción" %}
                 {% endif %}
             </p>
         </div>
@@ -54,13 +54,13 @@
                         <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center mr-3">
                             <i class="fas fa-folder text-white"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900">Categorías</h3>
+                        <h3 class="text-xl font-bold text-gray-900">{% trans "Categorías" %}</h3>
                     </div>
                     <ul class="space-y-2">
                         <li>
                             <a href="{% url 'blog_list' %}" class="flex items-center px-4 py-2.5 rounded-lg transition-all {% if not selected_category %}bg-primary-50 text-primary-700 font-semibold{% else %}text-gray-700 hover:bg-gray-50{% endif %}">
                                 <i class="fas fa-th mr-2"></i>
-                                Todas
+                                {% trans "Todas" %}
                             </a>
                         </li>
                         {% for category in categories %}
@@ -79,7 +79,7 @@
                             <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-blue-700 rounded-lg flex items-center justify-center mr-2">
                                 <i class="fas fa-tags text-white text-sm"></i>
                             </div>
-                            <h3 class="text-lg font-bold text-gray-900">Etiquetas</h3>
+                            <h3 class="text-lg font-bold text-gray-900">{% trans "Etiquetas" %}</h3>
                         </div>
                         <div class="flex flex-wrap gap-2">
                             {% for tag in popular_tags %}

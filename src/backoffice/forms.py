@@ -1,16 +1,18 @@
 from django import forms
 from django.utils.text import slugify
+from parler.forms import TranslatableModelForm
 from blog.models import Post, Category, Tag
 from services.models import Service
 from core.models import TeamMember, CompanyValue, Page
 
 
-class CategoryForm(forms.ModelForm):
+class CategoryForm(TranslatableModelForm):
     """Form para crear/editar categorías del blog"""
     
     class Meta:
         model = Category
         fields = ['name', 'slug', 'description']
+        untranslated_fields = ['slug']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
@@ -34,12 +36,13 @@ class CategoryForm(forms.ModelForm):
         return slug
 
 
-class TagForm(forms.ModelForm):
+class TagForm(TranslatableModelForm):
     """Form para crear/editar etiquetas del blog"""
     
     class Meta:
         model = Tag
         fields = ['name', 'slug']
+        untranslated_fields = ['slug']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
@@ -58,7 +61,7 @@ class TagForm(forms.ModelForm):
         return slug
 
 
-class PostForm(forms.ModelForm):
+class PostForm(TranslatableModelForm):
     """Form para crear/editar posts del blog"""
     
     class Meta:
@@ -68,6 +71,7 @@ class PostForm(forms.ModelForm):
             'content', 'featured_image', 'meta_title', 
             'meta_description', 'is_published', 'is_featured'
         ]
+        untranslated_fields = ['slug', 'featured_image', 'category', 'tags', 'is_published', 'is_featured']
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
@@ -132,7 +136,7 @@ class PostForm(forms.ModelForm):
         return instance
 
 
-class ServiceForm(forms.ModelForm):
+class ServiceForm(TranslatableModelForm):
     """Form para crear/editar servicios"""
     
     class Meta:
@@ -142,6 +146,7 @@ class ServiceForm(forms.ModelForm):
             'icon', 'image', 'meta_title', 'meta_description',
             'order', 'is_active'
         ]
+        untranslated_fields = ['slug', 'icon', 'image', 'order', 'is_active']
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
@@ -194,7 +199,7 @@ class ServiceForm(forms.ModelForm):
         return slug
 
 
-class TeamMemberForm(forms.ModelForm):
+class TeamMemberForm(TranslatableModelForm):
     """Form para crear/editar miembros del equipo"""
     
     class Meta:
@@ -203,6 +208,7 @@ class TeamMemberForm(forms.ModelForm):
             'name', 'position', 'photo', 'bio', 
             'email', 'linkedin', 'order', 'is_active'
         ]
+        untranslated_fields = ['name', 'photo', 'email', 'linkedin', 'order', 'is_active']
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
@@ -238,12 +244,13 @@ class TeamMemberForm(forms.ModelForm):
         }
 
 
-class CompanyValueForm(forms.ModelForm):
+class CompanyValueForm(TranslatableModelForm):
     """Form para crear/editar valores de la empresa"""
     
     class Meta:
         model = CompanyValue
         fields = ['title', 'description', 'icon', 'order', 'is_active']
+        untranslated_fields = ['icon', 'order', 'is_active']
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
@@ -268,7 +275,7 @@ class CompanyValueForm(forms.ModelForm):
         }
 
 
-class PageForm(forms.ModelForm):
+class PageForm(TranslatableModelForm):
     """Form para editar páginas estáticas"""
     
     class Meta:
@@ -277,6 +284,7 @@ class PageForm(forms.ModelForm):
             'title', 'slug', 'content', 'meta_title', 
             'meta_description', 'og_image', 'is_published'
         ]
+        untranslated_fields = ['slug', 'og_image', 'is_published']
         widgets = {
             'title': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',

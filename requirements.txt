@@ -5,3 +5,4 @@ python-dotenv==1.0.0
 gunicorn==21.2.0
 whitenoise==6.6.0
 django-ckeditor==6.7.0
+django-parler==2.3

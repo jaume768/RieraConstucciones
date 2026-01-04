@@ -1,13 +1,13 @@
 from django.contrib import admin
+from parler.admin import TranslatableAdmin
 from .models import Service
 
 
 @admin.register(Service)
-class ServiceAdmin(admin.ModelAdmin):
+class ServiceAdmin(TranslatableAdmin):
     list_display = ['title', 'order', 'is_active', 'updated_at']
     list_filter = ['is_active', 'created_at']
-    search_fields = ['title', 'short_description', 'description']
-    prepopulated_fields = {'slug': ('title',)}
+    search_fields = ['translations__title', 'translations__short_description']
     list_editable = ['order', 'is_active']
     
     fieldsets = (
@@ -22,3 +22,6 @@ class ServiceAdmin(admin.ModelAdmin):
             'fields': ('order', 'is_active')
         }),
     )
+    
+    def get_prepopulated_fields(self, request, obj=None):
+        return {'slug': ('title',)}
