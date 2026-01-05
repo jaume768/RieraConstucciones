@@ -143,7 +143,7 @@
                                     {% endif %}
                                     
                                     <a href="{% url 'blog_detail' post.slug %}" class="inline-flex items-center text-primary-600 font-bold hover:text-primary-700 group/link">
-                                        Leer más 
+                                        {% trans "Leer más" %} 
                                         <i class="fas fa-arrow-right ml-2 group-hover/link:translate-x-2 transition-transform"></i>
                                     </a>
                                 </div>
@@ -183,8 +183,8 @@
                         <div class="w-32 h-32 mx-auto mb-6 bg-gradient-to-br from-blue-100 to-primary-100 rounded-full flex items-center justify-center">
                             <i class="fas fa-newspaper text-6xl text-primary-400"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">No hay artículos disponibles</h3>
-                        <p class="text-lg text-gray-500">Pronto publicaremos nuevo contenido.</p>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">{% trans "No hay artículos disponibles" %}</h3>
+                        <p class="text-lg text-gray-500">{% trans "Pronto publicaremos nuevo contenido." %}</p>
                     </div>
                 {% endif %}
             </div>

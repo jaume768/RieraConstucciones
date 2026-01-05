@@ -143,11 +143,11 @@
         <div class="text-center mb-16">
             <div class="inline-block mb-4">
                 <span class="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">
-                    <i class="fas fa-newspaper mr-2"></i>Blog & Noticias
+                    <i class="fas fa-newspaper mr-2"></i>{% trans "Blog & Noticias" %}
                 </span>
             </div>
-            <h2 class="section-title">Últimas Noticias</h2>
-            <p class="section-subtitle">Mantente informado sobre nuestros proyectos y novedades del sector</p>
+            <h2 class="section-title">{% trans "Últimas Noticias" %}</h2>
+            <p class="section-subtitle">{% trans "Mantente informado sobre nuestros proyectos y novedades del sector" %}</p>
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -184,7 +184,7 @@
                         <p class="text-gray-600 mb-4 line-clamp-3 leading-relaxed">{{ post.summary|truncatewords:20 }}</p>
                         
                         <a href="{% url 'blog_detail' post.slug %}" class="inline-flex items-center text-primary-600 font-bold hover:text-primary-700 group/link">
-                            Leer más 
+                            {% trans "Leer más" %} 
                             <i class="fas fa-arrow-right ml-2 group-hover/link:translate-x-2 transition-transform"></i>
                         </a>
                     </div>
@@ -194,7 +194,7 @@
                     <div class="w-24 h-24 mx-auto mb-4 bg-gradient-to-br from-blue-100 to-primary-100 rounded-full flex items-center justify-center">
                         <i class="fas fa-newspaper text-4xl text-primary-500"></i>
                     </div>
-                    <p class="text-gray-500 text-lg">No hay posts disponibles en este momento.</p>
+                    <p class="text-gray-500 text-lg">{% trans "No hay posts disponibles en este momento." %}</p>
                 </div>
             {% endfor %}
         </div>
@@ -202,7 +202,7 @@
         {% if latest_posts %}
         <div class="text-center mt-12">
             <a href="{% url 'blog_list' %}" class="btn-outline group">
-                Ver Todas las Noticias
+                {% trans "Ver Todas las Noticias" %}
                 <i class="fas fa-arrow-right ml-2 group-hover:translate-x-2 transition-transform"></i>
             </a>
         </div>
@@ -220,22 +220,22 @@
         <div class="max-w-4xl mx-auto">
             <div class="inline-block mb-6">
                 <span class="px-5 py-2.5 bg-white/20 backdrop-blur-md border border-white/30 rounded-full text-sm font-semibold">
-                    <i class="fas fa-rocket mr-2"></i>Comienza tu proyecto hoy
+                    <i class="fas fa-rocket mr-2"></i>{% trans "Comienza tu proyecto hoy" %}
                 </span>
             </div>
             
             <h2 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
-                ¿Tienes un proyecto en mente?
+                {% trans "¿Tienes un proyecto en mente?" %}
             </h2>
             
             <p class="text-xl md:text-2xl mb-10 text-blue-100 max-w-3xl mx-auto leading-relaxed">
-                Contacta con nosotros y te ofreceremos un presupuesto personalizado sin compromiso. Hacemos realidad tus ideas.
+                {% trans "Contacta con nosotros y te ofreceremos un presupuesto personalizado sin compromiso. Hacemos realidad tus ideas." %}
             </p>
             
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="{% url 'contact' %}" class="btn-white group">
                     <i class="fas fa-envelope mr-2"></i>
-                    Contactar Ahora
+                    {% trans "Contactar Ahora" %}
                     <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
                 </a>
                 <a href="tel:+34689890246" class="bg-white/10 backdrop-blur-md border-2 border-white/30 text-white hover:bg-white/20 font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
@@ -247,15 +247,15 @@
             <div class="mt-12 flex flex-wrap justify-center items-center gap-8 text-blue-100">
                 <div class="flex items-center">
                     <i class="fas fa-shield-alt text-2xl mr-3"></i>
-                    <span>Garantía de calidad</span>
+                    <span>{% trans "Garantía de calidad" %}</span>
                 </div>
                 <div class="flex items-center">
                     <i class="fas fa-clock text-2xl mr-3"></i>
-                    <span>Respuesta en 24h</span>
+                    <span>{% trans "Respuesta en 24h" %}</span>
                 </div>
                 <div class="flex items-center">
                     <i class="fas fa-handshake text-2xl mr-3"></i>
-                    <span>Sin compromiso</span>
+                    <span>{% trans "Sin compromiso" %}</span>
                 </div>
             </div>
         </div>

@@ -64,26 +64,27 @@
                     </a>
                     
                     <!-- Selector de idioma -->
-                    <div class="relative group">
-                        <button class="nav-link flex items-center">
-                            <i class="fas fa-globe mr-1"></i>
+                    <div class="relative">
+                        <button id="language-button" class="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-primary-600 transition rounded-lg hover:bg-primary-50">
+                            <i class="fas fa-globe"></i>
                             {% get_current_language as LANGUAGE_CODE %}
                             {{ LANGUAGE_CODE|upper }}
                             <i class="fas fa-chevron-down ml-1 text-xs"></i>
                         </button>
-                        <div class="hidden group-hover:block absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg py-2 z-50">
-                            {% get_available_languages as languages %}
+                        <div id="language-menu" class="hidden absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg py-2 z-50">
                             {% get_current_language as current_lang %}
-                            {% for lang_code, lang_name in languages %}
-                                <form action="{% url 'set_language' %}" method="post" class="inline">
-                                    {% csrf_token %}
-                                    <input name="next" type="hidden" value="{{ request.get_full_path }}" />
-                                    <input name="language" type="hidden" value="{{ lang_code }}" />
-                                    <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-primary-50 transition {% if current_lang == lang_code %}bg-primary-100 font-bold{% endif %}">
-                                        {{ lang_name }}
-                                    </button>
-                                </form>
-                            {% endfor %}
+                            <a href="#" data-lang="es" class="lang-switch block w-full text-left px-4 py-2 hover:bg-primary-50 transition {% if current_lang == 'es' %}bg-primary-100 font-bold{% endif %}">
+                                Español
+                            </a>
+                            <a href="#" data-lang="ca" class="lang-switch block w-full text-left px-4 py-2 hover:bg-primary-50 transition {% if current_lang == 'ca' %}bg-primary-100 font-bold{% endif %}">
+                                Català
+                            </a>
+                            <a href="#" data-lang="en" class="lang-switch block w-full text-left px-4 py-2 hover:bg-primary-50 transition {% if current_lang == 'en' %}bg-primary-100 font-bold{% endif %}">
+                                English
+                            </a>
+                            <a href="#" data-lang="de" class="lang-switch block w-full text-left px-4 py-2 hover:bg-primary-50 transition {% if current_lang == 'de' %}bg-primary-100 font-bold{% endif %}">
+                                Deutsch
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -91,19 +92,19 @@
             
             <div id="mobile-menu" class="hidden md:hidden pb-4 space-y-2">
                 <a href="{% url 'home' %}" class="block py-3 px-4 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition">
-                    <i class="fas fa-home mr-2"></i>Inicio
+                    <i class="fas fa-home mr-2"></i>{% trans "Inicio" %}
                 </a>
                 <a href="{% url 'about' %}" class="block py-3 px-4 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition">
-                    <i class="fas fa-info-circle mr-2"></i>Sobre Nosotros
+                    <i class="fas fa-info-circle mr-2"></i>{% trans "Sobre Nosotros" %}
                 </a>
                 <a href="{% url 'services_list' %}" class="block py-3 px-4 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition">
-                    <i class="fas fa-tools mr-2"></i>Servicios
+                    <i class="fas fa-tools mr-2"></i>{% trans "Servicios" %}
                 </a>
                 <a href="{% url 'blog_list' %}" class="block py-3 px-4 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition">
                     <i class="fas fa-newspaper mr-2"></i>Blog
                 </a>
                 <a href="{% url 'contact' %}" class="block py-3 px-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:shadow-lg transition">
-                    <i class="fas fa-envelope mr-2"></i>Contacto
+                    <i class="fas fa-envelope mr-2"></i>{% trans "Contacto" %}
                 </a>
             </div>
         </div>
@@ -168,9 +169,54 @@
     </footer>
     
     <script>
+        // Mobile menu toggle
         document.getElementById('mobile-menu-button').addEventListener('click', function() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');
+        });
+        
+        // Language selector dropdown
+        const languageButton = document.getElementById('language-button');
+        const languageMenu = document.getElementById('language-menu');
+        
+        if (languageButton && languageMenu) {
+            languageButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                languageMenu.classList.toggle('hidden');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!languageButton.contains(e.target) && !languageMenu.contains(e.target)) {
+                    languageMenu.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Language switcher
+        document.querySelectorAll('.lang-switch').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetLang = this.getAttribute('data-lang');
+                const currentPath = window.location.pathname;
+                
+                // Remove current language prefix (es, ca, en, de)
+                let pathWithoutLang = currentPath.replace(/^\/(es|ca|en|de)(\/|$)/, '/');
+                
+                // Add new language prefix (except for Spanish which has no prefix)
+                let newPath;
+                if (targetLang === 'es') {
+                    newPath = pathWithoutLang;
+                } else {
+                    newPath = '/' + targetLang + pathWithoutLang;
+                }
+                
+                // Ensure path doesn't end with double slash
+                newPath = newPath.replace(/\/+$/, '/');
+                if (newPath === '//') newPath = '/';
+                
+                window.location.href = newPath;
+            });
         });
     </script>
     

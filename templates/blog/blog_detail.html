@@ -76,7 +76,7 @@
                             <span><i class="far fa-user mr-2"></i>{{ post.author.get_full_name|default:post.author.username }}</span>
                         {% endif %}
                         <span><i class="far fa-calendar mr-2"></i>{{ post.published_at|date:"d/m/Y" }}</span>
-                        <span><i class="far fa-eye mr-2"></i>{{ post.views }} visitas</span>
+                        <span><i class="far fa-eye mr-2"></i>{{ post.views }} {% trans "visitas" %}</span>
                     </div>
                 </div>
             </div>

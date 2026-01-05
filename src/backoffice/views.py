@@ -205,7 +205,7 @@ class ServiceListView(BackofficePermissionMixin, ListView):
     template_name = 'backoffice/services/service_list.html'
     context_object_name = 'services'
     permission_required = 'services.view_service'
-    ordering = ['order', 'title']
+    ordering = ['order']
 
 
 class ServiceCreateView(BackofficePermissionMixin, CreateView):
@@ -309,7 +309,7 @@ class CompanyValueListView(BackofficePermissionMixin, ListView):
     template_name = 'backoffice/values/value_list.html'
     context_object_name = 'values'
     permission_required = 'core.view_companyvalue'
-    ordering = ['order', 'title']
+    ordering = ['order']
 
 
 class CompanyValueCreateView(BackofficePermissionMixin, CreateView):
@@ -361,7 +361,7 @@ class PageListView(BackofficePermissionMixin, ListView):
     template_name = 'backoffice/pages/page_list.html'
     context_object_name = 'pages'
     permission_required = 'core.view_page'
-    ordering = ['title']
+    ordering = ['slug']
 
 
 class PageUpdateView(BackofficePermissionMixin, UpdateView):
@@ -444,7 +444,7 @@ class CategoryListView(BackofficePermissionMixin, ListView):
     def get_queryset(self):
         return Category.objects.annotate(
             post_count=Count('posts')
-        ).order_by('name')
+        ).order_by('slug')
 
 
 class CategoryCreateView(BackofficePermissionMixin, CreateView):
@@ -500,7 +500,7 @@ class TagListView(BackofficePermissionMixin, ListView):
     def get_queryset(self):
         return Tag.objects.annotate(
             post_count=Count('posts')
-        ).order_by('name')
+        ).order_by('slug')
 
 
 class TagCreateView(BackofficePermissionMixin, CreateView):

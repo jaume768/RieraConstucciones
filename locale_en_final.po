@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-04 18:56+0100\n"
+"POT-Creation-Date: 2026-01-05 01:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,70 +20,73 @@ msgstr ""
 
 #: src/core/views.py:58
 msgid "Detectamos actividad sospechosa. Por favor, intenta de nuevo."
-msgstr "Wir haben verdächtige Aktivitäten festgestellt. Bitte versuchen Sie es erneut."
+msgstr "We detected suspicious activity. Please try again."
 
 #: src/core/views.py:67
 msgid "Por favor, completa todos los campos obligatorios."
-msgstr "Bitte füllen Sie alle Pflichtfelder aus."
+msgstr "Please fill in all required fields."
 
 #: src/core/views.py:98
 msgid "¡Gracias por contactarnos! Te responderemos lo antes posible."
-msgstr "Vielen Dank für Ihre Kontaktaufnahme! Wir werden so schnell wie möglich antworten."
+msgstr "Thank you for contacting us! We will respond as soon as possible."
 
-#: templates/base.html:51 templates/base.html:137
+#: templates/base.html:51 templates/base.html:95 templates/base.html:138
 msgid "Inicio"
-msgstr "Startseite"
+msgstr "Home"
 
 #: templates/base.html:54
 msgid "Nosotros"
-msgstr "Über uns"
+msgstr "About Us"
 
-#: templates/base.html:57 templates/base.html:139 templates/base.html:145
+#: templates/base.html:57 templates/base.html:101 templates/base.html:140
+#: templates/base.html:146
 msgid "Servicios"
-msgstr "Dienstleistungen"
+msgstr "Services"
 
-#: templates/base.html:63 templates/base.html:155
+#: templates/base.html:63 templates/base.html:107 templates/base.html:156
 #: templates/core/contact.html:19
 msgid "Contacto"
-msgstr "Kontakt"
+msgstr "Contact"
 
-#: templates/base.html:131
+#: templates/base.html:98 templates/base.html:139 templates/core/about.html:8
+msgid "Sobre Nosotros"
+msgstr "About Us"
+
+#: templates/base.html:132
 msgid ""
 "Empresa constructora especializada en obra nueva, reformas y "
 "rehabilitaciones."
-msgstr "Bauunternehmen spezialisiert auf Neubauten, Renovierungen und Sanierungen."
+msgstr ""
+"Construction company specialized in new builds, renovations and "
+"rehabilitations."
 
-#: templates/base.html:135
+#: templates/base.html:136
 msgid "Enlaces"
 msgstr "Links"
 
-#: templates/base.html:138 templates/core/about.html:8
-msgid "Sobre Nosotros"
-msgstr "Über uns"
-
-#: templates/base.html:147
-msgid "Obra Nueva"
-msgstr "Neubau"
-
 #: templates/base.html:148
-msgid "Reformas"
-msgstr "Renovierungen"
+msgid "Obra Nueva"
+msgstr "New Construction"
 
 #: templates/base.html:149
-msgid "Rehabilitaciones"
-msgstr "Sanierungen"
+msgid "Reformas"
+msgstr "Renovations"
 
 #: templates/base.html:150
+msgid "Rehabilitaciones"
+msgstr "Rehabilitations"
+
+#: templates/base.html:151
 msgid "Mantenimiento"
-msgstr "Wartung"
+msgstr "Maintenance"
 
-#: templates/base.html:165
+#: templates/base.html:166
 msgid "Todos los derechos reservados."
-msgstr "Alle Rechte vorbehalten."
+msgstr "All rights reserved."
 
-#: templates/blog/blog_detail.html:58
+#: templates/blog/blog_detail.html:58 templates/blog/blog_detail.html:79
 msgid "visitas"
-msgstr "Besuche"
+msgstr "visits"
 
 #: templates/blog/blog_detail.html:101
 msgid "Etiquetas:"
@@ -91,11 +94,12 @@ msgstr "Tags:"
 
 #: templates/blog/blog_detail.html:117
 msgid "Artículos Relacionados"
-msgstr "Verwandte Artikel"
+msgstr "Related Articles"
 
-#: templates/blog/blog_detail.html:133
+#: templates/blog/blog_detail.html:133 templates/blog/blog_list.html:146
+#: templates/core/home.html:187
 msgid "Leer más"
-msgstr "Weiterlesen"
+msgstr "Read more"
 
 #: templates/blog/blog_detail.html:146
 msgid "¿Te ha resultado útil este artículo?"
@@ -107,19 +111,19 @@ msgstr ""
 
 #: templates/blog/blog_detail.html:151
 msgid "Contactar"
-msgstr "Kontakt"
+msgstr "Contact"
 
 #: templates/blog/blog_list.html:20
 msgid "Etiqueta"
 msgstr "Tag"
 
-#: templates/blog/blog_list.html:22
+#: templates/blog/blog_list.html:22 templates/core/home.html:146
 msgid "Blog & Noticias"
-msgstr "Blog & Nachrichten"
+msgstr "Blog & News"
 
 #: templates/blog/blog_list.html:32
 msgid "Blog y Noticias"
-msgstr "Blog & Nachrichten"
+msgstr "Blog & News"
 
 #: templates/blog/blog_list.html:37
 #, python-format
@@ -137,15 +141,25 @@ msgstr ""
 
 #: templates/blog/blog_list.html:57
 msgid "Categorías"
-msgstr "Kategorien"
+msgstr "Categories"
 
 #: templates/blog/blog_list.html:63
 msgid "Todas"
-msgstr "Alle"
+msgstr "All"
 
 #: templates/blog/blog_list.html:82
 msgid "Etiquetas"
 msgstr "Tags"
+
+#: templates/blog/blog_list.html:186
+#, fuzzy
+#| msgid "No hay servicios disponibles"
+msgid "No hay artículos disponibles"
+msgstr "No services available"
+
+#: templates/blog/blog_list.html:187
+msgid "Pronto publicaremos nuevo contenido."
+msgstr "We will publish new content soon."
 
 #: templates/core/about.html:10
 msgid ""
@@ -155,7 +169,7 @@ msgstr ""
 
 #: templates/core/about.html:29
 msgid "Nuestra Historia"
-msgstr "Unsere Geschichte"
+msgstr "Our History"
 
 #: templates/core/about.html:31
 msgid ""
@@ -163,7 +177,7 @@ msgid ""
 "consolidado como una empresa de referencia en reformas, obra nueva y "
 "rehabilitaciones. Nuestro compromiso con la calidad y la satisfacción del "
 "cliente nos ha permitido crecer y evolucionar constantemente."
-msgstr ""
+msgstr "With more than 20 years of experience in the construction sector, we have established ourselves as a leading company in renovations, new construction and rehabilitations. Our commitment to quality and customer satisfaction has allowed us to grow and evolve constantly."
 
 #: templates/core/about.html:34
 msgid ""
@@ -171,11 +185,11 @@ msgid ""
 "profesionalidad, independientemente de su envergadura. Desde la construcción "
 "de chalets hasta la limpieza de solares, pasando por reformas integrales y "
 "estructuras complejas."
-msgstr ""
+msgstr "Each project is unique and we approach it with the same dedication and professionalism, regardless of its scope. From building chalets to cleaning plots, including comprehensive renovations and complex structures."
 
 #: templates/core/about.html:46
 msgid "Nuestros Valores"
-msgstr "Unsere Werte"
+msgstr "Our Values"
 
 #: templates/core/about.html:47
 msgid "Los pilares que guían nuestro trabajo diario"
@@ -183,87 +197,129 @@ msgstr ""
 
 #: templates/core/about.html:71
 msgid "Nuestro Equipo"
-msgstr "Unser Team"
+msgstr "Our Team"
 
 #: templates/core/about.html:72
 msgid "Profesionales comprometidos con la excelencia"
 msgstr ""
 
+#: templates/core/about.html:119
+msgid "¿Listo para empezar tu proyecto?"
+msgstr "Ready to start your project?"
+
+#: templates/core/about.html:120
+msgid "Contacta con nosotros y te ayudaremos a hacerlo realidad"
+msgstr "Contact us and we will help you make it happen"
+
+#: templates/core/about.html:122 templates/core/home.html:238
+#, fuzzy
+#| msgid "Contactar"
+msgid "Contactar Ahora"
+msgstr "Contact Now"
+
 #: templates/core/contact.html:16
 msgid "Contáctanos"
-msgstr "Kontaktieren Sie uns"
+msgstr "Contact Us"
 
 #: templates/core/contact.html:20
 msgid "Estamos aquí para ayudarte con tu proyecto"
-msgstr ""
+msgstr "We are here to help you with your project"
 
 #: templates/core/contact.html:32
 msgid "Formulario de Contacto"
-msgstr "Kontaktformular"
+msgstr "Contact Form"
 
 #: templates/core/contact.html:35
 msgid "Envíanos un mensaje"
-msgstr ""
+msgstr "Send us a message"
 
 #: templates/core/contact.html:37
 msgid ""
 "Completa el formulario y nos pondremos en contacto contigo lo antes posible. "
 "También puedes contactarnos directamente por teléfono o email."
-msgstr ""
+msgstr "Fill out the form and we will contact you as soon as possible. You can also contact us directly by phone or email."
 
 #: templates/core/contact.html:47
 msgid "Nombre completo"
-msgstr "Vollständiger Name"
+msgstr "Full name"
 
-#: templates/core/contact.html:59
+#: templates/core/contact.html:59 templates/core/contact.html:106
 msgid "Teléfono"
-msgstr "Telefon"
+msgstr "Phone"
 
 #: templates/core/contact.html:65
 msgid "Mensaje"
-msgstr "Nachricht"
+msgstr "Message"
 
 #: templates/core/contact.html:71
 msgid "Enviar Mensaje"
-msgstr "Nachricht senden"
+msgstr "Send Message"
+
+#: templates/core/contact.html:81
+msgid "Datos de Contacto"
+msgstr "Contact Details"
+
+#: templates/core/contact.html:84
+msgid "Información de Contacto"
+msgstr "Contact Information"
+
+#: templates/core/contact.html:94
+msgid "Dirección"
+msgstr "Address"
+
+#: templates/core/contact.html:130
+msgid "Horario"
+msgstr "Schedule"
+
+#: templates/core/contact.html:132
+msgid "Lunes - Viernes: 9:00 - 18:00"
+msgstr "Monday - Friday: 9:00 - 18:00"
+
+#: templates/core/contact.html:133
+msgid "Sábados: 10:00 - 14:00"
+msgstr "Saturdays: 10:00 - 14:00"
+
+#: templates/core/contact.html:143
+msgid "Síguenos en Redes Sociales"
+msgstr "Follow us on Social Media"
 
 #: templates/core/home.html:49
 msgid "Calidad Garantizada"
-msgstr "Garantierte Qualität"
+msgstr "Guaranteed Quality"
 
 #: templates/core/home.html:52
 msgid "Construimos tus sueños con"
-msgstr "Wir bauen Ihre Träume mit"
+msgstr "We build your dreams with"
 
 #: templates/core/home.html:52
 msgid "calidad y compromiso"
-msgstr "Qualität und Engagement"
+msgstr "quality and commitment"
 
 #: templates/core/home.html:55
 msgid ""
 "Especialistas en obra nueva, reformas y rehabilitaciones. Tu proyecto en "
 "manos de verdaderos expertos."
-msgstr ""
+msgstr "Specialists in new construction, renovations and rehabilitations. Your project in the hands of true experts."
 
 #: templates/core/home.html:60
 msgid "Pedir Presupuesto"
-msgstr "Angebot anfordern"
+msgstr "Request Quote"
 
 #: templates/core/home.html:65
 msgid "Ver Servicios"
-msgstr "Dienstleistungen ansehen"
+msgstr "View Services"
 
 #: templates/core/home.html:72
 msgid "Proyectos Completados"
-msgstr "Abgeschlossene Projekte"
+msgstr "Completed Projects"
 
 #: templates/core/home.html:76
 msgid "Clientes Satisfechos"
-msgstr "Zufriedene Kunden"
+msgstr "Satisfied Clients"
 
 #: templates/core/home.html:80
 msgid "Proyectos Anuales"
-msgstr "Jährliche Projekte"
+msgstr "Annual Projects"
 
 #: templates/core/home.html:84
 msgid "Soporte"
@@ -271,78 +327,124 @@ msgstr "Support"
 
 #: templates/core/home.html:98 templates/services/services_list.html:16
 msgid "Servicios Profesionales"
-msgstr "Professionelle Dienstleistungen"
+msgstr "Professional Services"
 
 #: templates/core/home.html:101 templates/services/services_list.html:19
 msgid "Nuestros Servicios"
-msgstr "Unsere Dienstleistungen"
+msgstr "Our Services"
 
 #: templates/core/home.html:102 templates/services/services_list.html:20
 msgid "Soluciones completas para todo tipo de proyectos de construcción"
-msgstr ""
+msgstr "Complete solutions for all types of construction projects"
 
 #: templates/core/home.html:116
 msgid "Saber más"
-msgstr "Mehr erfahren"
+msgstr "Learn more"
 
 #: templates/core/home.html:125
 msgid "No hay servicios disponibles en este momento."
-msgstr ""
+msgstr "No services available at this time."
 
 #: templates/core/home.html:132
 msgid "Ver Todos los Servicios"
-msgstr "Alle Dienstleistungen ansehen"
+msgstr "View All Services"
+
+#: templates/core/home.html:149
+msgid "Últimas Noticias"
+msgstr "Latest News"
+
+#: templates/core/home.html:150
+msgid "Mantente informado sobre nuestros proyectos y novedades del sector"
+msgstr "Stay informed about our projects and industry news"
+
+#: templates/core/home.html:197
+msgid "No hay posts disponibles en este momento."
+msgstr "No posts available at this time."
+
+#: templates/core/home.html:205
+msgid "Ver Todas las Noticias"
+msgstr "View All News"
+
+#: templates/core/home.html:223
+msgid "Comienza tu proyecto hoy"
+msgstr "Start your project today"
+
+#: templates/core/home.html:228
+msgid "¿Tienes un proyecto en mente?"
+msgstr "Do you have a project in mind?"
+
+#: templates/core/home.html:232
+msgid ""
+"Contacta con nosotros y te ofreceremos un presupuesto personalizado sin "
+"compromiso. Hacemos realidad tus ideas."
+msgstr ""
+"Contact us and we will offer you a personalized quote with no obligation. We "
+"make your ideas come true."
+
+#: templates/core/home.html:250
+msgid "Garantía de calidad"
+msgstr "Quality guarantee"
+
+#: templates/core/home.html:254
+msgid "Respuesta en 24h"
+msgstr "Response in 24h"
+
+#: templates/core/home.html:258
+msgid "Sin compromiso"
+msgstr "No obligation"
 
 #: templates/services/service_detail.html:71
 msgid "¿Interesado en este servicio?"
-msgstr "Interessiert an dieser Dienstleistung?"
+msgstr "Interested in this service?"
 
 #: templates/services/service_detail.html:73
 msgid ""
 "Contacta con nosotros y te ofreceremos un presupuesto personalizado sin "
 "compromiso."
 msgstr ""
+"Contact us and we will offer you a personalized quote with no obligation."
 
 #: templates/services/service_detail.html:76
 msgid "Solicitar Presupuesto"
-msgstr "Angebot anfordern"
+msgstr "Request Quote"
 
 #: templates/services/service_detail.html:87
 msgid "Otros Servicios"
-msgstr "Andere Dienstleistungen"
+msgstr "Other Services"
 
 #: templates/services/service_detail.html:105
 msgid "Ver más"
-msgstr "Mehr ansehen"
+msgstr "View more"
 
 #: templates/services/services_list.html:52
 msgid "Ver Detalles"
-msgstr "Details ansehen"
+msgstr "View Details"
 
 #: templates/services/services_list.html:64
 msgid "No hay servicios disponibles"
-msgstr "Keine Dienstleistungen verfügbar"
+msgstr "No services available"
 
 #: templates/services/services_list.html:65
 msgid "Estamos trabajando en nuevos servicios para ti."
-msgstr ""
+msgstr "We are working on new services for you."
 
 #: templates/services/services_list.html:81
 msgid "Servicios Personalizados"
-msgstr "Individuelle Dienstleistungen"
+msgstr "Customized Services"
 
 #: templates/services/services_list.html:84
 msgid "¿No encuentras lo que buscas?"
-msgstr "Finden Sie nicht, was Sie suchen?"
+msgstr "Can't find what you're looking for?"
 
 #: templates/services/services_list.html:86
 msgid ""
 "Contáctanos y te ofreceremos una solución personalizada para tu proyecto"
 msgstr ""
+"Contact us and we will offer you a personalized solution for your project"
 
 #: templates/services/services_list.html:90
 msgid "Solicitar Presupuesto Personalizado"
-msgstr "Individuelles Angebot anfordern"
+msgstr "Request Custom Quote"
 
 #: venv/Lib/site-packages/ckeditor_uploader/forms.py:6
 msgid "Search files"

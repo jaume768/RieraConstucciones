@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-04 18:54+0100\n"
+"POT-Creation-Date: 2026-01-05 01:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,7 +30,7 @@ msgstr "Si us plau, omple tots els camps obligatoris."
 msgid "¡Gracias por contactarnos! Te responderemos lo antes posible."
 msgstr "Gràcies per contactar-nos! Et respondrem el més aviat possible."
 
-#: templates/base.html:51 templates/base.html:137
+#: templates/base.html:51 templates/base.html:95 templates/base.html:138
 msgid "Inicio"
 msgstr "Inici"
 
@@ -38,50 +38,52 @@ msgstr "Inici"
 msgid "Nosotros"
 msgstr "Nosaltres"
 
-#: templates/base.html:57 templates/base.html:139 templates/base.html:145
+#: templates/base.html:57 templates/base.html:101 templates/base.html:140
+#: templates/base.html:146
 msgid "Servicios"
 msgstr "Serveis"
 
-#: templates/base.html:63 templates/base.html:155
+#: templates/base.html:63 templates/base.html:107 templates/base.html:156
 #: templates/core/contact.html:19
 msgid "Contacto"
 msgstr "Contacte"
 
-#: templates/base.html:131
-msgid ""
-"Empresa constructora especializada en obra nueva, reformas y "
-"rehabilitaciones."
-msgstr "Empresa constructora especialitzada en obra nova, reformes i rehabilitacions."
-
-#: templates/base.html:135
-msgid "Enlaces"
-msgstr "Enllaços"
-
-#: templates/base.html:138 templates/core/about.html:8
+#: templates/base.html:98 templates/base.html:139 templates/core/about.html:8
 msgid "Sobre Nosotros"
 msgstr "Sobre Nosaltres"
 
-#: templates/base.html:147
+#: templates/base.html:132
+msgid ""
+"Empresa constructora especializada en obra nueva, reformas y "
+"rehabilitaciones."
+msgstr ""
+"Empresa constructora especialitzada en obra nova, reformes i rehabilitacions."
+
+#: templates/base.html:136
+msgid "Enlaces"
+msgstr "Enllaços"
+
+#: templates/base.html:148
 msgid "Obra Nueva"
 msgstr "Obra Nova"
 
-#: templates/base.html:148
+#: templates/base.html:149
 msgid "Reformas"
 msgstr "Reformes"
 
-#: templates/base.html:149
+#: templates/base.html:150
 msgid "Rehabilitaciones"
 msgstr "Rehabilitacions"
 
-#: templates/base.html:150
+#: templates/base.html:151
 msgid "Mantenimiento"
 msgstr "Manteniment"
 
-#: templates/base.html:165
+#: templates/base.html:166
 msgid "Todos los derechos reservados."
 msgstr "Tots els drets reservats."
 
-#: templates/blog/blog_detail.html:58
+#: templates/blog/blog_detail.html:58 templates/blog/blog_detail.html:79
 msgid "visitas"
 msgstr "visites"
 
@@ -93,7 +95,8 @@ msgstr "Etiquetes:"
 msgid "Artículos Relacionados"
 msgstr "Articles Relacionats"
 
-#: templates/blog/blog_detail.html:133
+#: templates/blog/blog_detail.html:133 templates/blog/blog_list.html:146
+#: templates/core/home.html:187
 msgid "Leer más"
 msgstr "Llegir més"
 
@@ -113,7 +116,7 @@ msgstr "Contactar"
 msgid "Etiqueta"
 msgstr "Etiqueta"
 
-#: templates/blog/blog_list.html:22
+#: templates/blog/blog_list.html:22 templates/core/home.html:146
 msgid "Blog & Noticias"
 msgstr "Blog i Notícies"
 
@@ -147,11 +150,21 @@ msgstr "Totes"
 msgid "Etiquetas"
 msgstr "Etiquetes"
 
+#: templates/blog/blog_list.html:186
+msgid "No hay artículos disponibles"
+msgstr "No hi ha articles disponibles"
+
+#: templates/blog/blog_list.html:187
+msgid "Pronto publicaremos nuevo contenido."
+msgstr "Aviat publicarem contingut nou."
+
 #: templates/core/about.html:10
 msgid ""
 "Somos una empresa constructora comprometida con la calidad y la satisfacción "
 "del cliente."
-msgstr "Som una empresa constructora compromesa amb la qualitat i la satisfacció del client."
+msgstr ""
+"Som una empresa constructora compromesa amb la qualitat i la satisfacció del "
+"client."
 
 #: templates/core/about.html:29
 msgid "Nuestra Historia"
@@ -163,7 +176,7 @@ msgid ""
 "consolidado como una empresa de referencia en reformas, obra nueva y "
 "rehabilitaciones. Nuestro compromiso con la calidad y la satisfacción del "
 "cliente nos ha permitido crecer y evolucionar constantemente."
-msgstr ""
+msgstr "Amb més de 20 anys d'experiència en el sector de la construcció, ens hem consolidat com una empresa de referència en reformes, obra nova i rehabilitacions. El nostre compromís amb la qualitat i la satisfacció del client ens ha permès créixer i evolucionar constantment."
 
 #: templates/core/about.html:34
 msgid ""
@@ -171,7 +184,7 @@ msgid ""
 "profesionalidad, independientemente de su envergadura. Desde la construcción "
 "de chalets hasta la limpieza de solares, pasando por reformas integrales y "
 "estructuras complejas."
-msgstr ""
+msgstr "Cada projecte és únic i l'afrontem amb la mateixa dedicació i professionalitat, independentment de la seva envergadura. Des de la construcció de xalets fins a la neteja de solars, passant per reformes integrals i estructures complexes."
 
 #: templates/core/about.html:46
 msgid "Nuestros Valores"
@@ -188,6 +201,18 @@ msgstr "El Nostre Equip"
 #: templates/core/about.html:72
 msgid "Profesionales comprometidos con la excelencia"
 msgstr "Professionals compromesos amb l'excel·lència"
+
+#: templates/core/about.html:119
+msgid "¿Listo para empezar tu proyecto?"
+msgstr "Preparat per començar el teu projecte?"
+
+#: templates/core/about.html:120
+msgid "Contacta con nosotros y te ayudaremos a hacerlo realidad"
+msgstr "Contacta amb nosaltres i t'ajudarem a fer-ho realitat"
+
+#: templates/core/about.html:122 templates/core/home.html:238
+msgid "Contactar Ahora"
+msgstr "Contactar Ara"
 
 #: templates/core/contact.html:16
 msgid "Contáctanos"
@@ -209,13 +234,13 @@ msgstr "Envia'ns un missatge"
 msgid ""
 "Completa el formulario y nos pondremos en contacto contigo lo antes posible. "
 "También puedes contactarnos directamente por teléfono o email."
-msgstr ""
+msgstr "Completa el formulari i ens posarem en contacte amb tu al més aviat possible. També pots contactar-nos directament per telèfon o email."
 
 #: templates/core/contact.html:47
 msgid "Nombre completo"
 msgstr "Nom complet"
 
-#: templates/core/contact.html:59
+#: templates/core/contact.html:59 templates/core/contact.html:106
 msgid "Teléfono"
 msgstr "Telèfon"
 
@@ -226,6 +251,34 @@ msgstr "Missatge"
 #: templates/core/contact.html:71
 msgid "Enviar Mensaje"
 msgstr "Enviar Missatge"
+
+#: templates/core/contact.html:81
+msgid "Datos de Contacto"
+msgstr "Dades de Contacte"
+
+#: templates/core/contact.html:84
+msgid "Información de Contacto"
+msgstr "Informació de Contacte"
+
+#: templates/core/contact.html:94
+msgid "Dirección"
+msgstr "Adreça"
+
+#: templates/core/contact.html:130
+msgid "Horario"
+msgstr "Horari"
+
+#: templates/core/contact.html:132
+msgid "Lunes - Viernes: 9:00 - 18:00"
+msgstr "Dilluns - Divendres: 9:00 - 18:00"
+
+#: templates/core/contact.html:133
+msgid "Sábados: 10:00 - 14:00"
+msgstr "Dissabtes: 10:00 - 14:00"
+
+#: templates/core/contact.html:143
+msgid "Síguenos en Redes Sociales"
+msgstr "Segueix-nos a les Xarxes Socials"
 
 #: templates/core/home.html:49
 msgid "Calidad Garantizada"
@@ -243,7 +296,7 @@ msgstr "qualitat i compromís"
 msgid ""
 "Especialistas en obra nueva, reformas y rehabilitaciones. Tu proyecto en "
 "manos de verdaderos expertos."
-msgstr ""
+msgstr "Especialistes en obra nova, reformes i rehabilitacions. El teu projecte en mans de veritables experts."
 
 #: templates/core/home.html:60
 msgid "Pedir Presupuesto"
@@ -279,7 +332,7 @@ msgstr "Els Nostres Serveis"
 
 #: templates/core/home.html:102 templates/services/services_list.html:20
 msgid "Soluciones completas para todo tipo de proyectos de construcción"
-msgstr ""
+msgstr "Solucions completes per a tot tipus de projectes de construcció"
 
 #: templates/core/home.html:116
 msgid "Saber más"
@@ -287,11 +340,55 @@ msgstr "Saber-ne més"
 
 #: templates/core/home.html:125
 msgid "No hay servicios disponibles en este momento."
-msgstr ""
+msgstr "No hi ha serveis disponibles en aquest moment."
 
 #: templates/core/home.html:132
 msgid "Ver Todos los Servicios"
 msgstr "Veure Tots els Serveis"
+
+#: templates/core/home.html:149
+msgid "Últimas Noticias"
+msgstr "Últimes Notícies"
+
+#: templates/core/home.html:150
+msgid "Mantente informado sobre nuestros proyectos y novedades del sector"
+msgstr "Mantén-te informat sobre els nostres projectes i novetats del sector"
+
+#: templates/core/home.html:197
+msgid "No hay posts disponibles en este momento."
+msgstr "No hi ha publicacions disponibles en aquest moment."
+
+#: templates/core/home.html:205
+msgid "Ver Todas las Noticias"
+msgstr "Veure Totes les Notícies"
+
+#: templates/core/home.html:223
+msgid "Comienza tu proyecto hoy"
+msgstr "Comença el teu projecte avui"
+
+#: templates/core/home.html:228
+msgid "¿Tienes un proyecto en mente?"
+msgstr "Tens un projecte en ment?"
+
+#: templates/core/home.html:232
+msgid ""
+"Contacta con nosotros y te ofreceremos un presupuesto personalizado sin "
+"compromiso. Hacemos realidad tus ideas."
+msgstr ""
+"Contacta amb nosaltres i t'oferim un pressupost personalitzat sense "
+"compromís. Fem realitat les teves idees."
+
+#: templates/core/home.html:250
+msgid "Garantía de calidad"
+msgstr "Garantia de qualitat"
+
+#: templates/core/home.html:254
+msgid "Respuesta en 24h"
+msgstr "Resposta en 24h"
+
+#: templates/core/home.html:258
+msgid "Sin compromiso"
+msgstr "Sense compromís"
 
 #: templates/services/service_detail.html:71
 msgid "¿Interesado en este servicio?"
@@ -336,9 +433,8 @@ msgid "¿No encuentras lo que buscas?"
 msgstr "No trobes el que busques?"
 
 #: templates/services/services_list.html:86
-msgid ""
-"Contáctanos y te ofreceremos una solución personalizada para tu proyecto"
-msgstr ""
+msgid "Contáctanos y te ofreceremos una solución personalizada para tu proyecto"
+msgstr "Contacta'ns i t'oferirem una solució personalitzada per al teu projecte"
 
 #: templates/services/services_list.html:90
 msgid "Solicitar Presupuesto Personalizado"
