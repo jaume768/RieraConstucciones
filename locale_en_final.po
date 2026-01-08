@@ -405,6 +405,7 @@ msgstr ""
 "Contact us and we will offer you a personalized quote with no obligation."
 
 #: templates/services/service_detail.html:76
+#: templates/services/services_list.html:90
 msgid "Solicitar Presupuesto"
 msgstr "Request Quote"
 
@@ -441,10 +442,6 @@ msgid ""
 "Contáctanos y te ofreceremos una solución personalizada para tu proyecto"
 msgstr ""
 "Contact us and we will offer you a personalized solution for your project"
-
-#: templates/services/services_list.html:90
-msgid "Solicitar Presupuesto"
-msgstr "Request Quote"
 
 #: venv/Lib/site-packages/ckeditor_uploader/forms.py:6
 msgid "Search files"

@@ -401,6 +401,7 @@ msgid ""
 msgstr ""
 
 #: templates/services/service_detail.html:76
+#: templates/services/services_list.html:90
 msgid "Solicitar Presupuesto"
 msgstr "Sol·licitar Pressupost"
 
@@ -435,10 +436,6 @@ msgstr "No trobes el que busques?"
 #: templates/services/services_list.html:86
 msgid "Contáctanos y te ofreceremos una solución personalizada para tu proyecto"
 msgstr "Contacta'ns i t'oferirem una solució personalitzada per al teu projecte"
-
-#: templates/services/services_list.html:90
-msgid "Solicitar Presupuesto"
-msgstr "Sol·licitar Pressupost"
 
 #: venv/Lib/site-packages/ckeditor_uploader/forms.py:6
 msgid "Search files"

@@ -409,6 +409,7 @@ msgstr ""
 "maßgeschneidertes Angebot."
 
 #: templates/services/service_detail.html:76
+#: templates/services/services_list.html:90
 msgid "Solicitar Presupuesto"
 msgstr "Angebot anfordern"
 
@@ -443,10 +444,6 @@ msgstr "Finden Sie nicht, was Sie suchen?"
 #: templates/services/services_list.html:86
 msgid "Contáctanos y te ofreceremos una solución personalizada para tu proyecto"
 msgstr "Kontaktieren Sie uns und wir bieten Ihnen eine maßgeschneiderte Lösung für Ihr Projekt"
-
-#: templates/services/services_list.html:90
-msgid "Solicitar Presupuesto"
-msgstr "Angebot anfordern"
 
 #: venv/Lib/site-packages/ckeditor_uploader/forms.py:6
 msgid "Search files"
