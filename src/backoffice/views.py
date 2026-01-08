@@ -209,40 +209,54 @@ class ServiceListView(BackofficePermissionMixin, ListView):
     ordering = ['order']
 
 
-class ServiceCreateView(BackofficePermissionMixin, TranslatableCreateView):
+class ServiceCreateView(BackofficePermissionMixin, CreateView):
     """Crear servicio"""
     model = Service
-    form_class = ServiceForm
     template_name = 'backoffice/services/service_form.html'
     success_url = reverse_lazy('backoffice:service_list')
     permission_required = 'services.add_service'
+    fields = []  # No usar formulario automático
     
-    def form_valid(self, form):
-        # Guardar el objeto sin traducciones primero
-        self.object = form.save()
-        
-        # Procesar traducciones para cada idioma
-        languages = ['es', 'ca', 'en', 'de']
-        for lang in languages:
-            self.object.set_current_language(lang)
-            self.object.title = self.request.POST.get(f'title_{lang}', '')
-            self.object.short_description = self.request.POST.get(f'short_description_{lang}', '')
-            self.object.description = self.request.POST.get(f'description_{lang}', '')
-            self.object.meta_title = self.request.POST.get(f'meta_title_{lang}', '')
-            self.object.meta_description = self.request.POST.get(f'meta_description_{lang}', '')
-            self.object.save()
-        
-        messages.success(self.request, f'Servicio creado exitosamente con traducciones en todos los idiomas.')
-        return redirect(self.success_url)
+    def post(self, request, *args, **kwargs):
+        try:
+            # Crear el servicio con campos no traducibles
+            service = Service.objects.create(
+                slug=request.POST.get('slug', ''),
+                icon=request.POST.get('icon', ''),
+                order=request.POST.get('order', 0),
+                is_active=request.POST.get('is_active') == 'on'
+            )
+            
+            # Procesar imagen si existe
+            if request.FILES.get('image'):
+                service.image = request.FILES['image']
+                service.save()
+            
+            # Procesar traducciones para cada idioma
+            languages = ['es', 'ca', 'en', 'de']
+            for lang in languages:
+                service.set_current_language(lang)
+                service.title = request.POST.get(f'title_{lang}', '')
+                service.short_description = request.POST.get(f'short_description_{lang}', '')
+                service.description = request.POST.get(f'description_{lang}', '')
+                service.meta_title = request.POST.get(f'meta_title_{lang}', '')
+                service.meta_description = request.POST.get(f'meta_description_{lang}', '')
+                service.save()
+            
+            messages.success(request, f'Servicio creado exitosamente con traducciones en todos los idiomas.')
+            return redirect(self.success_url)
+        except Exception as e:
+            messages.error(request, f'Error al crear el servicio: {str(e)}')
+            return redirect('backoffice:service_create')
 
 
-class ServiceUpdateView(BackofficePermissionMixin, TranslatableUpdateView):
+class ServiceUpdateView(BackofficePermissionMixin, UpdateView):
     """Editar servicio"""
     model = Service
-    form_class = ServiceForm
     template_name = 'backoffice/services/service_form.html'
     success_url = reverse_lazy('backoffice:service_list')
     permission_required = 'services.change_service'
+    fields = []  # No usar formulario automático
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -257,23 +271,37 @@ class ServiceUpdateView(BackofficePermissionMixin, TranslatableUpdateView):
                     context[f'translations_{lang}'] = None
         return context
     
-    def form_valid(self, form):
-        # Guardar el objeto sin traducciones primero
-        self.object = form.save()
-        
-        # Procesar traducciones para cada idioma
-        languages = ['es', 'ca', 'en', 'de']
-        for lang in languages:
-            self.object.set_current_language(lang)
-            self.object.title = self.request.POST.get(f'title_{lang}', '')
-            self.object.short_description = self.request.POST.get(f'short_description_{lang}', '')
-            self.object.description = self.request.POST.get(f'description_{lang}', '')
-            self.object.meta_title = self.request.POST.get(f'meta_title_{lang}', '')
-            self.object.meta_description = self.request.POST.get(f'meta_description_{lang}', '')
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        try:
+            # Actualizar campos no traducibles
+            self.object.slug = request.POST.get('slug', self.object.slug)
+            self.object.icon = request.POST.get('icon', self.object.icon)
+            self.object.order = request.POST.get('order', self.object.order)
+            self.object.is_active = request.POST.get('is_active') == 'on'
+            
+            # Procesar imagen si existe
+            if request.FILES.get('image'):
+                self.object.image = request.FILES['image']
+            
             self.object.save()
-        
-        messages.success(self.request, f'Servicio actualizado correctamente con todas las traducciones.')
-        return redirect(self.success_url)
+            
+            # Procesar traducciones para cada idioma
+            languages = ['es', 'ca', 'en', 'de']
+            for lang in languages:
+                self.object.set_current_language(lang)
+                self.object.title = request.POST.get(f'title_{lang}', '')
+                self.object.short_description = request.POST.get(f'short_description_{lang}', '')
+                self.object.description = request.POST.get(f'description_{lang}', '')
+                self.object.meta_title = request.POST.get(f'meta_title_{lang}', '')
+                self.object.meta_description = request.POST.get(f'meta_description_{lang}', '')
+                self.object.save()
+            
+            messages.success(request, f'Servicio actualizado correctamente con todas las traducciones.')
+            return redirect(self.success_url)
+        except Exception as e:
+            messages.error(request, f'Error al actualizar el servicio: {str(e)}')
+            return redirect('backoffice:service_update', pk=self.object.pk)
 
 
 class ServiceDeleteView(BackofficePermissionMixin, DeleteView):
