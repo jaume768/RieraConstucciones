@@ -244,6 +244,19 @@ class ServiceUpdateView(BackofficePermissionMixin, TranslatableUpdateView):
     success_url = reverse_lazy('backoffice:service_list')
     permission_required = 'services.change_service'
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.object:
+            # Pasar traducciones existentes al template
+            languages = ['es', 'ca', 'en', 'de']
+            for lang in languages:
+                try:
+                    translation = self.object.translations.get(language_code=lang)
+                    context[f'translations_{lang}'] = translation
+                except:
+                    context[f'translations_{lang}'] = None
+        return context
+    
     def form_valid(self, form):
         # Guardar el objeto sin traducciones primero
         self.object = form.save()

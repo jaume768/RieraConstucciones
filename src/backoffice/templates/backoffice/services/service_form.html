@@ -77,23 +77,23 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Título *</label>
-                            <input type="text" name="title_es" value="{% if object %}{{ object.safe_translation_getter 'title' True 'es' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
+                            <input type="text" name="title_es" value="{% if object and translations_es %}{{ translations_es.title }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Descripción Corta *</label>
-                            <input type="text" name="short_description_es" value="{% if object %}{{ object.safe_translation_getter 'short_description' True 'es' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
+                            <input type="text" name="short_description_es" value="{% if object and translations_es %}{{ translations_es.short_description }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Descripción Completa *</label>
-                            <textarea name="description_es" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>{% if object %}{{ object.safe_translation_getter 'description' True 'es' }}{% endif %}</textarea>
+                            <textarea name="description_es" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>{% if object and translations_es %}{{ translations_es.description }}{% endif %}</textarea>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title (SEO)</label>
-                            <input type="text" name="meta_title_es" value="{% if object %}{{ object.safe_translation_getter 'meta_title' True 'es' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <input type="text" name="meta_title_es" value="{% if object and translations_es %}{{ translations_es.meta_title }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description (SEO)</label>
-                            <textarea name="meta_description_es" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'meta_description' True 'es' }}{% endif %}</textarea>
+                            <textarea name="meta_description_es" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object and translations_es %}{{ translations_es.meta_description }}{% endif %}</textarea>
                         </div>
                     </div>
                 </div>
@@ -103,23 +103,23 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Títol *</label>
-                            <input type="text" name="title_ca" value="{% if object %}{{ object.safe_translation_getter 'title' True 'ca' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <input type="text" name="title_ca" value="{% if object and translations_ca %}{{ translations_ca.title }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Descripció Curta *</label>
-                            <input type="text" name="short_description_ca" value="{% if object %}{{ object.safe_translation_getter 'short_description' True 'ca' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <input type="text" name="short_description_ca" value="{% if object and translations_ca %}{{ translations_ca.short_description }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Descripció Completa *</label>
-                            <textarea name="description_ca" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'description' True 'ca' }}{% endif %}</textarea>
+                            <textarea name="description_ca" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object and translations_ca %}{{ translations_ca.description }}{% endif %}</textarea>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title (SEO)</label>
-                            <input type="text" name="meta_title_ca" value="{% if object %}{{ object.safe_translation_getter 'meta_title' True 'ca' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <input type="text" name="meta_title_ca" value="{% if object and translations_ca %}{{ translations_ca.meta_title }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description (SEO)</label>
-                            <textarea name="meta_description_ca" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'meta_description' True 'ca' }}{% endif %}</textarea>
+                            <textarea name="meta_description_ca" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object and translations_ca %}{{ translations_ca.meta_description }}{% endif %}</textarea>
                         </div>
                     </div>
                 </div>
@@ -129,23 +129,23 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
-                            <input type="text" name="title_en" value="{% if object %}{{ object.safe_translation_getter 'title' True 'en' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <input type="text" name="title_en" value="{% if object and translations_en %}{{ translations_en.title }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Short Description *</label>
-                            <input type="text" name="short_description_en" value="{% if object %}{{ object.safe_translation_getter 'short_description' True 'en' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <input type="text" name="short_description_en" value="{% if object and translations_en %}{{ translations_en.short_description }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Full Description *</label>
-                            <textarea name="description_en" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'description' True 'en' }}{% endif %}</textarea>
+                            <textarea name="description_en" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object and translations_en %}{{ translations_en.description }}{% endif %}</textarea>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title (SEO)</label>
-                            <input type="text" name="meta_title_en" value="{% if object %}{{ object.safe_translation_getter 'meta_title' True 'en' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <input type="text" name="meta_title_en" value="{% if object and translations_en %}{{ translations_en.meta_title }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description (SEO)</label>
-                            <textarea name="meta_description_en" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'meta_description' True 'en' }}{% endif %}</textarea>
+                            <textarea name="meta_description_en" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object and translations_en %}{{ translations_en.meta_description }}{% endif %}</textarea>
                         </div>
                     </div>
                 </div>
@@ -155,23 +155,23 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Titel *</label>
-                            <input type="text" name="title_de" value="{% if object %}{{ object.safe_translation_getter 'title' True 'de' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <input type="text" name="title_de" value="{% if object and translations_de %}{{ translations_de.title }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Kurze Beschreibung *</label>
-                            <input type="text" name="short_description_de" value="{% if object %}{{ object.safe_translation_getter 'short_description' True 'de' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <input type="text" name="short_description_de" value="{% if object and translations_de %}{{ translations_de.short_description }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Vollständige Beschreibung *</label>
-                            <textarea name="description_de" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'description' True 'de' }}{% endif %}</textarea>
+                            <textarea name="description_de" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object and translations_de %}{{ translations_de.description }}{% endif %}</textarea>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title (SEO)</label>
-                            <input type="text" name="meta_title_de" value="{% if object %}{{ object.safe_translation_getter 'meta_title' True 'de' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <input type="text" name="meta_title_de" value="{% if object and translations_de %}{{ translations_de.meta_title }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description (SEO)</label>
-                            <textarea name="meta_description_de" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'meta_description' True 'de' }}{% endif %}</textarea>
+                            <textarea name="meta_description_de" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object and translations_de %}{{ translations_de.meta_description }}{% endif %}</textarea>
                         </div>
                     </div>
                 </div>
