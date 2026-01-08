@@ -4,72 +4,176 @@
 {% block page_title %}{% if object %}Editar Servicio{% else %}Nuevo Servicio{% endif %}{% endblock %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto">
+<div class="max-w-5xl mx-auto">
     <div class="bg-white rounded-lg shadow-md p-6">
         <form method="post" enctype="multipart/form-data" class="space-y-6">
             {% csrf_token %}
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Título *</label>
-                    {{ form.title }}
-                </div>
-                
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Slug</label>
-                    {{ form.slug }}
-                </div>
-                
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Descripción Corta *</label>
-                    {{ form.short_description }}
-                </div>
-                
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Descripción Completa *</label>
-                    {{ form.description }}
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Icono (Font Awesome)</label>
-                    {{ form.icon }}
-                    <p class="mt-1 text-xs text-gray-500">Ej: fa-solid fa-building</p>
-                </div>
-                
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Orden</label>
-                    {{ form.order }}
-                </div>
-                
-                <div class="md:col-span-2">
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Imagen</label>
-                    {% if object.image %}
-                    <img src="{{ object.image.url }}" alt="Imagen actual" class="w-48 h-32 object-cover rounded-lg mb-3">
-                    {% endif %}
-                    {{ form.image }}
-                </div>
-            </div>
-            
-            <div class="border-t pt-6">
-                <h4 class="text-lg font-semibold mb-4">SEO (Opcional)</h4>
-                <div class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title</label>
-                        {{ form.meta_title }}
+            <!-- Campos Comunes (No Traducibles) -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h3 class="text-lg font-semibold mb-4 text-gray-900">Información General</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                        {{ form.slug }}
+                        <p class="mt-1 text-xs text-gray-500">Se genera automáticamente del título en español</p>
                     </div>
+                    
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description</label>
-                        {{ form.meta_description }}
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Icono (Font Awesome)</label>
+                        {{ form.icon }}
+                        <p class="mt-1 text-xs text-gray-500">Ej: fa-solid fa-building</p>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Orden</label>
+                        {{ form.order }}
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Imagen</label>
+                        {% if object.image %}
+                        <img src="{{ object.image.url }}" alt="Imagen actual" class="w-48 h-32 object-cover rounded-lg mb-3">
+                        {% endif %}
+                        {{ form.image }}
+                    </div>
+                    
+                    <div class="md:col-span-2">
+                        <div class="flex items-center">
+                            {{ form.is_active }}
+                            <label for="{{ form.is_active.id_for_label }}" class="ml-3 text-sm font-medium text-gray-700">
+                                Servicio activo (visible en web)
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
             
+            <!-- Tabs de Idiomas -->
             <div class="border-t pt-6">
-                <div class="flex items-center">
-                    {{ form.is_active }}
-                    <label for="{{ form.is_active.id_for_label }}" class="ml-3 text-sm font-medium text-gray-700">
-                        Servicio activo (visible en web)
-                    </label>
+                <h3 class="text-lg font-semibold mb-4 text-gray-900">Traducciones</h3>
+                <p class="text-sm text-gray-600 mb-4">Completa la información en todos los idiomas disponibles</p>
+                
+                <!-- Tab Buttons -->
+                <div class="border-b border-gray-200 mb-6">
+                    <nav class="-mb-px flex space-x-4" aria-label="Tabs">
+                        <button type="button" class="lang-tab-btn active border-b-2 border-primary-600 py-2 px-4 text-sm font-medium text-primary-600" data-lang="es">
+                            🇪🇸 Español
+                        </button>
+                        <button type="button" class="lang-tab-btn border-b-2 border-transparent py-2 px-4 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" data-lang="ca">
+                            🇨🇹 Català
+                        </button>
+                        <button type="button" class="lang-tab-btn border-b-2 border-transparent py-2 px-4 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" data-lang="en">
+                            🇬🇧 English
+                        </button>
+                        <button type="button" class="lang-tab-btn border-b-2 border-transparent py-2 px-4 text-sm font-medium text-gray-500 hover:text-gray-700 hover:border-gray-300" data-lang="de">
+                            🇩🇪 Deutsch
+                        </button>
+                    </nav>
+                </div>
+                
+                <!-- Tab Content - Español -->
+                <div class="lang-tab-content" data-lang="es">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Título *</label>
+                            <input type="text" name="title_es" value="{% if object %}{{ object.safe_translation_getter 'title' True 'es' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Descripción Corta *</label>
+                            <input type="text" name="short_description_es" value="{% if object %}{{ object.safe_translation_getter 'short_description' True 'es' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Descripción Completa *</label>
+                            <textarea name="description_es" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500" required>{% if object %}{{ object.safe_translation_getter 'description' True 'es' }}{% endif %}</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title (SEO)</label>
+                            <input type="text" name="meta_title_es" value="{% if object %}{{ object.safe_translation_getter 'meta_title' True 'es' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description (SEO)</label>
+                            <textarea name="meta_description_es" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'meta_description' True 'es' }}{% endif %}</textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab Content - Català -->
+                <div class="lang-tab-content hidden" data-lang="ca">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Títol *</label>
+                            <input type="text" name="title_ca" value="{% if object %}{{ object.safe_translation_getter 'title' True 'ca' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Descripció Curta *</label>
+                            <input type="text" name="short_description_ca" value="{% if object %}{{ object.safe_translation_getter 'short_description' True 'ca' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Descripció Completa *</label>
+                            <textarea name="description_ca" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'description' True 'ca' }}{% endif %}</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title (SEO)</label>
+                            <input type="text" name="meta_title_ca" value="{% if object %}{{ object.safe_translation_getter 'meta_title' True 'ca' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description (SEO)</label>
+                            <textarea name="meta_description_ca" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'meta_description' True 'ca' }}{% endif %}</textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab Content - English -->
+                <div class="lang-tab-content hidden" data-lang="en">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+                            <input type="text" name="title_en" value="{% if object %}{{ object.safe_translation_getter 'title' True 'en' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Short Description *</label>
+                            <input type="text" name="short_description_en" value="{% if object %}{{ object.safe_translation_getter 'short_description' True 'en' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Full Description *</label>
+                            <textarea name="description_en" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'description' True 'en' }}{% endif %}</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title (SEO)</label>
+                            <input type="text" name="meta_title_en" value="{% if object %}{{ object.safe_translation_getter 'meta_title' True 'en' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description (SEO)</label>
+                            <textarea name="meta_description_en" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'meta_description' True 'en' }}{% endif %}</textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab Content - Deutsch -->
+                <div class="lang-tab-content hidden" data-lang="de">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Titel *</label>
+                            <input type="text" name="title_de" value="{% if object %}{{ object.safe_translation_getter 'title' True 'de' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Kurze Beschreibung *</label>
+                            <input type="text" name="short_description_de" value="{% if object %}{{ object.safe_translation_getter 'short_description' True 'de' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Vollständige Beschreibung *</label>
+                            <textarea name="description_de" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'description' True 'de' }}{% endif %}</textarea>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Meta Title (SEO)</label>
+                            <input type="text" name="meta_title_de" value="{% if object %}{{ object.safe_translation_getter 'meta_title' True 'de' }}{% endif %}" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Meta Description (SEO)</label>
+                            <textarea name="meta_description_de" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500">{% if object %}{{ object.safe_translation_getter 'meta_description' True 'de' }}{% endif %}</textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
             
@@ -82,4 +186,27 @@
         </form>
     </div>
 </div>
+
+<script>
+// Tab switcher
+document.querySelectorAll('.lang-tab-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const targetLang = this.dataset.lang;
+        
+        // Update buttons
+        document.querySelectorAll('.lang-tab-btn').forEach(btn => {
+            btn.classList.remove('active', 'border-primary-600', 'text-primary-600');
+            btn.classList.add('border-transparent', 'text-gray-500');
+        });
+        this.classList.add('active', 'border-primary-600', 'text-primary-600');
+        this.classList.remove('border-transparent', 'text-gray-500');
+        
+        // Update content
+        document.querySelectorAll('.lang-tab-content').forEach(content => {
+            content.classList.add('hidden');
+        });
+        document.querySelector(`.lang-tab-content[data-lang="${targetLang}"]`).classList.remove('hidden');
+    });
+});
+</script>
 {% endblock %}

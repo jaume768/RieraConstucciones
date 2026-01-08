@@ -11,6 +11,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
+from parler.views import TranslatableCreateView, TranslatableUpdateView
 
 from blog.models import Post, Category, Tag
 from services.models import Service
@@ -208,7 +209,7 @@ class ServiceListView(BackofficePermissionMixin, ListView):
     ordering = ['order']
 
 
-class ServiceCreateView(BackofficePermissionMixin, CreateView):
+class ServiceCreateView(BackofficePermissionMixin, TranslatableCreateView):
     """Crear servicio"""
     model = Service
     form_class = ServiceForm
@@ -217,11 +218,25 @@ class ServiceCreateView(BackofficePermissionMixin, CreateView):
     permission_required = 'services.add_service'
     
     def form_valid(self, form):
-        messages.success(self.request, f'Servicio "{form.instance.title}" creado exitosamente.')
-        return super().form_valid(form)
+        # Guardar el objeto sin traducciones primero
+        self.object = form.save()
+        
+        # Procesar traducciones para cada idioma
+        languages = ['es', 'ca', 'en', 'de']
+        for lang in languages:
+            self.object.set_current_language(lang)
+            self.object.title = self.request.POST.get(f'title_{lang}', '')
+            self.object.short_description = self.request.POST.get(f'short_description_{lang}', '')
+            self.object.description = self.request.POST.get(f'description_{lang}', '')
+            self.object.meta_title = self.request.POST.get(f'meta_title_{lang}', '')
+            self.object.meta_description = self.request.POST.get(f'meta_description_{lang}', '')
+            self.object.save()
+        
+        messages.success(self.request, f'Servicio creado exitosamente con traducciones en todos los idiomas.')
+        return redirect(self.success_url)
 
 
-class ServiceUpdateView(BackofficePermissionMixin, UpdateView):
+class ServiceUpdateView(BackofficePermissionMixin, TranslatableUpdateView):
     """Editar servicio"""
     model = Service
     form_class = ServiceForm
@@ -230,8 +245,22 @@ class ServiceUpdateView(BackofficePermissionMixin, UpdateView):
     permission_required = 'services.change_service'
     
     def form_valid(self, form):
-        messages.success(self.request, f'Servicio "{form.instance.title}" actualizado correctamente.')
-        return super().form_valid(form)
+        # Guardar el objeto sin traducciones primero
+        self.object = form.save()
+        
+        # Procesar traducciones para cada idioma
+        languages = ['es', 'ca', 'en', 'de']
+        for lang in languages:
+            self.object.set_current_language(lang)
+            self.object.title = self.request.POST.get(f'title_{lang}', '')
+            self.object.short_description = self.request.POST.get(f'short_description_{lang}', '')
+            self.object.description = self.request.POST.get(f'description_{lang}', '')
+            self.object.meta_title = self.request.POST.get(f'meta_title_{lang}', '')
+            self.object.meta_description = self.request.POST.get(f'meta_description_{lang}', '')
+            self.object.save()
+        
+        messages.success(self.request, f'Servicio actualizado correctamente con todas las traducciones.')
+        return redirect(self.success_url)
 
 
 class ServiceDeleteView(BackofficePermissionMixin, DeleteView):
