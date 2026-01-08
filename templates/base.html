@@ -106,6 +106,29 @@
                 <a href="{% url 'contact' %}" class="block py-3 px-4 bg-gradient-to-r from-primary-600 to-primary-700 text-white rounded-lg hover:shadow-lg transition">
                     <i class="fas fa-envelope mr-2"></i>{% trans "Contacto" %}
                 </a>
+                
+                <!-- Selector de idioma móvil -->
+                <div class="border-t border-gray-200 pt-2 mt-2">
+                    <button id="mobile-language-button" class="flex items-center justify-between w-full py-3 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition">
+                        <span><i class="fas fa-globe mr-2"></i>{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE|upper }}</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div id="mobile-language-menu" class="hidden mt-1 ml-4 space-y-1">
+                        {% get_current_language as current_lang %}
+                        <a href="#" data-lang="es" class="lang-switch block py-2 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition {% if current_lang == 'es' %}bg-primary-100 font-bold{% endif %}">
+                            Español
+                        </a>
+                        <a href="#" data-lang="ca" class="lang-switch block py-2 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition {% if current_lang == 'ca' %}bg-primary-100 font-bold{% endif %}">
+                            Català
+                        </a>
+                        <a href="#" data-lang="en" class="lang-switch block py-2 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition {% if current_lang == 'en' %}bg-primary-100 font-bold{% endif %}">
+                            English
+                        </a>
+                        <a href="#" data-lang="de" class="lang-switch block py-2 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition {% if current_lang == 'de' %}bg-primary-100 font-bold{% endif %}">
+                            Deutsch
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -175,7 +198,7 @@
             menu.classList.toggle('hidden');
         });
         
-        // Language selector dropdown
+        // Language selector dropdown (desktop)
         const languageButton = document.getElementById('language-button');
         const languageMenu = document.getElementById('language-menu');
         
@@ -190,6 +213,17 @@
                 if (!languageButton.contains(e.target) && !languageMenu.contains(e.target)) {
                     languageMenu.classList.add('hidden');
                 }
+            });
+        }
+        
+        // Language selector dropdown (mobile)
+        const mobileLanguageButton = document.getElementById('mobile-language-button');
+        const mobileLanguageMenu = document.getElementById('mobile-language-menu');
+        
+        if (mobileLanguageButton && mobileLanguageMenu) {
+            mobileLanguageButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileLanguageMenu.classList.toggle('hidden');
             });
         }
         
