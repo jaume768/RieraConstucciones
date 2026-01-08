@@ -445,8 +445,8 @@ msgid "Contáctanos y te ofreceremos una solución personalizada para tu proyect
 msgstr "Kontaktieren Sie uns und wir bieten Ihnen eine maßgeschneiderte Lösung für Ihr Projekt"
 
 #: templates/services/services_list.html:90
-msgid "Solicitar Presupuesto Personalizado"
-msgstr "Individuelles Angebot anfordern"
+msgid "Solicitar Presupuesto"
+msgstr "Angebot anfordern"
 
 #: venv/Lib/site-packages/ckeditor_uploader/forms.py:6
 msgid "Search files"
