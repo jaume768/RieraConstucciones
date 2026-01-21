@@ -40,14 +40,16 @@
                 {% endif %}
                 
                 <button onclick="toggleRead({{ msg.id }}, {{ msg.is_read|lower }})" 
-                        class="px-3 py-1 {% if msg.is_read %}bg-gray-200 text-gray-700{% else %}bg-blue-500 text-white{% endif %} rounded-lg text-sm hover:opacity-80 transition">
-                    <i class="fas fa-{% if msg.is_read %}eye-slash{% else %}eye{% endif %} mr-1"></i>
+                        style="{% if msg.is_read %}background-color: #e5e7eb; color: #374151;{% else %}background-color: #3b82f6; color: white;{% endif %} padding: 0.5rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; border: none; cursor: pointer; transition: opacity 0.2s;"
+                        onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                    <i class="fas fa-{% if msg.is_read %}eye-slash{% else %}eye{% endif %}" style="margin-right: 0.25rem;"></i>
                     {% if msg.is_read %}Marcar no leído{% else %}Marcar leído{% endif %}
                 </button>
                 
                 <button onclick="deleteMessage({{ msg.id }})" 
-                        class="px-3 py-1 bg-red-500 text-white rounded-lg text-sm hover:bg-red-600 transition">
-                    <i class="fas fa-trash mr-1"></i>
+                        style="background-color: #ef4444; color: white; padding: 0.5rem 0.75rem; border-radius: 0.5rem; font-size: 0.875rem; border: none; cursor: pointer; transition: background-color 0.2s;"
+                        onmouseover="this.style.backgroundColor='#dc2626'" onmouseout="this.style.backgroundColor='#ef4444'">
+                    <i class="fas fa-trash" style="margin-right: 0.25rem;"></i>
                     Eliminar
                 </button>
             </div>
