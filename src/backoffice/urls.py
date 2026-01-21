@@ -44,6 +44,7 @@ urlpatterns = [
     # Mensajes de contacto
     path('contact/messages/', views.ContactMessageListView.as_view(), name='contact_message_list'),
     path('contact/messages/<int:pk>/toggle-read/', views.contact_message_toggle_read, name='contact_message_toggle_read'),
+    path('contact/messages/<int:pk>/delete/', views.contact_message_delete, name='contact_message_delete'),
     
     # Categorías del blog
     path('blog/categories/', views.CategoryListView.as_view(), name='category_list'),

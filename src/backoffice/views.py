@@ -500,6 +500,25 @@ def contact_message_toggle_read(request, pk):
     })
 
 
+@require_POST
+@login_required
+def contact_message_delete(request, pk):
+    """Eliminar mensaje de contacto"""
+    if not request.user.has_perm('core.delete_contactmessage'):
+        return JsonResponse({'error': 'Sin permisos'}, status=403)
+    
+    message = get_object_or_404(ContactMessage, pk=pk)
+    message_name = message.name
+    message.delete()
+    
+    messages.success(request, f'Mensaje de {message_name} eliminado correctamente.')
+    
+    return JsonResponse({
+        'success': True,
+        'message': 'Mensaje eliminado correctamente'
+    })
+
+
 # ============================================================
 # CATEGORÍAS DEL BLOG
 # ============================================================
