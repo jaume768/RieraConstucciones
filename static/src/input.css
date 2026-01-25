@@ -99,7 +99,10 @@
 
 /* Contenedor para agrupar imágenes consecutivas */
 .content-html img {
-  @apply rounded-lg shadow-md w-full h-full object-cover mb-3;
+  @apply rounded-lg shadow-md mb-3;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: cover;
   max-height: 300px;
 }
 
@@ -111,7 +114,7 @@
   
   .content-html img {
     @apply col-span-1 mb-2;
-    max-height: 200px;
+    max-height: 200px !important;
   }
   
   .content-html h2,
