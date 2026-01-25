@@ -162,3 +162,41 @@
 .content-html table th {
   @apply bg-gray-100 font-bold;
 }
+
+/* Sobrescribir grid SOLO para servicios - mantiene layout tradicional */
+.service-content {
+  display: block !important;
+  grid-template-columns: unset !important;
+  gap: 0 !important;
+}
+
+.service-content > * {
+  grid-column: unset !important;
+}
+
+.service-content img {
+  grid-column: unset !important;
+  margin-bottom: 1rem !important;
+}
+
+@media (max-width: 768px) {
+  .service-content {
+    display: block !important;
+    grid-template-columns: unset !important;
+    gap: 0 !important;
+  }
+  
+  .service-content img {
+    grid-column: unset !important;
+  }
+  
+  .service-content h2,
+  .service-content h3,
+  .service-content p,
+  .service-content ul,
+  .service-content ol,
+  .service-content blockquote,
+  .service-content table {
+    grid-column: unset !important;
+  }
+}
