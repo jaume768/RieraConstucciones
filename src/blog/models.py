@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User
 from parler.models import TranslatableModel, TranslatedFields
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Category(TranslatableModel):
@@ -64,7 +64,7 @@ class Post(TranslatableModel):
     translations = TranslatedFields(
         title=models.CharField('Título', max_length=200),
         summary=models.TextField('Resumen', max_length=300, help_text='Breve descripción para listados'),
-        content=RichTextField('Contenido'),
+        content=RichTextUploadingField('Contenido'),
         meta_title=models.CharField('Meta Title (SEO)', max_length=70, blank=True),
         meta_description=models.TextField('Meta Description (SEO)', max_length=160, blank=True),
     )

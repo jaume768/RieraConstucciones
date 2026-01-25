@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     
     'parler',
     'ckeditor',
+    'ckeditor_uploader',
     
     'core',
     'blog',
@@ -131,6 +132,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = PROJECT_ROOT / 'media'
 
+CKEDITOR_UPLOAD_PATH = 'blog_uploads/'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.console.EmailBackend')
@@ -156,13 +159,16 @@ CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
         'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
+            ['Bold', 'Italic', 'Underline', 'Strike'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source']
+            ['Image', 'Table'],
+            ['RemoveFormat', 'Source', 'Maximize']
         ],
-        'height': 300,
+        'height': 400,
         'width': '100%',
+        'filebrowserUploadUrl': '/ckeditor/upload/',
+        'filebrowserBrowseUrl': '/ckeditor/browse/',
     },
 }
 

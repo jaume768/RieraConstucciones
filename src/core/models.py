@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from parler.models import TranslatableModel, TranslatedFields
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class Page(TranslatableModel):
@@ -13,7 +13,7 @@ class Page(TranslatableModel):
     
     translations = TranslatedFields(
         title=models.CharField('Título', max_length=200),
-        content=RichTextField('Contenido'),
+        content=RichTextUploadingField('Contenido'),
         meta_title=models.CharField('Meta Title (SEO)', max_length=70, blank=True),
         meta_description=models.TextField('Meta Description (SEO)', max_length=160, blank=True),
     )
