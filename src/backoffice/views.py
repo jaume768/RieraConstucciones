@@ -145,8 +145,9 @@ class PostCreateView(BackofficePermissionMixin, CreateView):
     
     def form_valid(self, form):
         form.instance.author = self.request.user
-        messages.success(self.request, f'Post "{form.instance.title}" creado exitosamente.')
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        messages.success(self.request, f'Post creado exitosamente.')
+        return response
 
 
 class PostUpdateView(BackofficePermissionMixin, UpdateView):

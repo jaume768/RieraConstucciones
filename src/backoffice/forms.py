@@ -93,11 +93,6 @@ class PostForm(TranslatableModelForm):
                 'rows': '3',
                 'placeholder': 'Resumen breve del post'
             }),
-            'content': forms.Textarea(attrs={
-                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
-                'rows': '15',
-                'placeholder': 'Contenido del post (puedes usar HTML)'
-            }),
             'featured_image': forms.FileInput(attrs={
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500'
             }),
@@ -127,12 +122,11 @@ class PostForm(TranslatableModelForm):
         return slug
     
     def save(self, commit=True):
-        instance = super().save(commit=False)
+        instance = super().save(commit=commit)
         if not instance.author_id:
             instance.author = self.initial.get('author')
-        if commit:
-            instance.save()
-            self.save_m2m()
+            if commit:
+                instance.save(update_fields=['author'])
         return instance
 
 
@@ -159,11 +153,6 @@ class ServiceForm(TranslatableModelForm):
             'short_description': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
                 'placeholder': 'Descripción corta'
-            }),
-            'description': forms.Textarea(attrs={
-                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
-                'rows': '10',
-                'placeholder': 'Descripción completa (HTML)'
             }),
             'icon': forms.TextInput(attrs={
                 'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',

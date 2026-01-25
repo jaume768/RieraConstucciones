@@ -3,6 +3,14 @@
 {% block title %}{% if object %}Editar Post{% else %}Crear Post{% endif %}{% endblock %}
 {% block page_title %}{% if object %}Editar Post{% else %}Crear Nuevo Post{% endif %}{% endblock %}
 
+{% block extra_css %}
+{{ form.media.css }}
+{% endblock %}
+
+{% block extra_js %}
+{{ form.media.js }}
+{% endblock %}
+
 {% block content %}
 <div class="max-w-4xl mx-auto">
     <div class="bg-white rounded-lg shadow-md p-6">
