@@ -30,9 +30,11 @@ msgstr "Bitte füllen Sie alle Pflichtfelder aus."
 
 #: src/core/views.py:98
 msgid "¡Gracias por contactarnos! Te responderemos lo antes posible."
-msgstr ""
-"Vielen Dank für Ihre Kontaktaufnahme! Wir werden so schnell wie möglich "
-"antworten."
+msgstr "Vielen Dank für Ihre Kontaktaufnahme! Wir werden so schnell wie möglich antworten."
+
+#: templates/base.html:61 templates/base.html:110
+msgid "Ventas"
+msgstr "Verkäufe"
 
 #: templates/base.html:51 templates/base.html:95 templates/base.html:138
 msgid "Inicio"
