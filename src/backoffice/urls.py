@@ -25,6 +25,13 @@ urlpatterns = [
     path('services/<int:pk>/edit/', views.ServiceUpdateView.as_view(), name='service_edit'),
     path('services/<int:pk>/delete/', views.ServiceDeleteView.as_view(), name='service_delete'),
     
+    # Propiedades
+    path('properties/', views.PropertyListView.as_view(), name='property_list'),
+    path('properties/create/', views.PropertyCreateView.as_view(), name='property_create'),
+    path('properties/<int:pk>/edit/', views.PropertyUpdateView.as_view(), name='property_edit'),
+    path('properties/<int:pk>/delete/', views.PropertyDeleteView.as_view(), name='property_delete'),
+    path('properties/<int:pk>/toggle-sold/', views.property_toggle_sold, name='property_toggle_sold'),
+    
     # Equipo
     path('team/', views.TeamMemberListView.as_view(), name='team_list'),
     path('team/create/', views.TeamMemberCreateView.as_view(), name='team_create'),

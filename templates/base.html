@@ -56,6 +56,35 @@
                     <a href="{% url 'services_list' %}" class="nav-link {% if 'servicios' in request.path %}active{% endif %}">
                         <i class="fas fa-tools mr-1"></i>{% trans "Servicios" %}
                     </a>
+                    
+                    <!-- Dropdown de Ventas -->
+                    <div class="relative group">
+                        <a href="{% url 'properties:property_list' %}" class="nav-link {% if 'propiedades' in request.path %}active{% endif %} flex items-center">
+                            <i class="fas fa-home mr-1"></i>{% trans "Ventas" %}
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </a>
+                        <div class="hidden group-hover:block absolute left-0 mt-2 w-56 bg-white rounded-lg shadow-xl py-2 z-50">
+                            <a href="{% url 'properties:property_list' %}" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition">
+                                <i class="fas fa-th-large mr-2"></i>{% trans "Todas las propiedades" %}
+                            </a>
+                            <a href="{% url 'properties:property_list' %}?type=casa" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition">
+                                <i class="fas fa-house mr-2"></i>{% trans "Casas" %}
+                            </a>
+                            <a href="{% url 'properties:property_list' %}?type=piso" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition">
+                                <i class="fas fa-building mr-2"></i>{% trans "Pisos" %}
+                            </a>
+                            <a href="{% url 'properties:property_list' %}?type=apartamento" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition">
+                                <i class="fas fa-door-open mr-2"></i>{% trans "Apartamentos" %}
+                            </a>
+                            <a href="{% url 'properties:property_list' %}?type=local" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition">
+                                <i class="fas fa-store mr-2"></i>{% trans "Locales comerciales" %}
+                            </a>
+                            <a href="{% url 'properties:property_list' %}?type=terreno" class="block px-4 py-2 text-gray-700 hover:bg-primary-50 hover:text-primary-600 transition">
+                                <i class="fas fa-mountain mr-2"></i>{% trans "Terrenos" %}
+                            </a>
+                        </div>
+                    </div>
+                    
                     <a href="{% url 'blog_list' %}" class="nav-link {% if 'blog' in request.path %}active{% endif %}">
                         <i class="fas fa-newspaper mr-1"></i>Blog
                     </a>
@@ -100,6 +129,35 @@
                 <a href="{% url 'services_list' %}" class="block py-3 px-4 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition">
                     <i class="fas fa-tools mr-2"></i>{% trans "Servicios" %}
                 </a>
+                
+                <!-- Ventas móvil con submenu -->
+                <div>
+                    <button id="mobile-ventas-button" class="flex items-center justify-between w-full py-3 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition">
+                        <span><i class="fas fa-home mr-2"></i>{% trans "Ventas" %}</span>
+                        <i class="fas fa-chevron-down text-xs"></i>
+                    </button>
+                    <div id="mobile-ventas-menu" class="hidden mt-1 ml-4 space-y-1">
+                        <a href="{% url 'properties:property_list' %}" class="block py-2 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition text-sm">
+                            <i class="fas fa-th-large mr-2"></i>{% trans "Todas" %}
+                        </a>
+                        <a href="{% url 'properties:property_list' %}?type=casa" class="block py-2 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition text-sm">
+                            <i class="fas fa-house mr-2"></i>{% trans "Casas" %}
+                        </a>
+                        <a href="{% url 'properties:property_list' %}?type=piso" class="block py-2 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition text-sm">
+                            <i class="fas fa-building mr-2"></i>{% trans "Pisos" %}
+                        </a>
+                        <a href="{% url 'properties:property_list' %}?type=apartamento" class="block py-2 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition text-sm">
+                            <i class="fas fa-door-open mr-2"></i>{% trans "Apartamentos" %}
+                        </a>
+                        <a href="{% url 'properties:property_list' %}?type=local" class="block py-2 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition text-sm">
+                            <i class="fas fa-store mr-2"></i>{% trans "Locales" %}
+                        </a>
+                        <a href="{% url 'properties:property_list' %}?type=terreno" class="block py-2 px-4 text-gray-700 hover:bg-primary-50 rounded-lg transition text-sm">
+                            <i class="fas fa-mountain mr-2"></i>{% trans "Terrenos" %}
+                        </a>
+                    </div>
+                </div>
+                
                 <a href="{% url 'blog_list' %}" class="block py-3 px-4 text-gray-700 hover:bg-primary-50 hover:text-primary-600 rounded-lg transition">
                     <i class="fas fa-newspaper mr-2"></i>Blog
                 </a>
@@ -225,6 +283,17 @@
             mobileLanguageButton.addEventListener('click', function(e) {
                 e.stopPropagation();
                 mobileLanguageMenu.classList.toggle('hidden');
+            });
+        }
+        
+        // Ventas submenu (mobile)
+        const mobileVentasButton = document.getElementById('mobile-ventas-button');
+        const mobileVentasMenu = document.getElementById('mobile-ventas-menu');
+        
+        if (mobileVentasButton && mobileVentasMenu) {
+            mobileVentasButton.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mobileVentasMenu.classList.toggle('hidden');
             });
         }
         

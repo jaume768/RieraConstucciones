@@ -1,0 +1,133 @@
+{% extends 'backoffice/base.html' %}
+
+{% block title %}Propiedades{% endblock %}
+{% block page_title %}Gestión de Propiedades en Venta{% endblock %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md p-6 mb-6">
+    <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-semibold text-gray-900">
+            <i class="fas fa-home mr-2 text-primary-600"></i>
+            Propiedades ({{ page_obj.paginator.count }})
+        </h3>
+        {% if perms.properties.add_property %}
+        <a href="{% url 'backoffice:property_create' %}" class="btn-primary">
+            <i class="fas fa-plus mr-2"></i>Crear Propiedad
+        </a>
+        {% endif %}
+    </div>
+    
+    <div class="flex flex-wrap gap-4 mb-4">
+        <form method="get" class="flex flex-wrap gap-4 flex-1">
+            <input type="text" name="q" value="{{ search_query }}" placeholder="Buscar por título o ubicación..." class="flex-1 px-4 py-2 border border-gray-300 rounded-lg">
+            <select name="status" class="px-4 py-2 border border-gray-300 rounded-lg">
+                <option value="">Todos los estados</option>
+                <option value="available" {% if current_status == 'available' %}selected{% endif %}>Disponibles</option>
+                <option value="sold" {% if current_status == 'sold' %}selected{% endif %}>Vendidos</option>
+            </select>
+            <select name="type" class="px-4 py-2 border border-gray-300 rounded-lg">
+                <option value="">Todos los tipos</option>
+                {% for value, label in property_types %}
+                <option value="{{ value }}" {% if current_type == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn-primary">
+                <i class="fas fa-search mr-2"></i>Buscar
+            </button>
+            <a href="{% url 'backoffice:property_list' %}" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+                <i class="fas fa-times mr-2"></i>Limpiar
+            </a>
+        </form>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for property in properties %}
+    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition">
+        {% with primary_image=property.get_primary_image %}
+        {% if primary_image %}
+        <img src="{{ primary_image.image.url }}" alt="{{ property.title }}" class="w-full h-48 object-cover">
+        {% else %}
+        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+            <i class="fas fa-home text-6xl text-gray-400"></i>
+        </div>
+        {% endif %}
+        {% endwith %}
+        
+        <div class="p-6">
+            <div class="flex items-start justify-between mb-3">
+                <h4 class="text-lg font-semibold text-gray-900">{{ property.title }}</h4>
+                <span class="ml-2 px-2 py-1 text-xs rounded-full {% if property.is_sold %}bg-red-100 text-red-800{% else %}bg-green-100 text-green-800{% endif %}">
+                    {% if property.is_sold %}Vendido{% else %}Disponible{% endif %}
+                </span>
+            </div>
+            
+            <p class="text-2xl font-bold text-primary-600 mb-2">{{ property.price|floatformat:0 }} €</p>
+            
+            <div class="flex items-center gap-4 text-sm text-gray-600 mb-3">
+                <span><i class="fas fa-map-marker-alt mr-1"></i>{{ property.location }}</span>
+                <span><i class="fas fa-bed mr-1"></i>{{ property.bedrooms }}</span>
+                <span><i class="fas fa-bath mr-1"></i>{{ property.bathrooms }}</span>
+            </div>
+            
+            <div class="flex items-center gap-2 mb-4">
+                <span class="px-2 py-1 text-xs bg-gray-100 text-gray-700 rounded">{{ property.get_property_type_display }}</span>
+                <span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded">{{ property.surface_area }} m²</span>
+                {% if property.is_featured %}
+                <span class="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 rounded">
+                    <i class="fas fa-star mr-1"></i>Destacado
+                </span>
+                {% endif %}
+            </div>
+            
+            <div class="flex items-center justify-between pt-4 border-t border-gray-200">
+                <span class="text-sm text-gray-500">{{ property.images.count }} imágenes</span>
+                <div class="flex space-x-2">
+                    {% if perms.properties.change_property %}
+                    <a href="{% url 'backoffice:property_edit' property.pk %}" class="text-blue-600 hover:text-blue-900">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {% endif %}
+                    <a href="{% url 'properties:property_detail' property.slug %}" target="_blank" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    {% if perms.properties.delete_property %}
+                    <a href="{% url 'backoffice:property_delete' property.pk %}" class="text-red-600 hover:text-red-900">
+                        <i class="fas fa-trash"></i>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-span-3 bg-white rounded-lg shadow-md p-12 text-center">
+        <i class="fas fa-inbox text-6xl text-gray-300 mb-4"></i>
+        <p class="text-gray-500 text-lg">No hay propiedades creadas</p>
+        {% if perms.properties.add_property %}
+        <a href="{% url 'backoffice:property_create' %}" class="mt-4 inline-block btn-primary">
+            <i class="fas fa-plus mr-2"></i>Crear Primera Propiedad
+        </a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+
+{% if is_paginated %}
+<div class="mt-6 flex justify-center">
+    <nav class="flex items-center space-x-2">
+        {% if page_obj.has_previous %}
+        <a href="?page=1" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Primera</a>
+        <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Anterior</a>
+        {% endif %}
+        
+        <span class="px-4 py-2 text-gray-700">Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+        
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Siguiente</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Última</a>
+        {% endif %}
+    </nav>
+</div>
+{% endif %}
+{% endblock %}

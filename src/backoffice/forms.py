@@ -4,6 +4,7 @@ from parler.forms import TranslatableModelForm
 from blog.models import Post, Category, Tag
 from services.models import Service
 from core.models import TeamMember, CompanyValue, Page
+from properties.models import Property
 
 
 class CategoryForm(TranslatableModelForm):
@@ -305,3 +306,99 @@ class PageForm(TranslatableModelForm):
                 'class': 'w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500'
             }),
         }
+
+
+class PropertyForm(TranslatableModelForm):
+    """Form para crear/editar propiedades en venta"""
+    
+    class Meta:
+        model = Property
+        fields = [
+            'title', 'slug', 'short_description', 'description', 'features',
+            'property_type', 'price', 'surface_area', 'bedrooms', 'bathrooms',
+            'location', 'latitude', 'longitude',
+            'meta_title', 'meta_description',
+            'is_sold', 'is_featured'
+        ]
+        untranslated_fields = [
+            'slug', 'property_type', 'price', 'surface_area', 
+            'bedrooms', 'bathrooms', 'location', 'latitude', 'longitude',
+            'is_sold', 'is_featured'
+        ]
+        widgets = {
+            'title': forms.TextInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'placeholder': 'Ej: Villa de lujo en Palma'
+            }),
+            'slug': forms.TextInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'placeholder': 'slug-automatico'
+            }),
+            'short_description': forms.Textarea(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'rows': '3',
+                'placeholder': 'Descripción breve para listados'
+            }),
+            'features': forms.Textarea(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'rows': '5',
+                'placeholder': 'Una característica por línea (ej: Piscina, Garaje, Terraza)'
+            }),
+            'property_type': forms.Select(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500'
+            }),
+            'price': forms.NumberInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'step': '0.01',
+                'placeholder': 'Precio en euros'
+            }),
+            'surface_area': forms.NumberInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'placeholder': 'Superficie en m²'
+            }),
+            'bedrooms': forms.NumberInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'placeholder': 'Número de habitaciones'
+            }),
+            'bathrooms': forms.NumberInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'placeholder': 'Número de baños'
+            }),
+            'location': forms.TextInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'placeholder': 'Ej: Palma de Mallorca'
+            }),
+            'latitude': forms.NumberInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'step': '0.000001',
+                'placeholder': 'Latitud (opcional)'
+            }),
+            'longitude': forms.NumberInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'step': '0.000001',
+                'placeholder': 'Longitud (opcional)'
+            }),
+            'meta_title': forms.TextInput(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'placeholder': 'Título SEO (opcional)'
+            }),
+            'meta_description': forms.Textarea(attrs={
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500',
+                'rows': '2',
+                'placeholder': 'Descripción SEO (opcional)'
+            }),
+            'is_sold': forms.CheckboxInput(attrs={
+                'class': 'w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500'
+            }),
+            'is_featured': forms.CheckboxInput(attrs={
+                'class': 'w-4 h-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500'
+            }),
+        }
+    
+    def clean_slug(self):
+        slug = self.cleaned_data.get('slug')
+        if not slug:
+            title = self.cleaned_data.get('title')
+            if title:
+                slug = slugify(title)
+        return slug

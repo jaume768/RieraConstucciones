@@ -52,6 +52,13 @@
                 </a>
                 {% endif %}
                 
+                {% if perms.properties.view_property %}
+                <a href="{% url 'backoffice:property_list' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition {% if 'propert' in request.path %}bg-gray-800 text-white{% endif %}">
+                    <i class="fas fa-home mr-3"></i>
+                    Propiedades
+                </a>
+                {% endif %}
+                
                 {% if perms.core.view_teammember %}
                 <a href="{% url 'backoffice:team_list' %}" class="flex items-center px-6 py-3 text-gray-300 hover:bg-gray-800 hover:text-white transition {% if 'team' in request.path %}bg-gray-800 text-white{% endif %}">
                     <i class="fas fa-users mr-3"></i>

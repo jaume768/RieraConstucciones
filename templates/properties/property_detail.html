@@ -1,0 +1,310 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block meta_title %}{{ property.get_meta_title }} - {{ SITE_NAME }}{% endblock %}
+{% block meta_description %}{{ property.get_meta_description }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section con Imagen Principal -->
+{% with primary_image=property.get_primary_image %}
+{% if primary_image %}
+<div class="relative w-full h-[70vh] bg-cover bg-center" style="background-image: url('{{ primary_image.image.url }}');">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+    <div class="absolute bottom-0 left-0 right-0 pb-12">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl">
+                {% if property.is_sold %}
+                <span class="inline-block px-4 py-2 bg-red-600 text-white rounded-lg mb-4 font-bold">
+                    <i class="fas fa-tag mr-2"></i>{% trans "VENDIDO" %}
+                </span>
+                {% else %}
+                <span class="inline-block px-4 py-2 bg-green-600 text-white rounded-lg mb-4 font-bold">
+                    <i class="fas fa-check-circle mr-2"></i>{% trans "DISPONIBLE" %}
+                </span>
+                {% endif %}
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-4">{{ property.title }}</h1>
+                <div class="flex flex-wrap items-center gap-6 text-white">
+                    <span class="text-3xl md:text-4xl font-bold text-yellow-400">{{ property.price|floatformat:0 }} €</span>
+                    <span class="text-xl"><i class="fas fa-map-marker-alt mr-2"></i>{{ property.location }}</span>
+                    <span class="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-lg">{{ property.get_property_type_display }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<section class="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-20">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">{{ property.title }}</h1>
+            <div class="flex flex-wrap items-center gap-6">
+                <span class="text-3xl font-bold text-yellow-400">{{ property.price|floatformat:0 }} €</span>
+                <span class="text-xl"><i class="fas fa-map-marker-alt mr-2"></i>{{ property.location }}</span>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endwith %}
+
+<!-- Breadcrumb -->
+<div class="bg-gray-50 py-4 border-b">
+    <div class="container mx-auto px-4">
+        <nav class="text-sm text-gray-600">
+            <a href="{% url 'home' %}" class="hover:text-primary-600">{% trans "Inicio" %}</a>
+            <span class="mx-2">/</span>
+            <a href="{% url 'properties:property_list' %}" class="hover:text-primary-600">{% trans "Propiedades" %}</a>
+            <span class="mx-2">/</span>
+            <span class="text-gray-900">{{ property.title }}</span>
+        </nav>
+    </div>
+</div>
+
+<section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="lg:col-span-2">
+                <!-- Galería de Imágenes -->
+                {% if property.images.exists %}
+                <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6"><i class="fas fa-images mr-3 text-primary-600"></i>{% trans "Galería de Imágenes" %}</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {% for image in property.images.all %}
+                        <a href="{{ image.image.url }}" class="glightbox relative group" data-gallery="property-gallery" data-title="{{ property.title }} - Imagen {{ forloop.counter }}">
+                            <img src="{{ image.image.url }}" alt="{{ property.title }} - Imagen {{ forloop.counter }}" class="w-full h-48 md:h-64 object-cover rounded-lg shadow-md transition-transform duration-300 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 rounded-lg flex items-center justify-center pointer-events-none">
+                                <i class="fas fa-search-plus text-white text-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></i>
+                            </div>
+                            {% if image.is_primary %}
+                            <span class="absolute top-3 left-3 px-3 py-1 bg-yellow-500 text-white text-xs font-bold rounded-lg shadow-lg pointer-events-none">
+                                <i class="fas fa-star mr-1"></i>Principal
+                            </span>
+                            {% endif %}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    <p class="text-sm text-gray-500 mt-4 text-center">
+                        <i class="fas fa-info-circle mr-2"></i>{% trans "Haz clic en cualquier imagen para verla en pantalla completa" %}
+                    </p>
+                </div>
+                {% endif %}
+                
+                <!-- Características Principales -->
+                <div class="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-lg p-8 mb-8 border border-gray-100">
+                    
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6"><i class="fas fa-ruler-combined mr-3 text-primary-600"></i>{% trans "Características Principales" %}</h2>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+                        <div class="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-shadow">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-primary-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-expand-arrows-alt text-2xl text-primary-600"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-gray-900 mb-1">{{ property.surface_area }}</p>
+                            <p class="text-sm text-gray-600 font-medium">m² totales</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-shadow">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-primary-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-bed text-2xl text-primary-600"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-gray-900 mb-1">{{ property.bedrooms }}</p>
+                            <p class="text-sm text-gray-600 font-medium">{% trans "Habitaciones" %}</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-shadow">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-primary-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-bath text-2xl text-primary-600"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-gray-900 mb-1">{{ property.bathrooms }}</p>
+                            <p class="text-sm text-gray-600 font-medium">{% trans "Baños" %}</p>
+                        </div>
+                        <div class="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-xl transition-shadow">
+                            <div class="w-16 h-16 mx-auto mb-4 bg-yellow-100 rounded-full flex items-center justify-center">
+                                <i class="fas fa-euro-sign text-2xl text-yellow-600"></i>
+                            </div>
+                            <p class="text-3xl font-bold text-gray-900 mb-1">{{ property.price|floatformat:0 }}</p>
+                            <p class="text-sm text-gray-600 font-medium">Precio total</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8 pb-8 border-t pt-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6"><i class="fas fa-align-left mr-3 text-primary-600"></i>{% trans "Descripción Completa" %}</h2>
+                        <div class="content-html text-gray-700 leading-relaxed">
+                            {{ property.description|safe }}
+                        </div>
+                    </div>
+                    
+                    {% with features=property.get_features_list %}
+                    {% if features %}
+                    <div class="mb-8 pb-8 border-t pt-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6"><i class="fas fa-list-check mr-3 text-primary-600"></i>{% trans "Características Adicionales" %}</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {% for feature in features %}
+                            <div class="flex items-center p-4 bg-green-50 rounded-lg hover:bg-green-100 transition-colors">
+                                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-check text-white"></i>
+                                </div>
+                                <span class="text-gray-700 font-medium">{{ feature }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+                    
+                    {% if property.latitude and property.longitude %}
+                    <div class="border-t pt-8">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6"><i class="fas fa-map-marker-alt mr-3 text-primary-600"></i>{% trans "Ubicación" %}</h2>
+                        <div class="bg-gradient-to-br from-blue-100 to-blue-50 rounded-xl p-8 h-64 flex flex-col items-center justify-center shadow-inner">
+                            <i class="fas fa-map-marked-alt text-6xl text-primary-600 mb-4"></i>
+                            <p class="text-lg text-gray-700 font-medium text-center">
+                                {{ property.location }}
+                            </p>
+                            <p class="text-sm text-gray-500 mt-2">
+                                {% trans "Coordenadas" %}: {{ property.latitude }}, {{ property.longitude }}
+                            </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="lg:col-span-1">
+                <div class="bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-xl p-6 sticky top-24 border border-gray-100">
+                    <div class="bg-primary-600 text-white rounded-lg p-4 mb-6 text-center">
+                        <i class="fas fa-envelope text-3xl mb-2"></i>
+                        <h3 class="text-xl font-bold">{% trans "¿Interesado?" %}</h3>
+                        <p class="text-sm opacity-90 mt-1">{% trans "Solicita información" %}</p>
+                    </div>
+                    
+                    <form method="post" action="{% url 'contact' %}" class="space-y-4">
+                        {% csrf_token %}
+                        <input type="hidden" name="subject" value="Consulta sobre: {{ property.title }}">
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Nombre" %} *</label>
+                            <input type="text" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                            <input type="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Teléfono" %}</label>
+                            <input type="tel" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Mensaje" %} *</label>
+                            <textarea name="message" rows="4" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500">{% trans "Estoy interesado en esta propiedad. Por favor, envíenme más información." %}</textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full btn-primary">
+                            <i class="fas fa-paper-plane mr-2"></i>{% trans "Enviar Consulta" %}
+                        </button>
+                    </form>
+                    
+                    <div class="mt-6 pt-6 border-t">
+                        <p class="text-sm font-semibold text-gray-700 mb-4">{% trans "O contáctanos directamente:" %}</p>
+                        <div class="space-y-3">
+                            <a href="tel:675378303" class="flex items-center p-3 bg-white rounded-lg hover:bg-primary-50 transition-colors group">
+                                <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-primary-600 transition-colors">
+                                    <i class="fas fa-phone text-primary-600 group-hover:text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">675 378 303</p>
+                                    <p class="text-xs text-gray-500">Jaume</p>
+                                </div>
+                            </a>
+                            <a href="tel:692674204" class="flex items-center p-3 bg-white rounded-lg hover:bg-primary-50 transition-colors group">
+                                <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-primary-600 transition-colors">
+                                    <i class="fas fa-phone text-primary-600 group-hover:text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">692 674 204</p>
+                                    <p class="text-xs text-gray-500">Oficina</p>
+                                </div>
+                            </a>
+                            <a href="mailto:rieraconstruccions@gmail.com" class="flex items-center p-3 bg-white rounded-lg hover:bg-primary-50 transition-colors group">
+                                <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center mr-3 group-hover:bg-primary-600 transition-colors">
+                                    <i class="fas fa-envelope text-primary-600 group-hover:text-white"></i>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-medium text-gray-900 break-all">rieraconstruccions@gmail.com</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        {% if related_properties %}
+        <div class="mt-16 pt-16 border-t">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">{% trans "Propiedades Similares" %}</h2>
+                <p class="text-gray-600">{% trans "Descubre otras opciones que podrían interesarte" %}</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {% for related in related_properties %}
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="relative h-48 overflow-hidden">
+                        {% with primary=related.get_primary_image %}
+                        {% if primary %}
+                        <img src="{{ primary.image.url }}" alt="{{ related.title }}" class="w-full h-full object-cover">
+                        {% else %}
+                        <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-home text-4xl text-gray-400"></i>
+                        </div>
+                        {% endif %}
+                        {% endwith %}
+                        <div class="absolute top-4 right-4 px-4 py-2 bg-yellow-400 text-gray-900 font-bold rounded-lg shadow-lg">
+                            {{ related.price|floatformat:0 }} €
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3 hover:text-primary-600 transition-colors">{{ related.title }}</h3>
+                        <p class="text-sm text-gray-600 mb-3 flex items-center">
+                            <i class="fas fa-map-marker-alt mr-2"></i>
+                            {{ related.location }}
+                        </p>
+                        <div class="flex items-center gap-4 text-sm text-gray-600 mb-6">
+                            <span class="flex items-center"><i class="fas fa-bed mr-2 text-primary-600"></i>{{ related.bedrooms }}</span>
+                            <span class="flex items-center"><i class="fas fa-bath mr-2 text-primary-600"></i>{{ related.bathrooms }}</span>
+                            <span class="flex items-center"><i class="fas fa-expand-arrows-alt mr-2 text-primary-600"></i>{{ related.surface_area }}m²</span>
+                        </div>
+                        <a href="{% url 'properties:property_detail' related.slug %}" class="block w-full text-center bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+                            {% trans "Ver Detalles" %} <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = GLightbox({
+        touchNavigation: true,
+        loop: true,
+        autoplayVideos: true,
+        closeButton: true,
+        zoomable: true,
+        draggable: true,
+        dragToleranceX: 40,
+        dragToleranceY: 65,
+        preload: true
+    });
+    console.log('GLightbox initialized successfully');
+});
+</script>
+{% endblock %}

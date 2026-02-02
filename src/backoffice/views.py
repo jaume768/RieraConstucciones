@@ -6,7 +6,7 @@ from django.views.generic import (
     ListView, CreateView, UpdateView, DeleteView, TemplateView
 )
 from django.urls import reverse_lazy
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Max
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.utils.decorators import method_decorator
@@ -16,11 +16,12 @@ from parler.views import TranslatableCreateView, TranslatableUpdateView
 from blog.models import Post, Category, Tag
 from services.models import Service
 from core.models import TeamMember, CompanyValue, Page, ContactMessage
+from properties.models import Property, PropertyImage
 
 from .mixins import StaffRequiredMixin, BackofficePermissionMixin
 from .forms import (
     PostForm, ServiceForm, TeamMemberForm, 
-    CompanyValueForm, PageForm, CategoryForm, TagForm
+    CompanyValueForm, PageForm, CategoryForm, TagForm, PropertyForm
 )
 
 
@@ -630,3 +631,142 @@ class TagDeleteView(BackofficePermissionMixin, DeleteView):
         tag = self.get_object()
         messages.success(request, f'Etiqueta "{tag.name}" eliminada correctamente.')
         return super().delete(request, *args, **kwargs)
+
+
+# ============================================================
+# PROPIEDADES EN VENTA
+# ============================================================
+
+class PropertyListView(BackofficePermissionMixin, ListView):
+    """Listado de propiedades"""
+    model = Property
+    template_name = 'backoffice/properties/property_list.html'
+    context_object_name = 'properties'
+    permission_required = 'properties.view_property'
+    paginate_by = 20
+    
+    def get_queryset(self):
+        queryset = Property.objects.prefetch_related('images').all()
+        
+        search_query = self.request.GET.get('q', '')
+        if search_query:
+            queryset = queryset.filter(
+                Q(translations__title__icontains=search_query) | 
+                Q(location__icontains=search_query)
+            )
+        
+        status = self.request.GET.get('status', '')
+        if status == 'sold':
+            queryset = queryset.filter(is_sold=True)
+        elif status == 'available':
+            queryset = queryset.filter(is_sold=False)
+        
+        property_type = self.request.GET.get('type', '')
+        if property_type:
+            queryset = queryset.filter(property_type=property_type)
+        
+        return queryset.order_by('-created_at')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_query'] = self.request.GET.get('q', '')
+        context['current_status'] = self.request.GET.get('status', '')
+        context['current_type'] = self.request.GET.get('type', '')
+        context['property_types'] = Property.PROPERTY_TYPE_CHOICES
+        return context
+
+
+class PropertyCreateView(BackofficePermissionMixin, CreateView):
+    """Crear propiedad"""
+    model = Property
+    form_class = PropertyForm
+    template_name = 'backoffice/properties/property_form.html'
+    success_url = reverse_lazy('backoffice:property_list')
+    permission_required = 'properties.add_property'
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        
+        # Procesar imágenes subidas
+        images = self.request.FILES.getlist('images')
+        for idx, image in enumerate(images):
+            PropertyImage.objects.create(
+                property=self.object,
+                image=image,
+                order=idx,
+                is_primary=(idx == 0)  # Primera imagen es la principal
+            )
+        
+        messages.success(self.request, f'Propiedad creada exitosamente con {len(images)} imagen(es).')
+        return response
+
+
+class PropertyUpdateView(BackofficePermissionMixin, UpdateView):
+    """Editar propiedad"""
+    model = Property
+    form_class = PropertyForm
+    template_name = 'backoffice/properties/property_form.html'
+    success_url = reverse_lazy('backoffice:property_list')
+    permission_required = 'properties.change_property'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['existing_images'] = self.object.images.all().order_by('order', '-is_primary')
+        return context
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        
+        # Procesar nuevas imágenes subidas
+        images = self.request.FILES.getlist('images')
+        if images:
+            # Obtener el orden máximo existente
+            max_order = self.object.images.aggregate(models.Max('order'))['order__max'] or 0
+            
+            for idx, image in enumerate(images):
+                PropertyImage.objects.create(
+                    property=self.object,
+                    image=image,
+                    order=max_order + idx + 1,
+                    is_primary=False
+                )
+            
+            messages.success(self.request, f'Propiedad actualizada con {len(images)} nueva(s) imagen(es).')
+        else:
+            messages.success(self.request, f'Propiedad "{form.instance.title}" actualizada correctamente.')
+        
+        return response
+
+
+class PropertyDeleteView(BackofficePermissionMixin, DeleteView):
+    """Eliminar propiedad"""
+    model = Property
+    template_name = 'backoffice/properties/property_confirm_delete.html'
+    success_url = reverse_lazy('backoffice:property_list')
+    permission_required = 'properties.delete_property'
+    
+    def delete(self, request, *args, **kwargs):
+        property_obj = self.get_object()
+        messages.success(request, f'Propiedad "{property_obj.title}" eliminada correctamente.')
+        return super().delete(request, *args, **kwargs)
+
+
+@require_POST
+@login_required
+def property_toggle_sold(request, pk):
+    """Toggle vendido/disponible (AJAX)"""
+    if not request.user.has_perm('properties.change_property'):
+        return JsonResponse({'error': 'Sin permisos'}, status=403)
+    
+    property_obj = get_object_or_404(Property, pk=pk)
+    property_obj.is_sold = not property_obj.is_sold
+    property_obj.save()
+    
+    status_text = 'vendido' if property_obj.is_sold else 'disponible'
+    messages.success(request, f'Propiedad marcada como {status_text}.')
+    
+    return JsonResponse({
+        'success': True,
+        'is_sold': property_obj.is_sold,
+        'status_text': status_text
+    })

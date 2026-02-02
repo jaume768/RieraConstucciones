@@ -28,6 +28,7 @@ urlpatterns += i18n_patterns(
     path('', include('core.urls')),
     path('blog/', include('blog.urls')),
     path('servicios/', include('services.urls')),
+    path('propiedades/', include('properties.urls')),
     prefix_default_language=False,  # No agregar /es/ en español
 )
 
