@@ -276,13 +276,9 @@ msgstr "Adresse"
 msgid "Horario"
 msgstr "Öffnungszeiten"
 
-#: templates/core/contact.html:132
-msgid "Lunes - Viernes: 9:00 - 18:00"
-msgstr "Montag - Freitag: 9:00 - 18:00"
-
-#: templates/core/contact.html:133
-msgid "Sábados: 10:00 - 14:00"
-msgstr "Samstags: 10:00 - 14:00"
+#: templates/core/contact.html:135
+msgid "Lunes - Viernes: 8:00 - 16:00"
+msgstr "Montag - Freitag: 8:00 - 16:00"
 
 #: templates/core/contact.html:143
 msgid "Síguenos en Redes Sociales"
