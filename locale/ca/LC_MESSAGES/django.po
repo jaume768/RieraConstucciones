@@ -30,6 +30,10 @@ msgstr "Si us plau, omple tots els camps obligatoris."
 msgid "¡Gracias por contactarnos! Te responderemos lo antes posible."
 msgstr "Gràcies per contactar-nos! Et respondrem el més aviat possible."
 
+#: templates/base.html:61 templates/base.html:110
+msgid "Ventas"
+msgstr "Vendes"
+
 #~ msgid "Inicio"
 #~ msgstr "Inici"
 

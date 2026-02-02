@@ -34,6 +34,10 @@ msgstr ""
 "Vielen Dank für Ihre Kontaktaufnahme! Wir werden so schnell wie möglich "
 "antworten."
 
+#: templates/base.html:61 templates/base.html:110
+msgid "Ventas"
+msgstr "Verkäufe"
+
 #~ msgid "Inicio"
 #~ msgstr "Startseite"
 

@@ -30,6 +30,10 @@ msgstr "Please fill in all required fields."
 msgid "¡Gracias por contactarnos! Te responderemos lo antes posible."
 msgstr "Thank you for contacting us! We will respond as soon as possible."
 
+#: templates/base.html:61 templates/base.html:110
+msgid "Ventas"
+msgstr "Sales"
+
 #~ msgid "Inicio"
 #~ msgstr "Home"
 
