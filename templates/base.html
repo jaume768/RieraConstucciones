@@ -238,6 +238,22 @@
             });
         }
         
+        // Helper function to get CSRF token from cookies
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
         // Language switcher
         document.querySelectorAll('.lang-switch').forEach(function(link) {
             link.addEventListener('click', function(e) {
@@ -249,13 +265,13 @@
                 form.method = 'POST';
                 form.action = '/i18n/setlang/';
                 
-                // CSRF token
-                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+                // CSRF token from cookies
+                const csrfToken = getCookie('csrftoken');
                 if (csrfToken) {
                     const csrfInput = document.createElement('input');
                     csrfInput.type = 'hidden';
                     csrfInput.name = 'csrfmiddlewaretoken';
-                    csrfInput.value = csrfToken.value;
+                    csrfInput.value = csrfToken;
                     form.appendChild(csrfInput);
                 }
                 
