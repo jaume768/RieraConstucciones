@@ -243,12 +243,33 @@
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const targetLang = this.getAttribute('data-lang');
-                const currentPath = window.location.pathname;
                 
-                // Remove current language prefix (es, ca, en, de)
+                // Crear formulario para POST a /i18n/setlang/
+                const form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/i18n/setlang/';
+                
+                // CSRF token
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+                if (csrfToken) {
+                    const csrfInput = document.createElement('input');
+                    csrfInput.type = 'hidden';
+                    csrfInput.name = 'csrfmiddlewaretoken';
+                    csrfInput.value = csrfToken.value;
+                    form.appendChild(csrfInput);
+                }
+                
+                // Language input
+                const langInput = document.createElement('input');
+                langInput.type = 'hidden';
+                langInput.name = 'language';
+                langInput.value = targetLang;
+                form.appendChild(langInput);
+                
+                // Next URL (donde redirigir después de cambiar idioma)
+                const currentPath = window.location.pathname;
                 let pathWithoutLang = currentPath.replace(/^\/(es|ca|en|de)(\/|$)/, '/');
                 
-                // Add new language prefix (except for Spanish which has no prefix)
                 let newPath;
                 if (targetLang === 'es') {
                     newPath = pathWithoutLang;
@@ -256,11 +277,18 @@
                     newPath = '/' + targetLang + pathWithoutLang;
                 }
                 
-                // Ensure path doesn't end with double slash
                 newPath = newPath.replace(/\/+$/, '/');
                 if (newPath === '//') newPath = '/';
                 
-                window.location.href = newPath;
+                const nextInput = document.createElement('input');
+                nextInput.type = 'hidden';
+                nextInput.name = 'next';
+                nextInput.value = newPath;
+                form.appendChild(nextInput);
+                
+                // Submit form
+                document.body.appendChild(form);
+                form.submit();
             });
         });
     </script>
